@@ -43,9 +43,9 @@ Available from experimental
 Linux up 5.17.0-rc8-arm64 #1 SMP Debian 5.17~rc8-1~exp1 (2022-03-14) aarch64 GNU/Linux
 ```
 
-WiFi works on 5G, does not associate on 2.4G. Captured output to `daemon.log` when trying to switch from an assopciated 5G AP to a 2.4G AP up until NM re-requested the WiFi password. <https://paste.debian.net/1236229/>
+WiFi works on 5G, does not associate on 2.4G. Captured output to `daemon.log` when trying to switch from an associated 5G AP to a 2.4G AP up until NM re-requested the WiFi password. <https://paste.debian.net/1236229/>
 
-Connect times to the 5G AP was quick at times and not quick other times. At one point it was necessary to turn WiFi off and on again to get it to associate. (Both 5G and 2.4G rradios are on the same WiFi AP.)
+Connect times to the 5G AP was quick at times and not quick other times. At one point it was necessary to turn WiFi off and on again to get it to associate. (Both 5G and 2.4G radios are on the same WiFi AP.)
 
 Did not shutdown cleanly. Had to pull power.
 
@@ -53,10 +53,10 @@ Did not shutdown cleanly. Had to pull power.
 
 From experimental
 
-````text
+```text
 Linux up 5.17.0-trunk-arm64 #1 SMP Debian 5.17.1-1~exp1 (2022-03-29) aarch64 GNU/Linux
 ```
 
-Tested a second time and system hung. Hadn't remoted in - working from desktop. Happened once before and was unable to restart GDM and `shutdown` hung. Was able to examine logs and `dmesg` output and saw nothing unusual but may not have been looking in the right place. Had to remove power both times.
+Tested a second time and system hung. Hadn't remoted in - working from desktop. Happened once before and was unable to restart GDM and `shutdown` hung too. Was able to examine logs and `dmesg` output and saw nothing unusual but may not have been looking in the right place. Had to remove power both times.
 
 Both 5G and 2.4G WiFi seem to be working well. Switching back and forth between them seems timely.
