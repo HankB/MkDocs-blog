@@ -1,4 +1,4 @@
-# Firmware issue faspi-firmware Debian Bookworm
+# Firmware issue raspi-firmware Debian Bookworm
 
 <https://github.com/raspberrypi/firmware/issues/1705>  
 Forwarded to Debian - need to find link
