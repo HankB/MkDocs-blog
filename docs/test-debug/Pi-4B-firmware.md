@@ -1,7 +1,7 @@
 # Firmware issue raspi-firmware Debian Bookworm
 
 <https://github.com/raspberrypi/firmware/issues/1705>  
-Forwarded to Debian - need to find link
+Forwarded to Debian - https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1007719
 
 ## 2022-04-03 test tagged release
 
