@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Firmware issue raspi-firmware Debian Bookworm - Hank's public Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Hank's public Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Welcome to MkDocs</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../main/" class="nav-link">Hank's Docs home page</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Firmware issue raspi-firmware Debian Bookworm</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../Pi-4B-Bookworm-WiFi/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#firmware-issue-raspi-firmware-debian-bookworm" class="nav-link">Firmware issue raspi-firmware Debian Bookworm</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#2022-04-03-test-tagged-release" class="nav-link">2022-04-03 test tagged release</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#testing" class="nav-link">Testing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#fresh-install" class="nav-link">Fresh install</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="firmware-issue-raspi-firmware-debian-bookworm">Firmware issue raspi-firmware Debian Bookworm</h1>
+<p><a href="https://github.com/raspberrypi/firmware/issues/1705">https://github.com/raspberrypi/firmware/issues/1705</a><br />
+Forwarded to Debian - https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1007719</p>
+<h2 id="2022-04-03-test-tagged-release">2022-04-03 test tagged release</h2>
+<p>Previous testing established that the latest firmware pulled from <code>master</code> did not exhibit this problem. That is now pulled into a tagged release <code>1.2022-328</code> <a href="https://github.com/raspberrypi/firmware/archive/refs/tags/1.20220328.tar.gz">https://github.com/raspberrypi/firmware/archive/refs/tags/1.20220328.tar.gz</a></p>
+<p>I have a Pi 4B/8GH with Bookworm (with <code>task-gnome-desktop</code>) installed and with the following kernels:</p>
+<pre><code class="language-text">hbarta@up:~$ ls -l /boot/vmlinuz*
+-rw-r--r-- 1 root root 28614528 Dec 18 23:20 /boot/vmlinuz-5.15.0-2-arm64
+-rw-r--r-- 1 root root 29998976 Mar 15 06:54 /boot/vmlinuz-5.16.0-5-arm64
+-rw-r--r-- 1 root root 30001664 Mar 14 06:04 /boot/vmlinuz-5.17.0-rc8-arm64
+-rw-r--r-- 1 root root 30003072 Mar 29 07:16 /boot/vmlinuz-5.17.0-trunk-arm64
+hbarta@up:~$ 
+</code></pre>
+<p>Testing will be performed with the tagged firmware on all kernels. The following command will be used to determine if the issue exists. </p>
+<pre><code class="language-text">cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+</code></pre>
+<p><code>vcdbg</code> downloaded from <a href="https://drive.google.com/file/d/1HS9E5vnxxNqrizB4mEYrnFoQQ1axSRKm/view?usp=sharing">https://drive.google.com/file/d/1HS9E5vnxxNqrizB4mEYrnFoQQ1axSRKm/view?usp=sharing</a> is used to confirm firmware version.</p>
+<p>Procedure</p>
+<ol>
+<li>Download and extract the frmware tarball.</li>
+<li><code>cd firmware-1.20220328/boot</code> </li>
+<li><code>cp bootcode.bin *.dat *.elf /boot/firmware</code></li>
+<li>Edit <code>/boot/firmware/config.txt</code> to select trhe desired kernel</li>
+<li>Reboot and check results.</li>
+</ol>
+<p>Firmware prior to starting test/</p>
+<pre><code class="language-text">root@up:~# vcdbg version
+vcos_build_version     = 40787ee5905644f639a2a0f6e00ae12e517a2211 (clean)
+vcos_build_branch      = bcm2711_2
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_application'
+vcos_build_application = ?
+vcos_build_date        = Aug  3 2021
+vcos_build_time        = 18:14:56
+vcos_build_user        = dom
+vcos_build_hostname    = buildbot
+vcos_build_platform    = raspberrypi_linux
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_type'
+vcos_build_type        = ?
+root@up:~# 
+</code></pre>
+<h2 id="testing">Testing</h2>
+<p>Attempts to use the older kernels (5.15.6, 5.16.0) were unsuccessful because the installation of one of the more recent kernels apparently purged those. Instead the existing <code>5.17.0-trunk-arm64</code> kernel will be tested with the tagged tarball and then testing will be performed with a fresh install and the <code>raspi-firmware</code> in the Bookworm repo.</p>
+<pre><code class="language-text">root@up:~# uname -a
+Linux up 5.17.0-trunk-arm64 #1 SMP Debian 5.17.1-1~exp1 (2022-03-29) aarch64 GNU/Linux
+root@up:~# cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+600000 700000 800000 900000 1000000 1100000 1200000 1300000 1400000 1500000 
+root@up:~# vcdbg version
+vcos_build_version     = e5a963efa66a1974127860b42e913d2374139ff5 (clean)
+vcos_build_branch      = bcm2711_2
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_application'
+vcos_build_application = ?
+vcos_build_date        = Mar 24 2022
+vcos_build_time        = 13:19:26
+vcos_build_user        = dom
+vcos_build_hostname    = buildbot
+vcos_build_platform    = raspberrypi_linux
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_type'
+vcos_build_type        = ?
+root@up:~# 
+</code></pre>
+<h2 id="fresh-install">Fresh install</h2>
+<pre><code class="language-text">xzcat 20220121_raspi_4_bookworm.img.xz&gt; /dev/sdf
+</code></pre>
+<p>boot</p>
+<pre><code class="language-text">adduser hbarta
+hostnamectl set-hostname charm
+apt update
+</code></pre>
+<p>reboot, copy <code>vcdbg</code></p>
+<pre><code class="language-text">root@charm:~# uname -a
+Linux charm 5.15.0-2-arm64 #1 SMP Debian 5.15.5-2 (2021-12-18) aarch64 GNU/Linux
+root@charm:~# cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+600000 700000 800000 900000 1000000 1100000 1200000 1300000 1400000 1500000 
+root@charm:~# ./vcdbg version
+vcos_build_version     = 40787ee5905644f639a2a0f6e00ae12e517a2211 (clean)
+vcos_build_branch      = bcm2711_2
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_application'
+vcos_build_application = ?
+vcos_build_date        = Aug  3 2021
+vcos_build_time        = 18:14:56
+vcos_build_user        = dom
+vcos_build_hostname    = buildbot
+vcos_build_platform    = raspberrypi_linux
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_type'
+vcos_build_type        = ?
+root@charm:~# 
+</code></pre>
+<p>Upgrade <code>raspi-firmware</code> only.</p>
+<pre><code class="language-text">root@charm:~# apt install raspi-firmware
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages will be upgraded:
+  raspi-firmware
+1 upgraded, 0 newly installed, 0 to remove and 110 not upgraded.
+Need to get 4548 kB of archives.
+After this operation, 31.7 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/non-free arm64 raspi-firmware arm64 1.20220120+ds-1 [4548 kB]
+Fetched 4548 kB in 2s (2976 kB/s)         
+(Reading database ... 18717 files and directories currently installed.)
+Preparing to unpack .../raspi-firmware_1.20220120+ds-1_arm64.deb ...
+Unpacking raspi-firmware (1.20220120+ds-1) over (1.20210805+ds-1) ...
+Setting up raspi-firmware (1.20220120+ds-1) ...
+
+Configuration file '/etc/default/raspi-firmware'
+ ==&gt; Modified (by you or by a script) since installation.
+ ==&gt; Package distributor has shipped an updated version.
+   What would you like to do about it ?  Your options are:
+    Y or I  : install the package maintainer's version
+    N or O  : keep your currently-installed version
+      D     : show the differences between the versions
+      Z     : start a shell to examine the situation
+ The default action is to keep your current version.
+*** raspi-firmware (Y/I/N/O/D/Z) [default=N] ? D
+--- /etc/default/raspi-firmware 2022-01-21 08:41:33.325239447 +0000
++++ /etc/default/raspi-firmware.dpkg-new        2022-02-11 05:33:01.000000000 +0000
+@@ -25,7 +25,7 @@
+ # but you can specify otherwise, including booting by partition label
+ # (i.e. ROOTPART=&quot;LABEL=root&quot;)
+ #
+-ROOTPART=LABEL=RASPIROOT
++#ROOTPART=/dev/mmcblk0p2
+
+ # Main baremetal application that is started by the firmware once the
+ # hardware has been initialized. Usually, this is the Linux kernel but
+@@ -73,7 +73,7 @@
+ # which drives the serial ports) gets its clock from the GPU, as
+ # explained here:
+ #
+-# https://www.raspberrypi.org/documentation/configuration/uart.md
++# https://www.raspberrypi.com/documentation/computers/configuration.html#mini-uart-and-cpu-core-frequency
+ #
+ # The clock speeds the RPi4 GPU uses are 360/500/550 MHz. If you
+ # intend to use the serial console, you need to set GPU_FREQ to
+@@ -98,7 +98,7 @@
+
+ # Create a file &quot;/etc/default/raspi-firmware-custom&quot; to add custom parameter
+ # to startup the kernel. Maybe not all options are supported.
+-# (see https://www.raspberrypi.org/documentation/configuration/config-txt/)
++# (see https://www.raspberrypi.com/documentation/computers/config_txt.html)
+ #
+ # To pass extra arbitrary parameters to the kernel at boot, you can specify
+ # them in &quot;/etc/default/raspi-extra-cmdline&quot;. Keep in mind they should be
+
+Configuration file '/etc/default/raspi-firmware'
+ ==&gt; Modified (by you or by a script) since installation.
+ ==&gt; Package distributor has shipped an updated version.
+   What would you like to do about it ?  Your options are:
+    Y or I  : install the package maintainer's version
+    N or O  : keep your currently-installed version
+      D     : show the differences between the versions
+      Z     : start a shell to examine the situation
+ The default action is to keep your current version.
+*** raspi-firmware (Y/I/N/O/D/Z) [default=N] ? Y
+Installing new version of config file /etc/default/raspi-firmware ...
+Installing new version of config file /etc/kernel/postinst.d/z50-raspi-firmware ...
+Processing triggers for initramfs-tools (0.140) ...
+update-initramfs: Generating /boot/initrd.img-5.15.0-2-arm64
+root@charm:~# 
+</code></pre>
+<p>Reboot</p>
+<pre><code class="language-text">root@charm:~# uname -a
+Linux charm 5.15.0-2-arm64 #1 SMP Debian 5.15.5-2 (2021-12-18) aarch64 GNU/Linux
+root@charm:~# cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+cat: /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies: No such file or directory
+root@charm:~# dpkg -l | grep raspi-firmware
+ii  raspi-firmware             1.20220120+ds-1                   arm64        Raspberry Pi family GPU firmware and bootloaders
+root@charm:~# ./vcdbg version 
+vcos_build_version     = bd88f66f8952d34e4e0613a85c7a6d3da49e13e2 (clean)
+vcos_build_branch      = bcm2711_2
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_application'
+vcos_build_application = ?
+vcos_build_date        = Jan 20 2022
+vcos_build_time        = 13:56:48
+vcos_build_user        = dom
+vcos_build_hostname    = buildbot
+vcos_build_platform    = raspberrypi_linux
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_type'
+vcos_build_type        = ?
+root@charm:~# 
+</code></pre>
+<p>Wrong package.</p>
+<pre><code class="language-text">wget http://ftp.us.debian.org/debian/pool/non-free/r/raspi-firmware/raspi-firmware_1.20220328+ds-1_arm64.deb
+</code></pre>
+<pre><code class="language-text">root@charm:~# apt install ./raspi-firmware_1.20220328+ds-1_arm64.deb 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Note, selecting 'raspi-firmware' instead of './raspi-firmware_1.20220328+ds-1_arm64.deb'
+The following packages will be upgraded:
+  raspi-firmware
+1 upgraded, 0 newly installed, 0 to remove and 110 not upgraded.
+Need to get 0 B/4551 kB of archives.
+After this operation, 8192 B of additional disk space will be used.
+Get:1 /root/raspi-firmware_1.20220328+ds-1_arm64.deb raspi-firmware arm64 1.20220328+ds-1 [4551 kB]
+(Reading database ... 18717 files and directories currently installed.)
+Preparing to unpack .../raspi-firmware_1.20220328+ds-1_arm64.deb ...
+Unpacking raspi-firmware (1.20220328+ds-1) over (1.20220120+ds-1) ...
+Setting up raspi-firmware (1.20220328+ds-1) ...
+Processing triggers for initramfs-tools (0.140) ...
+update-initramfs: Generating /boot/initrd.img-5.15.0-2-arm64
+N: Download is performed unsandboxed as root as file '/root/raspi-firmware_1.20220328+ds-1_arm64.deb' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)
+root@charm:~# 
+</code></pre>
+<p>reboot</p>
+<pre><code class="language-text">hbarta@charm:~$ uname -a
+Linux charm 5.15.0-2-arm64 #1 SMP Debian 5.15.5-2 (2021-12-18) aarch64 GNU/Linux
+hbarta@charm:~$ cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+600000 700000 800000 900000 1000000 1100000 1200000 1300000 1400000 1500000 
+hbarta@charm:~$ su - 
+root@charm:~# ./vcdbg version
+vcos_build_version     = e5a963efa66a1974127860b42e913d2374139ff5 (clean)
+vcos_build_branch      = bcm2711_2
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_application'
+vcos_build_application = ?
+vcos_build_date        = Mar 24 2022
+vcos_build_time        = 13:19:26
+vcos_build_user        = dom
+vcos_build_hostname    = buildbot
+vcos_build_platform    = raspberrypi_linux
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_type'
+vcos_build_type        = ?
+root@charm:~# 
+</code></pre>
+<p>Perform full upgrade and reboot</p>
+<pre><code class="language-text">110 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+</code></pre>
+<pre><code class="language-text">hbarta@charm:~$ uname -a
+Linux charm 5.16.0-5-arm64 #1 SMP Debian 5.16.14-1 (2022-03-15) aarch64 GNU/Linux
+hbarta@charm:~$ cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+600000 700000 800000 900000 1000000 1100000 1200000 1300000 1400000 1500000 
+hbarta@charm:~$ su -
+root@charm:~# ./vcdbg version
+vcos_build_version     = e5a963efa66a1974127860b42e913d2374139ff5 (clean)
+vcos_build_branch      = bcm2711_2
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_application'
+vcos_build_application = ?
+vcos_build_date        = Mar 24 2022
+vcos_build_time        = 13:19:26
+vcos_build_user        = dom
+vcos_build_hostname    = buildbot
+vcos_build_platform    = raspberrypi_linux
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_type'
+vcos_build_type        = ?
+root@charm:~#
+</code></pre>
+<p>Install with kernel from experimental</p>
+<pre><code class="language-text">root@charm:~# cat /etc/apt/preferences.d/linux-kernel
+Package: *
+Pin: release o=Debian,a=experimental
+Pin-Priority: 102
+root@up:~# apt policy
+Package files:
+ 100 /var/lib/dpkg/status
+     release a=now
+ 500 http://deb.debian.org/debian bookworm/non-free arm64 Packages
+     release o=Debian,a=testing,n=bookworm,l=Debian,c=non-free,b=arm64
+     origin deb.debian.org
+ 500 http://deb.debian.org/debian bookworm/contrib arm64 Packages
+     release o=Debian,a=testing,n=bookworm,l=Debian,c=contrib,b=arm64
+     origin deb.debian.org
+ 500 http://deb.debian.org/debian bookworm/main arm64 Packages
+     release o=Debian,a=testing,n=bookworm,l=Debian,c=main,b=arm64
+     origin deb.debian.org
+Pinned packages:
+
+root@charm:~#
+root@charm:~# 
+root@charm:~# echo &quot;deb http://deb.debian.org/debian experimental main&quot; &gt;&gt; /etc/apt/sources.list
+root@charm:~# apt update
+Hit:1 http://deb.debian.org/debian bookworm InRelease                               
+Hit:2 http://security.debian.org/debian-security bookworm-security InRelease        
+Get:3 http://deb.debian.org/debian experimental InRelease [75.4 kB]
+Get:4 http://deb.debian.org/debian experimental/main arm64 Packages [369 kB]
+Get:5 http://deb.debian.org/debian experimental/main Translation-en [232 kB]
+Fetched 677 kB in 3s (250 kB/s)        
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+All packages are up to date.
+root@charm:~# apt install -t experimental linux-image-5.17.0-trunk-arm64                                     
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Suggested packages:
+  linux-doc-5.17 debian-kernel-handbook
+The following NEW packages will be installed:
+  linux-image-5.17.0-trunk-arm64
+0 upgraded, 1 newly installed, 0 to remove and 16 not upgraded.
+Need to get 58.6 MB of archives.
+After this operation, 406 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian experimental/main arm64 linux-image-5.17.0-trunk-arm64 arm64 5.17.1-1~exp1 [58.6 MB]
+Fetched 58.6 MB in 4s (13.8 MB/s)                         
+Selecting previously unselected package linux-image-5.17.0-trunk-arm64.
+(Reading database ... 23590 files and directories currently installed.)
+Preparing to unpack .../linux-image-5.17.0-trunk-arm64_5.17.1-1~exp1_arm64.deb ...
+Unpacking linux-image-5.17.0-trunk-arm64 (5.17.1-1~exp1) ...
+Setting up linux-image-5.17.0-trunk-arm64 (5.17.1-1~exp1) ...
+I: /vmlinuz.old is now a symlink to boot/vmlinuz-5.16.0-5-arm64
+I: /initrd.img.old is now a symlink to boot/initrd.img-5.16.0-5-arm64
+I: /vmlinuz is now a symlink to boot/vmlinuz-5.17.0-trunk-arm64
+I: /initrd.img is now a symlink to boot/initrd.img-5.17.0-trunk-arm64
+/etc/kernel/postinst.d/initramfs-tools:
+update-initramfs: Generating /boot/initrd.img-5.17.0-trunk-arm64
+root@charm:~# 
+</code></pre>
+<p>Note: Results of following <code>apt policy</code> command were inadvertently copied into <code>/etc/apt/preferences.d/linux-kernel</code> but seem to be ignored by <code>apt</code> or at least did not prevent the desired operation.</p>
+<p>Reboot</p>
+<pre><code class="language-text">hbarta@charm:~$ uname -a
+Linux charm 5.17.0-trunk-arm64 #1 SMP Debian 5.17.1-1~exp1 (2022-03-29) aarch64 GNU/Linux
+hbarta@charm:~$ cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
+600000 700000 800000 900000 1000000 1100000 1200000 1300000 1400000 1500000 
+hbarta@charm:~$ su -
+root@charm:~# ./vcdbg version
+vcos_build_version     = e5a963efa66a1974127860b42e913d2374139ff5 (clean)
+vcos_build_branch      = bcm2711_2
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_application'
+vcos_build_application = ?
+vcos_build_date        = Mar 24 2022
+vcos_build_time        = 13:19:26
+vcos_build_user        = dom
+vcos_build_hostname    = buildbot
+vcos_build_platform    = raspberrypi_linux
+debug_sym: ReadVideoCoreMemoryBySymbol: Symbol not found: 'vcos_build_type'
+vcos_build_type        = ?
+root@charm:~# 
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
