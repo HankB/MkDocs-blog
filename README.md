@@ -11,5 +11,6 @@ hbarta@rocinante:~/Documents/MkDocs-blog$ cat .git/hooks/pre-push
 mkdocs gh-deploy
 exit 0
 hbarta@rocinante:~/Documents/MkDocs-blog$ 
+```
 
 Page is available at <https://HankB.github.io/MkDocs-blog/>
