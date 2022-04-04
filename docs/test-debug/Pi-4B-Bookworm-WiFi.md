@@ -61,7 +61,7 @@ Tested a second time and system hung. Hadn't remoted in - working from desktop. 
 
 Both 5G and 2.4G WiFi seem to be working well. Switching back and forth between them seems timely.
 
-## 2022-04-03 repeating testing.
+## 2022-04-03 repeating testing
 
 ### Setup: Recent install of bookworm install media.
 
