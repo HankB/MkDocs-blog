@@ -2,3 +2,5 @@ site_name: Hank's public Docs
 
 nav:
     - 'index.md'
+
+docs_dir: 'docs'
