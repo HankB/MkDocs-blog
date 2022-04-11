@@ -32,3 +32,9 @@ gpu_freq=750
 
 And have stress tested using a variety of stressers. The CPU temperature goes up to about 82°C max. I would be concerned if I was running that kind of load at all times, but I'm not.
 * CPU case. I like the FLIRC cases a lot. Big hunk of aluminum with a molded in protrusion that contacts the CPU through a small pad and does a great job of drawing heat from the processor. It's compoletely passive so it won't stop working if a fan fails because there is no fan needed.
+
+## Pi Zero, W, 2W and others
+
+* Overlay FS and `unattended-upgrades` - No! I use some of these essentially as embedded systems so it seemed natural to employ the Overlay File System (R/O FS, Overlay FS) to reduce SD card failure. I run some of these on really cheap SD cards. I also prefer to keep `unattended-upgrades` installed to stay current with security upgrades. Unfortunately the two don't mix very well. The Overlay FS "overlays" the R/O FS with RAM so when `apt-get update` runs, it fills RAM with disk changes and results in "no space on /".
+
+On hosts that I have enabled Overlay RS, I have had to uninstall `unattended-upgrades`. I should look into PXE boot to see if systems that run from that can stay up to date and of course, not burn up SD cards. Unfortunately WiFi boot is problematic due to the need to establish an association before anything else can happen.
