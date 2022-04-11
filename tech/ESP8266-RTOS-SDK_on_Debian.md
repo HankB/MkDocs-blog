@@ -6,7 +6,7 @@ ESP8266-RTOS-SDK is not well supported on PlatformIO. <https://community.platfor
 
 ## Overview
 
-1. Install required OS packages.
+1. Install required OS packages and some config.
 1. Clone the Espressif Github repo.
 1. Run the repo provided `install.sh` script to install the tools.
 1. Build a trial project.
@@ -33,13 +33,22 @@ python --version
 
 ```test
 sudo apt install wget python3-virtualenv python3-pip \
-    libncurses-dev flex bison gperf minicom
+    libncurses-dev flex bison gperf minicom git
 ```
+
+I configure `git` with the following commands (substituting your preferred characteristics)
+
+```text
+git config --global user.name "<Yourt Name>"
+git config --global user.email <your email>
+git config --global pull.ff only 
+```
+
 
 You will need read/write access to the USB device. This can be done by adding the user to the `dialout` group.
 
 ```text
-usermod -a -G dialout $USER
+sudo usermod -a -G dialout $USER
 su - $USER
 ```
 
@@ -108,3 +117,13 @@ make flash
 ```
 
 I was unable to get `minicom` to read the output from `/dev/ttyUSB0` at the default baud rate of 74880 and also tried 9600, 19200 and 115200.
+
+## Contributing
+
+Contributions welcome but not limited to
+
+* Wrong or confusing wording.
+* Additional Linux distros and/or operating systems.
+* Instructions for integrating this with VS Code or other popular IDEs but without PlatformIO. (Or with PlatformIO if that can be managed.)
+
+The code repo is at <https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md>
