@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Raspberry Pi - Hank's public Docs</title>
+        <title>Using ESP8266-RTOS-SDK on Debian - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -41,11 +41,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
+    <a href="./" class="dropdown-item active">Using ESP8266-RTOS-SDK on Debian</a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Raspberry Pi</a>
+    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
 </li>
                                 </ul>
                             </li>
@@ -71,12 +71,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../ESP8266-RTOS-SDK_on_Debian/" class="nav-link">
+                                <a rel="prev" href="../.." class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../test-debug/Pi-4B-Bookworm-WiFi/" class="nav-link">
+                                <a rel="next" href="../Raspberry-Pi/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -98,13 +98,29 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#raspberry-pi" class="nav-link">Raspberry Pi</a>
+            <li class="nav-item" data-level="1"><a href="#using-esp8266-rtos-sdk-on-debian" class="nav-link">Using ESP8266-RTOS-SDK on Debian</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#pi-4b" class="nav-link">Pi 4B</a>
+            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#pi-zero-w-2w-and-others" class="nav-link">Pi Zero, W, 2W and others</a>
+            <li class="nav-item" data-level="2"><a href="#overview" class="nav-link">Overview</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#environment" class="nav-link">Environment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#cloning-esp8266-rtos-sdk" class="nav-link">Cloning ESP8266-RTOS-SDK</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#install-the-tool-chain" class="nav-link">Install the tool chain</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#contributing" class="nav-link">Contributing</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -115,37 +131,92 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="raspberry-pi">Raspberry Pi</h1>
-<h2 id="pi-4b">Pi 4B</h2>
-<p>Almost good enough to be a daily driver. Even overclocked, it can't play Youtube videos full screen smoothly. The main thing that hampers it IMO us the USB attachment to an SSD. I won't run one of these off an SD card as that's just not fast enough. My dream system for the Pi 4 is a compute module with a carrier that supports 4 SATA ports and has enough MMC to boot/root on.</p>
-<p>I've been preferentially running Debian on the one I use as a desktop. Raspberry Pi OS (R-Pi OS) is good enough for servers but I find the desktop too constraining. And I can't install my preferred desktop - Gnome - due to missing dependencies. I can install KDE and that's a whole 'nother discussion.</p>
-<p>I bounce back and forth between Bullseye (stable) and Bookworm (testing.) When I get bored of no drama on Bullseye I swap in an SSD that has Bookworm. I've submitted two bug reports so far, one of which was just closed this morning (2022-04-04.)</p>
-<p>Here are some tips for running Debian on a Pi 4B.</p>
-<ul>
-<li>The system will suspend just fine but I can't figure out how to unsuspend. The first thing I do on a new install is go into gnome settings and disable suspend. Then I tell Systemd and gnome not to suspend using the following commands. (Seems not to want to suspend with no DE installed.)</li>
-</ul>
-<pre><code class="language-text">sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+<h1 id="using-esp8266-rtos-sdk-on-debian">Using ESP8266-RTOS-SDK on Debian</h1>
+<h2 id="motivation">Motivation</h2>
+<p>ESP8266-RTOS-SDK is not well supported on PlatformIO. <a href="https://community.platformio.org/t/vs-code-esp8266-non-rtos-nonos-sdk-project-creation/27091">https://community.platformio.org/t/vs-code-esp8266-non-rtos-nonos-sdk-project-creation/27091</a> (PlatformIO provides a very low friction path tp programming a variety of microcontrollers.) Espressif themselves deprecate ESP8266-NONOS-SDK and recommend ESP8266-RTOS-SDK <a href="https://github.com/espressif/ESP8266_NONOS_SDK#support-policy-for-esp8266-nonos">https://github.com/espressif/ESP8266_NONOS_SDK#support-policy-for-esp8266-nonos</a> It seems if one wishes to use Espressif's SDK and tools directly, it should be via the instructions found at <a href="https://github.com/espressif/ESP8266_RTOS_SDK#esp8266-rtos-software-development-kit">https://github.com/espressif/ESP8266_RTOS_SDK#esp8266-rtos-software-development-kit</a>. I found these instructions a bit challenging so I thought it would be useful to work my way through them (blunder my way through) and document what I needed to do to get this working.</p>
+<h2 id="overview">Overview</h2>
+<ol>
+<li>Install required OS packages and some config.</li>
+<li>Clone the Espressif Github repo.</li>
+<li>Run the repo provided <code>install.sh</code> script to install the tools.</li>
+<li>Build a trial project.</li>
+</ol>
+<p>Note: The instructions on the web page list downloading build tools and then provide no hint as to where to install them. The <code>install.sh</code> script will do that so there is no need for the user to download build tools separately.</p>
+<h2 id="environment">Environment</h2>
+<p>This install was performed on a new install of Debian Bullseye, including the Gnome and KDE desktops as well as the SSD server iusing a non-free netinst image. Commands that require root are preceeded with <code>sudo</code> rather than using <code>#</code> or <code>$</code> to indicate whether they are user or root commands to make it poossible to copy the entire line and paste it into a terminal window.</p>
+<p>The SDK requires the following environment variable to get off the ground.</p>
+<pre><code class="language-text">export IDF_PATH=~/esp/ESP8266_RTOS_SDK
 </code></pre>
-<ul>
-<li>If you install Bookworm, hold the <code>raspi-firmware</code> package until the fixed firmware is in the Testing repo. (<code>apt-mark hold raspi-firmware</code>) Or install from experimental. Or install from the tagged version <code>1.20220331</code>.</li>
-<li>The default setting for Ethernet is "unmanaged." It can be controlled using <code>ifdown eth0</code> / <code>ifup eth0</code> (but will be on again following the next reboot.) To let <code>NetworkManager</code> control, edit <code>/etc/NetworkManager/NetworkManager.conf</code> and change <code>managed=true</code> to <code>managed=false</code>. I'm not sure this is a complete fix for this issue as Ethernet will be back on the next boot regardless of the setting.</li>
-<li>Status of Bookworm seems pretty shaky right now. I get frequent loss of connection to the SSD and the only recovery is to pull power. Loss of connection to the SSD can lead to file corruption and may be the reason that my Bookworm installations seem to deteriorate with time.</li>
-<li>Using an SSD. You will really want a powered USB hub for this. SSDs that worked fine with a Pi 3B may not work well with a 4B because USB 3 supports the faster UAS driver and in turn that causes the SSD to require more power. You can disable UAS using <code>usb-storage.quirks</code> but I prefer the faster faster speed that UAS provides. I use the Wavlink Model: WL-UH3042P1 and power the Pi off the quick charge port. It's rated for 2.4A so I plug other accessories (mouse, keyboard) into the hub along with the SSD to reduce the power demands from the Pi.</li>
-<li>Overclocking is relatively straight forward. On my Nullseye install I have added the following to <code>/boot/firmware/config.txt</code></li>
-</ul>
-<pre><code class="language-text">arm_freq=2000
-over_voltage=6
-gpu_freq=750
+<p>The SDK requires that <code>python</code> run Python 3. On Debian Bullseye this can be accomplished using <code>update-alternatives</code>. (Debian Bullseye does not have a <code>python</code> program by default.)</p>
+<pre><code class="language-text">sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1
+python --version
 </code></pre>
-<p>And have stress tested using a variety of stressers. The CPU temperature goes up to about 82°C max. I would be concerned if I was running that kind of load at all times, but I'm not.
-* CPU case. I like the FLIRC cases a lot. Big hunk of aluminum with a molded in protrusion that contacts the CPU through a small pad and does a great job of drawing heat from the processor. It's compoletely passive so it won't stop working if a fan fails because there is no fan needed.</p>
-<h2 id="pi-zero-w-2w-and-others">Pi Zero, W, 2W and others</h2>
+<pre><code class="language-test">sudo apt install wget python3-virtualenv python3-pip \
+    libncurses-dev flex bison gperf minicom git
+</code></pre>
+<p>I configure <code>git</code> with the following commands (substituting your preferred characteristics)</p>
+<pre><code class="language-text">git config --global user.name &quot;&lt;Yourt Name&gt;&quot;
+git config --global user.email &lt;your email&gt;
+git config --global pull.ff only 
+</code></pre>
+<p>You will need read/write access to the USB device. This can be done by adding the user to the <code>dialout</code> group.</p>
+<pre><code class="language-text">sudo usermod -a -G dialout $USER
+su - $USER
+</code></pre>
+<p>(The second command adds the group to the users environment without having to logout.)</p>
+<h2 id="cloning-esp8266-rtos-sdk">Cloning ESP8266-RTOS-SDK</h2>
+<p>Espressif's instructions indicate to clone into <code>~/esp/</code></p>
+<pre><code class="language-text">mkdir esp
+cd esp
+git clone https://github.com/espressif/ESP8266_RTOS_SDK.git
+</code></pre>
+<p>This will create <code>~/esp/ESP8266_RTOS_SDK/</code>.</p>
+<h2 id="install-the-tool-chain">Install the tool chain</h2>
+<pre><code class="language-text">export IDF_PATH=~/esp/ESP8266_RTOS_SDK
+cd ~/esp/ESP8266_RTOS_SDK/
+./install.sh
+</code></pre>
+<p>If all goes well, you will see</p>
+<pre><code class="language-text">.
+.
+.
+All done! You can now run:
+
+  . ./export.sh
+
+</code></pre>
+<p>This will have installed the tool chain in <code>~/.espressif</code>. Sourcing <code>export.sh</code> will report</p>
+<pre><code class="language-text">hbarta@yggdrasil:~/esp/ESP8266_RTOS_SDK$ . ./export.sh
+Adding ESP-IDF tools to PATH...
+Checking if Python packages are up to date...
+Python requirements from /home/hbarta/esp/ESP8266_RTOS_SDK/requirements.txt are satisfied.
+Added the following directories to PATH:
+  /home/hbarta/esp/ESP8266_RTOS_SDK/components/esptool_py/esptool
+  /home/hbarta/esp/ESP8266_RTOS_SDK/components/partition_table/
+  /home/hbarta/.espressif/tools/xtensa-lx106-elf/esp-2020r3-49-gd5524c1-8.4.0/xtensa-lx106-elf/bin
+  /home/hbarta/.espressif/python_env/rtos3.4_py3.9_env/bin
+  /home/hbarta/esp/ESP8266_RTOS_SDK/tools
+Done! You can now compile ESP8266-RTOS-SDK projects.
+Go to the project directory and run:
+
+  make
+
+hbarta@yggdrasil:~/esp/ESP8266_RTOS_SDK$
+</code></pre>
+<p>The hello_world project can then be built</p>
+<pre><code class="language-text">cd ./examples/get-started/hello_world
+make
+make flash
+</code></pre>
+<p>I was unable to get <code>minicom</code> to read the output from <code>/dev/ttyUSB0</code> at the default baud rate of 74880 and also tried 9600, 19200 and 115200.</p>
+<h2 id="contributing">Contributing</h2>
+<p>Contributions welcome but not limited to</p>
 <ul>
-<li>Overlay FS and <code>unattended-upgrades</code> - No! I use some of these essentially as embedded systems so it seemed natural to employ the Overlay File System (R/O FS, Overlay FS) to reduce SD card failure. I run some of these on really cheap SD cards. I also prefer to keep <code>unattended-upgrades</code> installed to stay current with security upgrades. Unfortunately the two don't mix very well. The Overlay FS "overlays" the R/O FS with RAM so when <code>apt-get update</code> runs, it fills RAM with disk changes and results in "no space on /".</li>
+<li>Wrong or confusing wording.</li>
+<li>Additional Linux distros and/or operating systems.</li>
+<li>Instructions for integrating this with VS Code or other popular IDEs but without PlatformIO. (Or with PlatformIO if that can be managed.)</li>
 </ul>
-<p>On hosts that I have enabled Overlay RS, I have had to uninstall <code>unattended-upgrades</code>. I should look into PXE boot to see if systems that run from that can stay up to date and of course, not burn up SD cards. Unfortunately WiFi boot is problematic due to the need to establish an association before anything else can happen.</p></div>
+<p>The code repo is at <a href="https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md">https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md</a></p></div>
             </div>
         </div>
 
