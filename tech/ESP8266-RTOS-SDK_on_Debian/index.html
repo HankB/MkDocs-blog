@@ -143,18 +143,18 @@
 </ol>
 <p>Note: The instructions on the web page list downloading build tools and then provide no hint as to where to install them. The <code>install.sh</code> script will do that so there is no need for the user to download build tools separately.</p>
 <h2 id="environment">Environment</h2>
-<p>This install was performed on a new install of Debian Bullseye, including the Gnome and KDE desktops as well as the SSD server iusing a non-free netinst image. Commands that require root are preceeded with <code>sudo</code> rather than using <code>#</code> or <code>$</code> to indicate whether they are user or root commands to make it poossible to copy the entire line and paste it into a terminal window.</p>
+<p>This install was performed on a new install of Debian Bullseye, including the Gnome and KDE desktops as well as the SSH server using a non-free netinst image. Commands that require root are preceeded with <code>sudo</code> rather than using <code>#</code> or <code>$</code> to indicate whether they are user or root commands to make it poossible to copy the entire line and paste it into a terminal window.</p>
 <p>The SDK requires the following environment variable to get off the ground.</p>
 <pre><code class="language-text">export IDF_PATH=~/esp/ESP8266_RTOS_SDK
 </code></pre>
-<p>The SDK requires that <code>python</code> run Python 3. On Debian Bullseye this can be accomplished using <code>update-alternatives</code>. (Debian Bullseye does not have a <code>python</code> program by default.)</p>
+<p>The SDK requires that <code>python</code> run Python 3. On Debian Bullseye this can be accomplished using <code>update-alternatives</code>. (Debian Bullseye does not have an unversioned <code>python</code> program by default.)</p>
 <pre><code class="language-text">sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1
 python --version
 </code></pre>
 <pre><code class="language-test">sudo apt install wget python3-virtualenv python3-pip \
     libncurses-dev flex bison gperf minicom git
 </code></pre>
-<p>I configure <code>git</code> with the following commands (substituting your preferred characteristics)</p>
+<p>I configure <code>git</code> with the following commands. (Substitute your preferred characteristics.)</p>
 <pre><code class="language-text">git config --global user.name &quot;&lt;Yourt Name&gt;&quot;
 git config --global user.email &lt;your email&gt;
 git config --global pull.ff only 
@@ -216,7 +216,7 @@ make flash
 <li>Additional Linux distros and/or operating systems.</li>
 <li>Instructions for integrating this with VS Code or other popular IDEs but without PlatformIO. (Or with PlatformIO if that can be managed.)</li>
 </ul>
-<p>The code repo is at <a href="https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md">https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md</a></p></div>
+<p>The repo for this page is at <a href="https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md">https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md</a></p></div>
             </div>
         </div>
 
