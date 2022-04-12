@@ -15,7 +15,7 @@ Note: The instructions on the web page list downloading build tools and then pro
 
 ## Environment
 
-This install was performed on a new install of Debian Bullseye, including the Gnome and KDE desktops as well as the SSD server iusing a non-free netinst image. Commands that require root are preceeded with `sudo` rather than using `#` or `$` to indicate whether they are user or root commands to make it poossible to copy the entire line and paste it into a terminal window.
+This install was performed on a new install of Debian Bullseye, including the Gnome and KDE desktops as well as the SSH server using a non-free netinst image. Commands that require root are preceeded with `sudo` rather than using `#` or `$` to indicate whether they are user or root commands to make it poossible to copy the entire line and paste it into a terminal window.
 
 
 The SDK requires the following environment variable to get off the ground.
@@ -24,7 +24,7 @@ The SDK requires the following environment variable to get off the ground.
 export IDF_PATH=~/esp/ESP8266_RTOS_SDK
 ```
 
-The SDK requires that `python` run Python 3. On Debian Bullseye this can be accomplished using `update-alternatives`. (Debian Bullseye does not have a `python` program by default.)
+The SDK requires that `python` run Python 3. On Debian Bullseye this can be accomplished using `update-alternatives`. (Debian Bullseye does not have an unversioned `python` program by default.)
 
 ```text
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1
@@ -36,7 +36,7 @@ sudo apt install wget python3-virtualenv python3-pip \
     libncurses-dev flex bison gperf minicom git
 ```
 
-I configure `git` with the following commands (substituting your preferred characteristics)
+I configure `git` with the following commands. (Substitute your preferred characteristics.)
 
 ```text
 git config --global user.name "<Yourt Name>"
@@ -126,4 +126,5 @@ Contributions welcome but not limited to
 * Additional Linux distros and/or operating systems.
 * Instructions for integrating this with VS Code or other popular IDEs but without PlatformIO. (Or with PlatformIO if that can be managed.)
 
-The code repo is at <https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md>
+The repo for this page is at <https://github.com/HankB/MkDocs-blog/blob/main/tech/ESP8266-RTOS-SDK_on_Debian.md>
+
