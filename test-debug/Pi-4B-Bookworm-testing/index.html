@@ -4,26 +4,26 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="None">
         
         
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>Hank's public Docs</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Pi 4B Bookworm testing - Hank's public Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
 
-        <script src="js/jquery-1.10.2.min.js" defer></script>
-        <script src="js/bootstrap.min.js" defer></script>
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
-    <body class="homepage">
+    <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">Hank's public Docs</a>
+                <a class="navbar-brand" href="../..">Hank's public Docs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -33,36 +33,36 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem active">
-                                <a href="." class="nav-link">Hank's Docs home page</a>
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Hank's Docs home page</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="tech/ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
+    <a href="../../tech/ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
 </li>
                                     
 <li>
-    <a href="tech/Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
+    <a href="../../tech/Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="test-debug/Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
+    <a href="../Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
 </li>
                                     
 <li>
-    <a href="test-debug/Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
+    <a href="./" class="dropdown-item active">Pi 4B Bookworm testing</a>
 </li>
                                     
 <li>
-    <a href="test-debug/Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
+    <a href="../Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
 </li>
                                 </ul>
                             </li>
@@ -75,12 +75,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" class="nav-link disabled">
+                                <a rel="prev" href="../Pi-4B-Bookworm-WiFi/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="tech/ESP8266-RTOS-SDK_on_Debian/" class="nav-link">
+                                <a rel="next" href="../Pi-4B-firmware/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -102,8 +102,16 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#hanks-docs-home-page" class="nav-link">Hank's Docs home page</a>
+            <li class="nav-item" data-level="1"><a href="#pi-4b-bookworm-testing" class="nav-link">Pi 4B Bookworm testing</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#procedure" class="nav-link">Procedure</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#results" class="nav-link">Results</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -111,8 +119,55 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="hanks-docs-home-page">Hank's Docs home page</h1>
-<p>These are my notes for stuff I want to share. Technically not a blog, I suppose.</p></div>
+<h1 id="pi-4b-bookworm-testing">Pi 4B Bookworm testing</h1>
+<p>Determine if some previous bugs have been fixed in more recent kernels. Bugs fell into two areas:</p>
+<ul>
+<li>vc4 module - this included a use-after-free as well as other issues reported in <code>dmesg</code>.</li>
+<li>SD card timeout - Timeout message repeated every 10s. This had manifested previously and a workaround was to insert an SD card into the slot and the messages stopped. This time that does not work. Further characteristics of the present situation:</li>
+<li>doesn't boot</li>
+<li>Boots from attached USB SSD skipping the SD card.</li>
+<li>No /dev/mmc* after boot accompanied by no WiFi.</li>
+<li>/dev/mmc* entries, can mount and read card and after several more timeout messages, they stop.</li>
+<li>When the timeout messages are being reported, the system cannot complete shutdown to reboot. It is necessary to remove power from the system.</li>
+<li>Normal boot, no mmc timeouts and apparently normal operation.</li>
+</ul>
+<p>In other words, there is a great variety of behavior with kernels with Bookworm. The good news is that later kernels do not exhibit the problems with the vc4 module so the focus on these notes is to better characterize the SD timeout issue now reported at <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700</a>.</p>
+<h2 id="procedure">Procedure</h2>
+<ol>
+<li>Start with a fresh install of <code>20220808_raspi_4_bookworm.img.xz</code> On an SD card.</li>
+<li>Boot, configure a user to facilitate access via SSH.</li>
+<li>Examine <code>dmesg</code> output to determine</li>
+<li>SD timeouts</li>
+<li><code>/dev/mmc*</code> emtries</li>
+<li>indication of WiFi functionality (via <code>ip addr</code>)</li>
+<li>Reboot mutiple times to determine pf the SD timeout problem exists.</li>
+<li>Update/upgrade to get new kernel and repeat checks above including multiple reboots.</li>
+<li>find and install other kernels and repeat checks/reboots.</li>
+</ol>
+<h2 id="results">Results</h2>
+<h3 id="bullseye">Bullseye</h3>
+<pre><code class="language-text">Linux cm4pi 5.15.61-v8+ #1579 SMP PREEMPT Fri Aug 26 11:16:44 BST 2022 aarch64 GNU/Linux
+</code></pre>
+<ul>
+<li>No SD timeouts (booted from SD)</li>
+<li>WiFi working</li>
+<li><code>/dev/mmc*</code> entries present</li>
+</ul>
+<h3 id="bookworm">Bookworm</h3>
+<p>Installed kernel</p>
+<pre><code class="language-text">Linux muon 5.18.0-3-arm64 #1 SMP Debian 5.18.14-1 (2022-07-23) aarch64 GNU/Linux
+</code></pre>
+<ul>
+<li>Came up on first install w/out difficulty.</li>
+<li>Rebooted and power cycled, 3 times each. No SD problem.</li>
+<li>update/upgrade and reboot.</li>
+</ul>
+<pre><code class="language-text">Linux muon 5.19.0-1-arm64 #1 SMP Debian 5.19.6-1 (2022-09-01) aarch64 GNU/Linux
+</code></pre>
+<ul>
+<li>On first boot mmc timeout messages are appearing. Delaying completoin of boot. Remounting SD card. Cannot remote in. After waiting a couple minutes, tried C-A-D and no response. power cycled. </li>
+<li>Second boot OK.</li>
+</ul></div>
             </div>
         </div>
 
@@ -121,11 +176,11 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = ".",
+            var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js" defer></script>
-        <script src="search/main.js" defer></script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -193,8 +248,3 @@
 
     </body>
 </html>
-
-<!--
-MkDocs version : 1.1.2
-Build Date UTC : 2022-09-13 18:02:04.148607+00:00
--->
