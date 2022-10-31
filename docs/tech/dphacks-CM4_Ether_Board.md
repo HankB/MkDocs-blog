@@ -66,7 +66,7 @@ Quick reactions - The Ethernet and NVME performance seem pretty close to that on
 
 ### Disk
 
-Crude results - just time to complete the benchmark. Details can be (viewed hgere
+Crude results - just time to complete the benchmark. Details can be [viewed here](./data/benchmarks.md)
 
 |board|fio||dd|
 |---|---|---|---|
