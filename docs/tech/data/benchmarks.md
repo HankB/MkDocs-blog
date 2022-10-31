@@ -182,7 +182,7 @@ Kernel update did not build the modules (though no DKMS errors were observed) so
 
 ### dd
 
-Performed using (this script)[https://github.com/HankB/dd-benchmark]
+Performed using [this script](https://github.com/HankB/dd-benchmark)
 
 ```text
 hbarta@cm4nvme:~ $ time -p dd-benchmark.sh 
