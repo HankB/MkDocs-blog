@@ -12,6 +12,12 @@ Board details.
 * Shorting GND and Global_EN pins (with tweezers, etc) causes the CM4 to boot up when turned off or reboot if already running.
 *  M.2 M Key slot is powered by 3V (standard for SSDs). An M2 screw is proviced that fits into the post. Supported SSD sice is 2230.
 
+## Pictures
+
+![alt text](./data/PXL_20221031_154632274.jpg "as taken")
+
+![alt text](./data/PXL_20221031_154659317.jpg "as taken")
+
 ## 2022-10-31 Plans
 
 Happy Halloween!
