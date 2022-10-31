@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Raspberry Pi - Hank's public Docs</title>
+        <title>dphacks CM4 Ether Board - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -45,11 +45,11 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Raspberry Pi</a>
+    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
 </li>
                                     
 <li>
-    <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
+    <a href="./" class="dropdown-item active">dphacks CM4 Ether Board</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -89,12 +89,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../ESP8266-RTOS-SDK_on_Debian/" class="nav-link">
+                                <a rel="prev" href="../Raspberry-Pi/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../dphacks-CM4_Ether_Board/" class="nav-link">
+                                <a rel="next" href="../data/benchmarks/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -116,13 +116,25 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#raspberry-pi" class="nav-link">Raspberry Pi</a>
+            <li class="nav-item" data-level="1"><a href="#dphacks-cm4-ether-board" class="nav-link">dphacks CM4 Ether Board</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#pi-4b" class="nav-link">Pi 4B</a>
+            <li class="nav-item" data-level="2"><a href="#pictures" class="nav-link">Pictures</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#pi-zero-w-2w-and-others" class="nav-link">Pi Zero, W, 2W and others</a>
+            <li class="nav-item" data-level="2"><a href="#2022-10-31-plans" class="nav-link">2022-10-31 Plans</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#baseline-measurements" class="nav-link">Baseline measurements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#cm4-eb-first-boot" class="nav-link">CM4-EB first boot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#benchmark-comparison" class="nav-link">Benchmark comparison</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -133,37 +145,79 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="raspberry-pi">Raspberry Pi</h1>
-<h2 id="pi-4b">Pi 4B</h2>
-<p>Almost good enough to be a daily driver. Even overclocked, it can't play Youtube videos full screen smoothly. The main thing that hampers it IMO us the USB attachment to an SSD. I won't run one of these off an SD card as that's just not fast enough. My dream system for the Pi 4 is a compute module with a carrier that supports 4 SATA ports and has enough MMC to boot/root on.</p>
-<p>I've been preferentially running Debian on the one I use as a desktop. Raspberry Pi OS (R-Pi OS) is good enough for servers but I find the desktop too constraining. And I can't install my preferred desktop - Gnome - due to missing dependencies. I can install KDE and that's a whole 'nother discussion.</p>
-<p>I bounce back and forth between Bullseye (stable) and Bookworm (testing.) When I get bored of no drama on Bullseye I swap in an SSD that has Bookworm. I've submitted two bug reports so far, one of which was just closed this morning (2022-04-04.)</p>
-<p>Here are some tips for running Debian on a Pi 4B.</p>
+<h1 id="dphacks-cm4-ether-board">dphacks CM4 Ether Board</h1>
+<p>Expansion board for the Raspberry Pi Compute Module 4 (CM4) that supports Ethernet, USB and PCIe/NVME SSD.</p>
+<p>This board has kindly been provided  for testing by <code>@makerbymistake</code> AKA <code>@rpilocator</code> at <a href="https://dphacks.com/">https://dphacks.com/</a> (and IRL André). Thank you!</p>
+<p>Board details.</p>
 <ul>
-<li>The system will suspend just fine but I can't figure out how to unsuspend. The first thing I do on a new install is go into gnome settings and disable suspend. Then I tell Systemd and gnome not to suspend using the following commands. (Seems not to want to suspend with no DE installed.)</li>
+<li>USB-C to power the board and CM4</li>
+<li>Micro-USB for data with jumper to select host/device mode.  In host mode, the board provides 5V to the USB device plugged in (as determined by the USB standard). Device mode is used to flash the eMMC module. (My CM4 is Lite =&gt; no eMMC so I cannot test this.)</li>
+<li>Both the power and data USB ports have basic protection against ESD.</li>
+<li>Shorting GND and Global_EN pins (with tweezers, etc) causes the CM4 to boot up when turned off or reboot if already running.</li>
+<li>M.2 M Key slot is powered by 3V (standard for SSDs). An M2 screw is proviced that fits into the post. Supported SSD sice is 2230.</li>
 </ul>
-<pre><code class="language-text">sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+<h2 id="pictures">Pictures</h2>
+<p><img alt="alt text" src="../data/PXL_20221031_154632274.jpg" title="comparison to NVME adapter" /></p>
+<p><img alt="alt text" src="../data/PXL_20221031_154659317.jpg" title="Ether Board with CM4 and heatsink installed" /></p>
+<h2 id="2022-10-31-plans">2022-10-31 Plans</h2>
+<p>Happy Halloween!</p>
+<p>I have a CM4 Lite with WiFi and 8GB RAM. I have been testing this with the official R-Pi expansion board (Pi-EB) including booting from NVME. For my Raspberry Pi 4B devices I prefer to use pure Debian but it will not boot the CM4 if anything is connected to the PCIe slot so it is a non-starter. I have an ARM64 R-Pi OS image installed on a 256GB Kioxia (PCIe X1) NVME SSD that I plan to test with.</p>
+<p>The networking and NVME performance are the things I am most curious about. I may explore other areas such as USB boot and perhaps the connections for shutting down and booting the CM4.</p>
+<h2 id="baseline-measurements">Baseline measurements</h2>
+<p>I plan to use <code>iperf3</code> and some common disk benchmarks to evaluate performance. Before swapping the CM4/heat sink and SSD to the CM4 Ether Board (CM4-EB) I'll complete the benchmarks on the Pi-EB. At this point I generally collect the time to complete the disk benchmarks as a first approximation of performance and will look at the detailed results if anything interesting comes up.</p>
+<p>Before proceeding I upgraded all available packages and this provides the kernel</p>
+<pre><code class="language-text">hbarta@cm4nvme:~ $ uname -a
+Linux cm4nvme 5.15.74-v8+ #1595 SMP PREEMPT Wed Oct 26 11:07:24 BST 2022 aarch64 GNU/Linux
+hbarta@cm4nvme:~ $ 
 </code></pre>
-<ul>
-<li>If you install Bookworm, hold the <code>raspi-firmware</code> package until the fixed firmware is in the Testing repo. (<code>apt-mark hold raspi-firmware</code>) Or install from experimental. Or install from the tagged version <code>1.20220331</code>.</li>
-<li>The default setting for Ethernet is "unmanaged." It can be controlled using <code>ifdown eth0</code> / <code>ifup eth0</code> (but will be on again following the next reboot.) To let <code>NetworkManager</code> control, edit <code>/etc/NetworkManager/NetworkManager.conf</code> and change <code>managed=true</code> to <code>managed=false</code>. I'm not sure this is a complete fix for this issue as Ethernet will be back on the next boot regardless of the setting.</li>
-<li>Status of Bookworm seems pretty shaky right now. I get frequent loss of connection to the SSD and the only recovery is to pull power. Loss of connection to the SSD can lead to file corruption and may be the reason that my Bookworm installations seem to deteriorate with time.</li>
-<li>Using an SSD. You will really want a powered USB hub for this. SSDs that worked fine with a Pi 3B may not work well with a 4B because USB 3 supports the faster UAS driver and in turn that causes the SSD to require more power. You can disable UAS using <code>usb-storage.quirks</code> but I prefer the faster faster speed that UAS provides. I use the Wavlink Model: WL-UH3042P1 and power the Pi off the quick charge port. It's rated for 2.4A so I plug other accessories (mouse, keyboard) into the hub along with the SSD to reduce the power demands from the Pi.</li>
-<li>Overclocking is relatively straight forward. On my Nullseye install I have added the following to <code>/boot/firmware/config.txt</code></li>
-</ul>
-<pre><code class="language-text">arm_freq=2000
-over_voltage=6
-gpu_freq=750
+<p>I have Gnome installed and will disable that for this testing since the CM4-EB has no video output.</p>
+<p>Before swapping boards the host name was changed to avoid SSH login issues (and my confusion.)</p>
+<pre><code class="language-text">sudo hostnamectl set-hostname cm4eb
 </code></pre>
-<p>And have stress tested using a variety of stressers. The CPU temperature goes up to about 82°C max. I would be concerned if I was running that kind of load at all times, but I'm not.
-* CPU case. I like the FLIRC cases a lot. Big hunk of aluminum with a molded in protrusion that contacts the CPU through a small pad and does a great job of drawing heat from the processor. It's compoletely passive so it won't stop working if a fan fails because there is no fan needed.</p>
-<h2 id="pi-zero-w-2w-and-others">Pi Zero, W, 2W and others</h2>
-<ul>
-<li>Overlay FS and <code>unattended-upgrades</code> - No! I use some of these essentially as embedded systems so it seemed natural to employ the Overlay File System (R/O FS, Overlay FS) to reduce SD card failure. I run some of these on really cheap SD cards. I also prefer to keep <code>unattended-upgrades</code> installed to stay current with security upgrades. Unfortunately the two don't mix very well. The Overlay FS "overlays" the R/O FS with RAM so when <code>apt-get update</code> runs, it fills RAM with disk changes and results in "no space on /".</li>
-</ul>
-<p>On hosts that I have enabled Overlay RS, I have had to uninstall <code>unattended-upgrades</code>. I should look into PXE boot to see if systems that run from that can stay up to date and of course, not burn up SD cards. Unfortunately WiFi boot is problematic due to the need to establish an association before anything else can happen.</p></div>
+<h2 id="cm4-eb-first-boot">CM4-EB first boot</h2>
+<p>Uneventful. It came up, connected to my LAN via Ethernet and I was anle to SSH in. Results of <code>ip addr</code> indicates that WiFi is working as well (though that resides entirely on the CM4.) At present the D2 (green) LED is flickering at about 1/s and the D3 (red) LED is on continuous. On to the benchmarks!</p>
+<p>Quick reactions - The Ethernet and NVME performance seem pretty close to that on the official IO Board and this is both desired and expected.</p>
+<h2 id="benchmark-comparison">Benchmark comparison</h2>
+<h3 id="network">Network</h3>
+<p>|board|ping|iperf3||notes|
+|---|---|---|---|---|---|---|---|
+|| min/avg/max/mdev|Mbits/sec snd|recv||
+|IO|0.146/0.191/0.227/0.024|||olive|
+||0.214/0.270/0.551/0.094|924|919|oak|
+|EB|0.164/0.204/0.278/0.038|||olive|
+||0.213/0.265/0.489/0.075|904|899|oak|</p>
+<h3 id="disk">Disk</h3>
+<p>Crude results - just time to complete the benchmark. Details can be <a href="../data/benchmarks/">viewed here</a></p>
+<table>
+<thead>
+<tr>
+<th>board</th>
+<th>fio</th>
+<th></th>
+<th>dd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>time</td>
+<td>rerun</td>
+<td>time</td>
+</tr>
+<tr>
+<td>IO</td>
+<td>101</td>
+<td>121</td>
+<td>130</td>
+</tr>
+<tr>
+<td>EB</td>
+<td>101</td>
+<td>124</td>
+<td>128</td>
+</tr>
+</tbody>
+</table></div>
             </div>
         </div>
 
