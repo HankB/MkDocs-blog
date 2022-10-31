@@ -14,9 +14,9 @@ Board details.
 
 ## Pictures
 
-![alt text](./data/PXL_20221031_154632274.jpg "as taken")
+![alt text](./data/PXL_20221031_154632274.jpg "comparison to NVME adapter")
 
-![alt text](./data/PXL_20221031_154659317.jpg "as taken")
+![alt text](./data/PXL_20221031_154659317.jpg "Ether Board with CM4 and heatsink installed")
 
 ## 2022-10-31 Plans
 
@@ -65,6 +65,8 @@ Quick reactions - The Ethernet and NVME performance seem pretty close to that on
 ||0.213/0.265/0.489/0.075|904|899|oak|
 
 ### Disk
+
+Crude results - just time to complete the benchmark. Details can be (viewed hgere
 
 |board|fio||dd|
 |---|---|---|---|
