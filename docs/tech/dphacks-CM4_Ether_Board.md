@@ -57,7 +57,7 @@ Quick reactions - The Ethernet and NVME performance seem pretty close to that on
 ### Network
 
 |board|ping|iperf3||notes|
-|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|
 || min/avg/max/mdev|Mbits/sec snd|recv||
 |IO|0.146/0.191/0.227/0.024|||olive|
 ||0.214/0.270/0.551/0.094|924|919|oak|
