@@ -179,13 +179,54 @@ hbarta@cm4nvme:~ $
 <p>Quick reactions - The Ethernet and NVME performance seem pretty close to that on the official IO Board and this is both desired and expected.</p>
 <h2 id="benchmark-comparison">Benchmark comparison</h2>
 <h3 id="network">Network</h3>
-<p>|board|ping|iperf3||notes|
-|---|---|---|---|---|---|---|---|
-|| min/avg/max/mdev|Mbits/sec snd|recv||
-|IO|0.146/0.191/0.227/0.024|||olive|
-||0.214/0.270/0.551/0.094|924|919|oak|
-|EB|0.164/0.204/0.278/0.038|||olive|
-||0.213/0.265/0.489/0.075|904|899|oak|</p>
+<table>
+<thead>
+<tr>
+<th>board</th>
+<th>ping</th>
+<th>iperf3</th>
+<th></th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>min/avg/max/mdev</td>
+<td>Mbits/sec snd</td>
+<td>recv</td>
+<td></td>
+</tr>
+<tr>
+<td>IO</td>
+<td>0.146/0.191/0.227/0.024</td>
+<td></td>
+<td></td>
+<td>olive</td>
+</tr>
+<tr>
+<td></td>
+<td>0.214/0.270/0.551/0.094</td>
+<td>924</td>
+<td>919</td>
+<td>oak</td>
+</tr>
+<tr>
+<td>EB</td>
+<td>0.164/0.204/0.278/0.038</td>
+<td></td>
+<td></td>
+<td>olive</td>
+</tr>
+<tr>
+<td></td>
+<td>0.213/0.265/0.489/0.075</td>
+<td>904</td>
+<td>899</td>
+<td>oak</td>
+</tr>
+</tbody>
+</table>
 <h3 id="disk">Disk</h3>
 <p>Crude results - just time to complete the benchmark. Details can be <a href="../data/benchmarks/">viewed here</a></p>
 <table>
