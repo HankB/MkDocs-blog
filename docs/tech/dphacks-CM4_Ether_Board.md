@@ -45,3 +45,13 @@ sudo hostnamectl set-hostname cm4eb
 Uneventful. It came up, connected to my LAN via Ethernet and I was anle to SSH in. Results of `ip addr` indicates that WiFi is working as well (though that resides entirely on the CM4.) At present the D2 (green) LED is flickering at about 1/s and the D3 (red) LED is on continuous. On to the benchmarks!
 
 Quick reactions - The Ethernet and NVME performance seem to match that on the official IO Board and this is both desired and expected.
+
+## Benchmark comparison
+
+|board|ping||iperf3|||x|
+|---|---|---|---|---|---|x|
+|| min/avg/max/mdev|Mbits/sec snd|recv|||x|
+|IO|0.146/0.191/0.227/0.024|924|919|919|933|x|
+||0.214/0.270/0.551/0.094|||x|
+|EB|0.213/0.265/0.489/0.075|904|899|x|
+||0.164/0.204/0.278/0.038||||||||||||x|
