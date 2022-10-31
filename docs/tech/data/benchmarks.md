@@ -250,15 +250,12 @@ hbarta@cm4eb:~ $ ping -c 10 oak
 rtt min/avg/max/mdev = 0.213/0.265/0.489/0.075 ms
 hbarta@cm4eb:~ $ 
 hbarta@cm4eb:~ $ 
-hbarta@cm4eb:~ $ ping -c 10 olove
-ping: olove: Name or service not known
 hbarta@cm4eb:~ $ ping -c 10 olive
 
 --- olive.localdomain ping statistics ---
 10 packets transmitted, 10 received, 0% packet loss, time 9092ms
 rtt min/avg/max/mdev = 0.164/0.204/0.278/0.038 ms
-hbarta@cm4eb:~ $ time -p fio --randrepeat=1 --ioengine=libaio --gtod_reduce=1 --name="CM4 CM4-EB EXT4" --filename=test.dat --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
-
+hbarta@cm4eb:~ $ 
 ```
 
 ### iperf
@@ -266,60 +263,71 @@ hbarta@cm4eb:~ $ time -p fio --randrepeat=1 --ioengine=libaio --gtod_reduce=1 --
 ```text
 hbarta@cm4eb:~ $ iperf3 -c oak --get-server-output --bidir
 Connecting to host oak, port 5201
-...
+[  5] local 192.168.1.45 port 57144 connected to 192.168.1.80 port 5201
+[  7] local 192.168.1.45 port 57146 connected to 192.168.1.80 port 5201
 [ ID][Role] Interval           Transfer     Bitrate         Retr  Cwnd
-[  5][TX-C]   0.00-1.00   sec   107 MBytes   899 Mbits/sec    0    513 KBytes       
-[  7][RX-C]   0.00-1.00   sec  35.1 MBytes   294 Mbits/sec                  
-[  5][TX-C]   1.00-2.00   sec   110 MBytes   924 Mbits/sec    0    513 KBytes       
-[  7][RX-C]   1.00-2.00   sec  54.1 MBytes   454 Mbits/sec                  
-[  5][TX-C]   2.00-3.00   sec   110 MBytes   920 Mbits/sec    0    576 KBytes       
-[  7][RX-C]   2.00-3.00   sec  40.7 MBytes   341 Mbits/sec                  
-[  5][TX-C]   3.00-4.00   sec   109 MBytes   918 Mbits/sec    0    607 KBytes       
-[  7][RX-C]   3.00-4.00   sec  49.9 MBytes   419 Mbits/sec                  
-[  5][TX-C]   4.00-5.00   sec   110 MBytes   921 Mbits/sec    0    635 KBytes       
-[  7][RX-C]   4.00-5.00   sec  50.2 MBytes   421 Mbits/sec                  
-[  5][TX-C]   5.00-6.00   sec   110 MBytes   923 Mbits/sec    0    635 KBytes       
-[  7][RX-C]   5.00-6.00   sec  51.9 MBytes   435 Mbits/sec                  
-[  5][TX-C]   6.00-7.00   sec   109 MBytes   912 Mbits/sec    0    635 KBytes       
-[  7][RX-C]   6.00-7.00   sec  47.5 MBytes   398 Mbits/sec                  
-[  5][TX-C]   7.00-8.00   sec   111 MBytes   933 Mbits/sec    0    635 KBytes       
-[  7][RX-C]   7.00-8.00   sec  42.5 MBytes   357 Mbits/sec                  
-[  5][TX-C]   8.00-9.00   sec   109 MBytes   912 Mbits/sec    0    635 KBytes       
-[  7][RX-C]   8.00-9.00   sec  49.7 MBytes   417 Mbits/sec                  https://www.smobserved.com/story/2022/10/29/news/the-awful-truth-paul-pelosi-was-drunk-again-and-in-a-dispute-with-a-male-prostitute-early-friday-morning/7191.html
+[  5][TX-C]   0.00-1.00   sec   110 MBytes   926 Mbits/sec    0    669 KBytes       
+[  7][RX-C]   0.00-1.00   sec   110 MBytes   923 Mbits/sec                  
+[  5][TX-C]   1.00-2.00   sec   110 MBytes   923 Mbits/sec    0    701 KBytes       
+[  7][RX-C]   1.00-2.00   sec   112 MBytes   936 Mbits/sec                  
+[  5][TX-C]   2.00-3.00   sec   108 MBytes   902 Mbits/sec    0    701 KBytes       
+[  7][RX-C]   2.00-3.00   sec   112 MBytes   936 Mbits/sec                  
+[  5][TX-C]   3.00-4.00   sec   106 MBytes   891 Mbits/sec    0    701 KBytes       
+[  7][RX-C]   3.00-4.00   sec   112 MBytes   937 Mbits/sec                  
+[  5][TX-C]   4.00-5.00   sec   109 MBytes   912 Mbits/sec    0    701 KBytes       
+[  7][RX-C]   4.00-5.00   sec   112 MBytes   937 Mbits/sec                  
+[  5][TX-C]   5.00-6.00   sec   106 MBytes   891 Mbits/sec    0    809 KBytes       
+[  7][RX-C]   5.00-6.00   sec   112 MBytes   938 Mbits/sec                  
+[  5][TX-C]   6.00-7.00   sec   109 MBytes   912 Mbits/sec    0    809 KBytes       
+[  7][RX-C]   6.00-7.00   sec   112 MBytes   937 Mbits/sec                  
+[  5][TX-C]   7.00-8.00   sec   108 MBytes   902 Mbits/sec    0    809 KBytes       
+[  7][RX-C]   7.00-8.00   sec   112 MBytes   937 Mbits/sec                  
+[  5][TX-C]   8.00-9.00   sec   106 MBytes   891 Mbits/sec    0    809 KBytes       
+[  7][RX-C]   8.00-9.00   sec   112 MBytes   936 Mbits/sec                  
+[  5][TX-C]   9.00-10.00  sec   106 MBytes   891 Mbits/sec    0    809 KBytes       
+[  7][RX-C]   9.00-10.00  sec   112 MBytes   936 Mbits/sec                  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID][Role] Interval           Transfer     Bitrate         Retr
+[  5][TX-C]   0.00-10.00  sec  1.05 GBytes   904 Mbits/sec    0             sender
+[  5][TX-C]   0.00-10.03  sec  1.05 GBytes   899 Mbits/sec                  receiver
+
+Server output:
 -----------------------------------------------------------
 Server listening on 5201
 -----------------------------------------------------------
-...
+Accepted connection from 192.168.1.45, port 57132
+[  5] local 192.168.1.80 port 5201 connected to 192.168.1.45 port 57144
+[  8] local 192.168.1.80 port 5201 connected to 192.168.1.45 port 57146
 [ ID][Role] Interval           Transfer     Bitrate         Retr  Cwnd
-[  5][RX-S]   0.00-1.00   sec   101 MBytes   847 Mbits/sec                  
-[  8][TX-S]   0.00-1.00   sec  35.7 MBytes   299 Mbits/sec    0   1.39 MBytes       
-[  5][RX-S]   1.00-2.00   sec   110 MBytes   921 Mbits/sec                  
-[  8][TX-S]   1.00-2.00   sec  51.2 MBytes   430 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]   2.00-3.00   sec   110 MBytes   924 Mbits/sec                  
-[  8][TX-S]   2.00-3.00   sec  40.0 MBytes   336 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]   3.00-4.00   sec   109 MBytes   917 Mbits/sec                  
-[  8][TX-S]   3.00-4.00   sec  51.2 MBytes   430 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]   4.00-5.00   sec   109 MBytes   917 Mbits/sec                  
-[  8][TX-S]   4.00-5.00   sec  51.2 MBytes   430 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]   5.00-6.00   sec   110 MBytes   919 Mbits/sec                  
-[  8][TX-S]   5.00-6.00   sec  51.2 MBytes   430 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]   6.00-7.00   sec   109 MBytes   918 Mbits/sec                  
-[  8][TX-S]   6.00-7.00   sec  47.5 MBytes   398 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]   7.00-8.00   sec   110 MBytes   926 Mbits/sec                  
-[  8][TX-S]   7.00-8.00   sec  42.5 MBytes   357 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]   8.00-9.00   sec   109 MBytes   918 Mbits/sec                  
-[  8][TX-S]   8.00-9.00   sec  50.0 MBytes   419 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]   9.00-10.00  sec   110 MBytes   926 Mbits/sec                  
-[  8][TX-S]   9.00-10.00  sec  42.5 MBytes   357 Mbits/sec    0   3.00 MBytes       
-[  5][RX-S]  10.00-10.07  sec  7.43 MBytes   911 Mbits/sec                  
-[  8][TX-S]  10.00-10.07  sec  3.75 MBytes   459 Mbits/sec    0   3.00 MBytes       
+[  5][RX-S]   0.00-1.00   sec   104 MBytes   875 Mbits/sec                  
+[  8][TX-S]   0.00-1.00   sec   109 MBytes   912 Mbits/sec    0    484 KBytes       
+[  5][RX-S]   1.00-2.00   sec   109 MBytes   915 Mbits/sec                  
+[  8][TX-S]   1.00-2.00   sec   112 MBytes   936 Mbits/sec    0    484 KBytes       
+[  5][RX-S]   2.00-3.00   sec   108 MBytes   910 Mbits/sec                  
+[  8][TX-S]   2.00-3.00   sec   112 MBytes   940 Mbits/sec    0    484 KBytes       
+[  5][RX-S]   3.00-4.00   sec   105 MBytes   883 Mbits/sec                  
+[  8][TX-S]   3.00-4.00   sec   112 MBytes   940 Mbits/sec    0    587 KBytes       
+[  5][RX-S]   4.00-5.00   sec   109 MBytes   915 Mbits/sec                  
+[  8][TX-S]   4.00-5.00   sec   111 MBytes   934 Mbits/sec    0    587 KBytes       
+[  5][RX-S]   5.00-6.00   sec   106 MBytes   892 Mbits/sec                  
+[  8][TX-S]   5.00-6.00   sec   112 MBytes   939 Mbits/sec    0    649 KBytes       
+[  5][RX-S]   6.00-7.00   sec   109 MBytes   912 Mbits/sec                  
+[  8][TX-S]   6.00-7.00   sec   112 MBytes   944 Mbits/sec    0    682 KBytes       
+[  5][RX-S]   7.00-8.00   sec   108 MBytes   906 Mbits/sec                  
+[  8][TX-S]   7.00-8.00   sec   111 MBytes   933 Mbits/sec    0    682 KBytes       
+[  5][RX-S]   8.00-9.00   sec   106 MBytes   888 Mbits/sec                  
+[  8][TX-S]   8.00-9.00   sec   111 MBytes   933 Mbits/sec    0    714 KBytes       
+[  5][RX-S]   9.00-10.00  sec   107 MBytes   896 Mbits/sec                  
+[  8][TX-S]   9.00-10.00  sec   112 MBytes   944 Mbits/sec    0    714 KBytes       
+[  5][RX-S]  10.00-10.03  sec  2.82 MBytes   702 Mbits/sec                  
+[  8][TX-S]  10.00-10.03  sec  2.50 MBytes   623 Mbits/sec    0    714 KBytes       
 - - - - - - - - - - - - - - - - - - - - - - - - -
 [ ID][Role] Interval           Transfer     Bitrate         Retr
-[  5][RX-S]   0.00-10.07  sec  1.07 GBytes   913 Mbits/sec                  receiver
-[  8][TX-S]   0.00-10.07  sec   467 MBytes   389 Mbits/sec    0             sender
+[  5][RX-S]   0.00-10.03  sec  1.05 GBytes   899 Mbits/sec                  receiver
+[  8][TX-S]   0.00-10.03  sec  1.09 GBytes   934 Mbits/sec    0             sender
 
-[  7][RX-C]   0.00-10.00  sec   467 MBytes   392 Mbits/sec    0             sender
-[  7][RX-C]   0.00-10.07  sec   464 MBytes   387 Mbits/sec                  receiver
+[  7][RX-C]   0.00-10.00  sec  1.09 GBytes   938 Mbits/sec    0             sender
+[  7][RX-C]   0.00-10.03  sec  1.09 GBytes   932 Mbits/sec                  receiver
 
 iperf Done.
 hbarta@cm4eb:~ $ 
