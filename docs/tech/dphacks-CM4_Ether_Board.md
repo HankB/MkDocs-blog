@@ -48,10 +48,10 @@ Quick reactions - The Ethernet and NVME performance seem to match that on the of
 
 ## Benchmark comparison
 
-|board|ping||iperf3|||x|
+|board|ping|iperf3||||x|
 |---|---|---|---|---|---|---|
 || min/avg/max/mdev|Mbits/sec snd|recv|||x|
-|IO|0.146/0.191/0.227/0.024|924|919|919|933|x|
+|IO|0.146/0.191/0.227/0.024|924|919|x|
 ||0.214/0.270/0.551/0.094|||x|
 |EB|0.213/0.265/0.489/0.075|904|899|x|
 ||0.164/0.204/0.278/0.038||||||||||||x|
