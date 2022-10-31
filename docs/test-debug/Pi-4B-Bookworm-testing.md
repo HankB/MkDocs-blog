@@ -53,5 +53,5 @@ Linux muon 5.18.0-3-arm64 #1 SMP Debian 5.18.14-1 (2022-07-23) aarch64 GNU/Linux
 Linux muon 5.19.0-1-arm64 #1 SMP Debian 5.19.6-1 (2022-09-01) aarch64 GNU/Linux
 ```
 
-* On first boot mmc timeout messages are appearing. Delaying completoin of boot. Remounting SD card. Cannot remote in. After waiting a couple minutes, tried C-A-D and no response. power cycled. 
+* On first boot mmc timeout messages are appearing. Delaying completion of boot. Remounting SD card. Cannot remote in. After waiting a couple minutes, tried C-A-D and no response. power cycled. 
 * Second boot OK.
