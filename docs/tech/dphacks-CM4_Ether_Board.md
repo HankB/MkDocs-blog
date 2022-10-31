@@ -40,6 +40,8 @@ Before swapping boards the host name was changed to avoid SSH login issues (and 
 sudo hostnamectl set-hostname cm4eb
 ```
 
-## Pi-EB first boot
+## CM4-EB first boot
 
 Uneventful. It came up, connected to my LAN via Ethernet and I was anle to SSH in. Results of `ip addr` indicates that WiFi is working as well (though that resides entirely on the CM4.) At present the D2 (green) LED is flickering at about 1/s and the D3 (red) LED is on continuous. On to the benchmarks!
+
+Quick reactions - The Ethernet and NVME performance seem to match that on the official IO Board and this is both desired and expected.
