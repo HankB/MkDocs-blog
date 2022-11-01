@@ -2,7 +2,7 @@
 
 Expansion board for the Raspberry Pi Compute Module 4 (CM4) that supports Ethernet, USB and PCIe/NVME SSD.
 
-This board has kindly been provided  for testing by `@makerbymistake` AKA `@rpilocator` at <https://dphacks.com/> (and IRL André). Thank you!
+This board has kindly been provided for testing by `@makerbymistake` AKA `@rpilocator` at <https://dphacks.com/> (and IRL André). Thank you!
 
 Board details.
 
@@ -10,11 +10,15 @@ Board details.
 * Micro-USB for data with jumper to select host/device mode.  In host mode, the board provides 5V to the USB device plugged in (as determined by the USB standard). Device mode is used to flash the eMMC module. (My CM4 is Lite => no eMMC so I cannot test this.)
 * Both the power and data USB ports have basic protection against ESD.
 * Shorting GND and Global_EN pins (with tweezers, etc) causes the CM4 to boot up when turned off or reboot if already running.
-*  M.2 M Key slot is powered by 3V (standard for SSDs). An M2 screw is proviced that fits into the post. Supported SSD sice is 2230.
+* M.2 M Key slot is powered by 3V (standard for SSDs). An M2 screw is proviced that fits into the post. Supported SSD sice is 2230.
 
 ## Pictures
 
+Comparison to NVME adapter.
+
 ![alt text](./data/PXL_20221031_154632274.jpg "comparison to NVME adapter")
+
+Ether Board with CM4 + heatsink installed.
 
 ![alt text](./data/PXL_20221031_154659317.jpg "Ether Board with CM4 and heatsink installed")
 
@@ -48,7 +52,7 @@ sudo hostnamectl set-hostname cm4eb
 
 ## CM4-EB first boot
 
-Uneventful. It came up, connected to my LAN via Ethernet and I was anle to SSH in. Results of `ip addr` indicates that WiFi is working as well (though that resides entirely on the CM4.) At present the D2 (green) LED is flickering at about 1/s and the D3 (red) LED is on continuous. On to the benchmarks!
+Uneventful. It came up, connected to my LAN via Ethernet and I was able to SSH in. Results of `ip addr` indicates that WiFi is working as well (though that resides entirely on the CM4.) At present the D2 (green) LED is flickering at about 1/s and the D3 (red) LED is on continuous. On to the benchmarks!
 
 Quick reactions - The Ethernet and NVME performance seem pretty close to that on the official IO Board and this is both desired and expected.
 
@@ -73,4 +77,7 @@ Crude results - just time to complete the benchmark. Details can be [viewed here
 ||time|rerun|time|
 |IO|101|121|130|
 |EB|101|124|128|
-	
+
+## Conclusion
+
+One of the most important attributes of the CM4 is that it exposes a PCIe lane on the connectors. The official IO Board routes this to a PCIe x1 slot and the `@makerbymistake` board brings this out directly to an NVME slot. This is an ideal board to use for a headless file server where Ethernet and NVME provide all of the I/O is needed. Other functions that depend only on Ethernet such as Pi-Hole could also be supported at full Gigabit Ethernet speed and all with a footprint a fraction of the space required for the official board. I did not test USB but I understand that `@makerbymistake` has used it to run OctoPrint.
