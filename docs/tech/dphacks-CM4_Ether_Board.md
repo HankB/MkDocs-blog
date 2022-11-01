@@ -10,7 +10,7 @@ Board details.
 * Micro-USB for data with jumper to select host/device mode.  In host mode, the board provides 5V to the USB device plugged in (as determined by the USB standard). Device mode is used to flash the eMMC module. (My CM4 is Lite => no eMMC so I cannot test this.)
 * Both the power and data USB ports have basic protection against ESD.
 * Shorting GND and Global_EN pins (with tweezers, etc) causes the CM4 to boot up when turned off or reboot if already running.
-* M.2 M Key slot is powered by 3V (standard for SSDs). An M2 screw is proviced that fits into the post. Supported SSD sice is 2230.
+* M.2 M Key slot is powered by 3V (standard for SSDs). An M2 screw is provided that fits into the post. Supported SSD size is 2230.
 
 ## Pictures
 
@@ -80,4 +80,4 @@ Crude results - just time to complete the benchmark. Details can be [viewed here
 
 ## Conclusion
 
-One of the most important attributes of the CM4 is that it exposes a PCIe lane on the connectors. The official IO Board routes this to a PCIe x1 slot and the `@makerbymistake` board brings this out directly to an NVME slot. This is an ideal board to use for a headless file server where Ethernet and NVME provide all of the I/O is needed. Other functions that depend only on Ethernet such as Pi-Hole could also be supported at full Gigabit Ethernet speed and all with a footprint a fraction of the space required for the official board. I did not test USB but I understand that `@makerbymistake` has used it to run OctoPrint.
+One of the most important attributes of the CM4 is that it exposes a PCIe lane on the connectors. The official IO Board routes this to a PCIe x1 slot and the `@makerbymistake` board brings this out directly to an NVME slot. This is an ideal board to use for a headless file server where Ethernet and NVME provide all of the I/O is needed. Other functions that depend only on Ethernet such as Pi-Hole could also be supported at full Gigabit Ethernet speed and all with a footprint a fraction of the space required for the official board. I also like that it is powered from a USB-C connector vs. the barrel used on the official board. I did not test the (micro) USB data connector but I understand that `@makerbymistake` has used it to run OctoPrint.
