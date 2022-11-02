@@ -78,6 +78,10 @@ Crude results - just time to complete the benchmark. Details can be [viewed here
 |IO|101|121|130|
 |EB|101|124|128|
 
+## 2022-11-01 CM4 power switch
+
+I implemented the software/config to implement a power switch. Jumper wires used temporarily in place of switch. Instructions at <https://www.alexwhittemore.com/raspberry-pi-cm4-using-nrpi_boot/>.
+
 ## Conclusion
 
 One of the most important attributes of the CM4 is that it exposes a PCIe lane on the connectors. The official IO Board routes this to a PCIe x1 slot and the `@makerbymistake` board brings this out directly to an NVME slot. This is an ideal board to use for a headless file server where Ethernet and NVME provide all of the I/O is needed. Other functions that depend only on Ethernet such as Pi-Hole could also be supported at full Gigabit Ethernet speed and all with a footprint a fraction of the space required for the official board. I also like that it is powered from a USB-C connector vs. the barrel used on the official board. I did not test the (micro) USB data connector but I understand that `@makerbymistake` has used it to run OctoPrint.
