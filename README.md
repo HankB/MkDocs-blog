@@ -15,4 +15,6 @@ hbarta@rocinante:~/Documents/MkDocs-blog$
 
 `mkdocs gh-deploy` blows up if the repo can't be pushed for any reason.
 
+NB: *Surprise!* `mkdocs gh-deploy` will publish any files in the local `.../docs` directory (at a minimum) even if gthey are not tracked, committed and pushed.
+
 Page is available at <https://HankB.github.io/MkDocs-blog/>
