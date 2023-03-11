@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Debian Root on ZFS to a new drive - Hank's public Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Hank's public Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Hank's Docs home page</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Debian Root on ZFS to a new drive</a>
+</li>
+                                    
+<li>
+    <a href="../ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
+</li>
+                                    
+<li>
+    <a href="../OWI-535-Robot_Arm_Control_assembly/" class="dropdown-item">OWI-535 Robot Arm Control assembly</a>
+</li>
+                                    
+<li>
+    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
+</li>
+                                    
+<li>
+    <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Data</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../data/benchmarks/" class="dropdown-item">CM4 benchmarks</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../.." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../ESP8266-RTOS-SDK_on_Debian/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#debian-root-on-zfs-to-a-new-drive" class="nav-link">Debian Root on ZFS to a new drive</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#initial-setup" class="nav-link">Initial setup</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#constraints" class="nav-link">Constraints</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#plan" class="nav-link">Plan</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#issues" class="nav-link">Issues</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#execution-2023-03-10" class="nav-link">Execution (2023-03-10)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#errata" class="nav-link">Errata</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="debian-root-on-zfs-to-a-new-drive">Debian Root on ZFS to a new drive</h1>
+<h2 id="motivation">Motivation</h2>
+<p>Old drives on a file server are old and decrepit and not long for this world. </p>
+<h2 id="initial-setup">Initial setup</h2>
+<p>DEBIAN 11 (Bullseye) with ZFS on root following the instructions at <a href="https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bullseye%20Root%20on%20ZFS.html#">https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bullseye%20Root%20on%20ZFS.html#</a></p>
+<h2 id="constraints">Constraints</h2>
+<ul>
+<li>Old motherboard does not support UEFI boot.</li>
+<li>Current (target) install is on 500GB mirrored HDDs and using about 7% of capacity. The desire is to migrate to smaller SSDs (240GB SSDs.)</li>
+<li>Current install uses the <code>bpool</code>/<code>rpool</code> split as specified in the instructions referenced above.</li>
+</ul>
+<h2 id="plan">Plan</h2>
+<ol>
+<li>Format and partition the target SSD as described in the instructions above.</li>
+<li>Create root and boot pools as described and named to match the original pools: <code>rpool</code> and <code>bpool</code>.</li>
+<li><code>zfs send | zfs recv</code> the two filesystems from the existing install to the target SSD.</li>
+<li>Perform necessary rescue operations to make the target SSD bootable.</li>
+</ol>
+<p>These operations are being performed on a test system to minimize possible disruption with the "real" server until a working procedure is identified.</p>
+<h2 id="issues">Issues</h2>
+<p>Pool naming was a continuing problem. With new pools given different names, the cache files were wrong and the pools would not import at boot. This is probably a solvable problem, but the solution eluded me during several tries. The first successful attempt was to create the new pools in the live environment and name them to match the existing (old) pools. The old pools could then be imnported using different names, the related filesystems transferred and the rescue operations completed.</p>
+<h2 id="execution-2023-03-10">Execution (2023-03-10)</h2>
+<p>Boot a Debian 11.6 live ISO (debian-live-11.6.0-amd64-gnome+nonfree.iso) using Ventoy. Install and start <code>openssh-server</code> and go into power settings to disable automatic suspend.</p>
+<p>Add <code>contrib</code> to <code>/etc/apt/sources.list</code>, updat and install ZFS.</p>
+<p>Identify the target SSD, in this case <code>/dev/sdi</code></p>
+<h3 id="identify-and-secure-erase">Identify and secure erase</h3>
+<pre><code class="language-text">root@debian:~# ls -l /dev/disk/by-id/wwn*|grep sdi
+lrwxrwxrwx 1 root root  9 Mar 10 18:18 /dev/disk/by-id/wwn-0x5000c5002ff22a4c -&gt; ../../sdi
+lrwxrwxrwx 1 root root 10 Mar 10 18:18 /dev/disk/by-id/wwn-0x5000c5002ff22a4c-part1 -&gt; ../../sdi1
+lrwxrwxrwx 1 root root 10 Mar 10 18:18 /dev/disk/by-id/wwn-0x5000c5002ff22a4c-part2 -&gt; ../../sdi2
+lrwxrwxrwx 1 root root 10 Mar 10 18:18 /dev/disk/by-id/wwn-0x5000c5002ff22a4c-part3 -&gt; ../../sdi3
+lrwxrwxrwx 1 root root 10 Mar 10 18:18 /dev/disk/by-id/wwn-0x5000c5002ff22a4c-part4 -&gt; ../../sdi4
+root@debian:~# DISK=/dev/disk/by-id/wwn-0x5000c5002ff22a4c\
+&gt; 
+root@debian:~# hdparm --security-set-pass NULL $DISK
+security_password: &quot;&quot;
+
+/dev/disk/by-id/wwn-0x5000c5002ff22a4c:
+ Issuing SECURITY_SET_PASS command, password=&quot;&quot;, user=user, mode=high
+root@debian:~# hdparm --security-erase-enhanced NULL  $DISK
+security_password: &quot;&quot;
+
+/dev/disk/by-id/wwn-0x5000c5002ff22a4c:
+ Issuing SECURITY_ERASE command, password=&quot;&quot;, user=user
+root@debian:~# partprobe
+root@debian:~# ls -l /dev/disk/by-id/wwn*|grep sdi
+lrwxrwxrwx 1 root root  9 Mar 10 19:56 /dev/disk/by-id/wwn-0x5000c5002ff22a4c -&gt; ../../sdi
+root@debian:~# 
+</code></pre>
+<h3 id="partition">Partition</h3>
+<pre><code class="language-text">sgdisk -a1 -n1:24K:+1000K -t1:EF02 $DISK
+sgdisk     -n2:1M:+512M   -t2:EF00 $DISK
+sgdisk     -n3:0:+1G      -t3:BF01 $DISK
+sgdisk     -n4:0:0        -t4:BF00 $DISK
+sgdisk -p $DISK
+</code></pre>
+<pre><code class="language-text">root@acorn3:~# sgdisk -a1 -n1:24K:+1000K -t1:EF02 $DISK
+Warning: Partition table header claims that the size of partition table
+entries is 0 bytes, but this program  supports only 128-byte entries.
+Adjusting accordingly, but partition table may be garbage.
+Warning: Partition table header claims that the size of partition table
+entries is 0 bytes, but this program  supports only 128-byte entries.
+Adjusting accordingly, but partition table may be garbage.
+Creating new GPT entries in memory.
+Warning: Setting alignment to a value that does not match the disk's
+physical block size! Performance degradation may result!
+Physical block size = 4096
+Logical block size = 512
+Optimal alignment = 8 or multiples thereof.
+The operation has completed successfully.
+root@acorn3:~# sgdisk     -n2:1M:+512M   -t2:EF00 $DISK
+The operation has completed successfully.
+root@acorn3:~# sgdisk     -n3:0:+1G      -t3:BF01 $DISK
+The operation has completed successfully.
+root@acorn3:~# sgdisk     -n4:0:0        -t4:BF00 $DISK
+The operation has completed successfully.
+root@acorn3:~# sgdisk -p $DISK
+Disk /dev/disk/by-id/wwn-0x5000c5002ff22a4c: 468862128 sectors, 223.6 GiB
+Sector size (logical/physical): 512/4096 bytes
+Disk identifier (GUID): ADDCB737-EF88-4B31-80B0-2F3881377244
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 468862094
+Partitions will be aligned on 16-sector boundaries
+Total free space is 14 sectors (7.0 KiB)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1              48            2047   1000.0 KiB  EF02  
+   2            2048         1050623   512.0 MiB   EF00  
+   3         1050624         3147775   1024.0 MiB  BF01  
+   4         3147776       468862094   222.1 GiB   BF00  
+root@acorn3:~# 
+</code></pre>
+<h3 id="create-pools">Create pools</h3>
+<pre><code class="language-text">zpool create \
+    -o ashift=12 \
+    -o autotrim=on -d \
+    -o cachefile=/etc/zfs/zpool.cache \
+    -o feature@async_destroy=enabled \
+    -o feature@bookmarks=enabled \
+    -o feature@embedded_data=enabled \
+    -o feature@empty_bpobj=enabled \
+    -o feature@enabled_txg=enabled \
+    -o feature@extensible_dataset=enabled \
+    -o feature@filesystem_limits=enabled \
+    -o feature@hole_birth=enabled \
+    -o feature@large_blocks=enabled \
+    -o feature@livelist=enabled \
+    -o feature@lz4_compress=enabled \
+    -o feature@spacemap_histogram=enabled \
+    -o feature@zpool_checkpoint=enabled \
+    -O devices=off \
+    -O acltype=posixacl -O xattr=sa \
+    -O compression=lz4 \
+    -O normalization=formD \
+    -O relatime=on \
+    -O canmount=off -O mountpoint=/boot -R /mnt \
+    bpool ${DISK}-part3
+</code></pre>
+<pre><code class="language-text">zpool create \
+    -o ashift=12 \
+    -o autotrim=on \
+    -O acltype=posixacl -O xattr=sa -O dnodesize=auto \
+    -O compression=lz4 \
+    -O normalization=formD \
+    -O relatime=on \
+    -O canmount=off -O mountpoint=/ -R /mnt \
+    rpool ${DISK}-part4
+</code></pre>
+<p>Result</p>
+<pre><code class="language-text">root@debian:~# zpool list
+NAME    SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+bpool   960M   624K   959M        -         -     0%     0%  1.00x    ONLINE  /mnt
+rpool   222G   420K   222G        -         -     0%     0%  1.00x    ONLINE  /mnt
+root@debian:~# zfs list -r
+NAME    USED  AVAIL     REFER  MOUNTPOINT
+bpool   444K   831M       96K  /mnt/boot
+rpool   420K   215G       96K  /mnt
+root@debian:~# 
+</code></pre>
+<h3 id="import-source-pools">Import source pools</h3>
+<p>Identify</p>
+<pre><code class="language-text">root@debian:~# zpool import
+...
+   pool: rpool
+     id: 4536037978216782426
+  state: ONLINE
+status: The pool was last accessed by another system.
+ action: The pool can be imported using its name or numeric identifier and
+        the '-f' flag.
+   see: https://openzfs.github.io/openzfs-docs/msg/ZFS-8000-EY
+ config:
+
+        rpool                                                      ONLINE
+          ata-WDC_WD10S21X-24R1BT0-SSHD-8GB_WD-WXA1A74CP57R-part4  ONLINE
+
+...
+   pool: bpool
+     id: 2081542946275218239
+  state: ONLINE
+status: The pool was last accessed by another system.
+ action: The pool can be imported using its name or numeric identifier and
+        the '-f' flag.
+   see: https://openzfs.github.io/openzfs-docs/msg/ZFS-8000-EY
+ config:
+
+        bpool                                                      ONLINE
+          ata-WDC_WD10S21X-24R1BT0-SSHD-8GB_WD-WXA1A74CP57R-part3  ONLINE
+root@debian:~# 
+</code></pre>
+<pre><code class="language-text">zpool import -f 4536037978216782426 rpool_old
+zpool import -f 2081542946275218239 bpool_old
+</code></pre>
+<pre><code class="language-text">root@debian:~# zpool import -f 4536037978216782426 rpool_old
+root@debian:~# zpool import -f 2081542946275218239 bpool_old
+root@debian:~# zpool list
+NAME        SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+bpool       960M   624K   959M        -         -     0%     0%  1.00x    ONLINE  /mnt
+bpool_old   960M   218M   742M        -         -     4%    22%  1.00x    ONLINE  -
+rpool       222G   420K   222G        -         -     0%     0%  1.00x    ONLINE  /mnt
+rpool_old    28G  16.5G  11.5G        -         -    34%    59%  1.00x    ONLINE  -
+root@debian:~# 
+</code></pre>
+<h3 id="sendrecv-pools">send/recv pools</h3>
+<p>send options<br />
+<code>-R</code>  replicate  </p>
+<p>recv options<br />
+<code>-F</code>  Force a rollback of the file system ... (required because <code>bpool_new</code> exists)<br />
+<code>-d</code>  Discard the first element of the sent snapshot's file system name  ...<br />
+<code>-u</code>  File system that is associated with the received stream is not mounted.  </p>
+<pre><code class="language-text">zfs snap -r bpool_old@migrate.2
+zfs send -R bpool_old@migrate.2  | mbuffer | zfs recv -F -d -u bpool
+
+zfs snap -r rpool_old@migrate.2 
+zfs send -R rpool_old@migrate.2  | mbuffer | zfs recv -F -d -u rpool
+</code></pre>
+<pre><code class="language-text">root@debian:~# zfs snap -r bpool_old@migrate.2
+root@debian:~# zfs send -R bpool_old@migrate.2  | mbuffer | zfs recv -F -d -u bpool
+in @ 71.9 MiB/s, out @ 71.9 MiB/s,  216 MiB total, buffer   0% full
+summary:  227 MiByte in  3.4sec - average of 67.8 MiB/s
+root@debian:~# zfs snap -r rpool_old@migrate.2 
+root@debian:~# zfs send -R rpool_old@migrate.2  | mbuffer | zfs recv -F -d -u rpool
+in @  0.0 kiB/s, out @  0.0 kiB/s, 24.4 GiB total, buffer   0% fullll
+summary: 24.4 GiByte in 10min 56.1sec - average of 38.1 MiB/s
+root@debian:~# 
+</code></pre>
+<p>Resulting filesystems (and comparison with source pools.)</p>
+<pre><code class="language-text">root@debian:~# zfs list -r bpool
+NAME                USED  AVAIL     REFER  MOUNTPOINT
+bpool               217M   615M       96K  /mnt/boot
+bpool/BOOT          216M   615M       96K  none
+bpool/BOOT/debian   216M   615M      129M  /mnt/boot
+root@debian:~# zfs list -r bpool_old
+NAME                    USED  AVAIL     REFER  MOUNTPOINT
+bpool_old               218M   614M       96K  /boot
+bpool_old/BOOT          216M   614M       96K  none
+bpool_old/BOOT/debian   216M   614M      129M  /boot
+root@debian:~# 
+root@debian:~# zfs list -r rpool -d2
+NAME                USED  AVAIL     REFER  MOUNTPOINT
+rpool              16.5G   199G       96K  /mnt
+rpool/ROOT         3.21G   199G       96K  none
+rpool/ROOT/debian  3.21G   199G     2.24G  /mnt
+rpool/home         11.3G   199G       96K  /mnt/home
+rpool/home/hbarta  11.3G   199G     10.9G  /mnt/home/hbarta
+rpool/home/root     908K   199G      264K  /mnt/root
+rpool/srv            96K   199G       96K  /mnt/srv
+rpool/usr          15.0M   199G       96K  /mnt/usr
+rpool/usr/local    14.9M   199G     14.4M  /mnt/usr/local
+rpool/var          1.93G   199G       96K  /mnt/var
+rpool/var/cache     517M   199G      355M  /mnt/var/cache
+rpool/var/games     152K   199G       96K  /mnt/var/games
+rpool/var/lib      1.28G   199G       96K  /mnt/var/lib
+rpool/var/log       148M   199G     98.6M  /mnt/var/log
+rpool/var/mail      152K   199G       96K  /mnt/var/mail
+rpool/var/snap      152K   199G       96K  /mnt/var/snap
+rpool/var/spool    1.75M   199G      436K  /mnt/var/spool
+rpool/var/tmp       768K   199G      120K  /mnt/var/tmp
+rpool/var/www       228K   199G      108K  /mnt/var/www
+root@debian:~# zfs list -r rpool_old -d2
+NAME                    USED  AVAIL     REFER  MOUNTPOINT
+rpool_old              16.6G  10.6G       96K  /
+rpool_old/ROOT         3.22G  10.6G       96K  none
+rpool_old/ROOT/debian  3.21G  10.6G     2.24G  /
+rpool_old/home         11.3G  10.6G       96K  /home
+rpool_old/home/hbarta  11.3G  10.6G     10.9G  /home/hbarta
+rpool_old/home/root     908K  10.6G      264K  /root
+rpool_old/srv            96K  10.6G       96K  /srv
+rpool_old/usr          15.0M  10.6G       96K  /usr
+rpool_old/usr/local    14.9M  10.6G     14.4M  /usr/local
+rpool_old/var          1.93G  10.6G       96K  /var
+rpool_old/var/cache     517M  10.6G      355M  /var/cache
+rpool_old/var/games     152K  10.6G       96K  /var/games
+rpool_old/var/lib      1.28G  10.6G       96K  /var/lib
+rpool_old/var/log       148M  10.6G     98.6M  /var/log
+rpool_old/var/mail      152K  10.6G       96K  /var/mail
+rpool_old/var/snap      152K  10.6G       96K  /var/snap
+rpool_old/var/spool    1.96M  10.6G      436K  /var/spool
+rpool_old/var/tmp       768K  10.6G      120K  /var/tmp
+rpool_old/var/www       228K  10.6G      108K  /var/www
+root@debian:~# 
+</code></pre>
+<h3 id="rescue">Rescue</h3>
+<p><code>zpool import</code> shows the original pools still named <code>rpool_old</code> and <code>bpool_old</code> so there is no confusion importing the new pools by name.</p>
+<pre><code class="language-text">zpool export -a
+zpool import -f -N -R /mnt rpool
+zpool import -f -N -R /mnt bpool
+zfs load-key -a # if any pools employ native encryption
+zfs mount rpool/ROOT/debian
+zfs mount -a
+</code></pre>
+<p>Result</p>
+<pre><code class="language-text">root@debian:~# zpool list
+NAME    SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+bpool   960M   217M   743M        -         -     1%    22%  1.00x    ONLINE  /mnt
+rpool   222G  16.5G   205G        -         -     0%     7%  1.00x    ONLINE  /mnt
+root@debian:~# df -h
+Filesystem                     Size  Used Avail Use% Mounted on
+udev                           7.8G     0  7.8G   0% /dev
+tmpfs                          1.6G  1.9M  1.6G   1% /run
+/dev/mapper/ventoy             3.5G  3.5G     0 100% /run/live/medium
+/dev/loop0                     2.9G  2.9G     0 100% /run/live/rootfs/filesystem.squashfs
+tmpfs                          7.9G  306M  7.6G   4% /run/live/overlay
+overlay                        7.9G  306M  7.6G   4% /
+tmpfs                          7.9G     0  7.9G   0% /dev/shm
+tmpfs                          5.0M     0  5.0M   0% /run/lock
+tmpfs                          7.9G  8.0K  7.9G   1% /tmp
+tmpfs                          1.6G  176K  1.6G   1% /run/user/1000
+/dev/sdh3                       94G   20G   70G  22% /media/user/extra
+rpool/ROOT/debian              201G  2.3G  199G   2% /mnt
+bpool/BOOT/debian              744M  129M  616M  18% /mnt/boot
+rpool/srv                      199G  128K  199G   1% /mnt/srv
+rpool/var/cache                199G  355M  199G   1% /mnt/var/cache
+rpool/home                     199G  128K  199G   1% /mnt/home
+rpool/var/games                199G  128K  199G   1% /mnt/var/games
+rpool/var/spool                199G  512K  199G   1% /mnt/var/spool
+rpool/usr/local                199G   15M  199G   1% /mnt/usr/local
+rpool/var/snap                 199G  128K  199G   1% /mnt/var/snap
+rpool/home/root                199G  384K  199G   1% /mnt/root
+rpool/var/log                  199G   99M  199G   1% /mnt/var/log
+rpool/var/lib/docker           199G   35M  199G   1% /mnt/var/lib/docker
+rpool/var/mail                 199G  128K  199G   1% /mnt/var/mail
+rpool/var/lib/AccountsService  199G  128K  199G   1% /mnt/var/lib/AccountsService
+rpool/var/lib/NetworkManager   199G  128K  199G   1% /mnt/var/lib/NetworkManager
+rpool/var/tmp                  199G  128K  199G   1% /mnt/var/tmp
+rpool/home/hbarta              210G   11G  199G   6% /mnt/home/hbarta
+rpool/var/www                  199G  128K  199G   1% /mnt/var/www
+rpool/var/lib/nfs              199G  128K  199G   1% /mnt/var/lib/nfs
+rpool/home/hbarta/Programming  199G  2.3M  199G   1% /mnt/home/hbarta/Programming
+root@debian:~# 
+</code></pre>
+<p>Chroot into new install</p>
+<pre><code class="language-text">root@debian:~# mount --make-private --rbind /dev  /mnt/dev
+root@debian:~# mount --make-private --rbind /proc /mnt/proc
+root@debian:~# mount --make-private --rbind /sys  /mnt/sys
+root@debian:~# mount -t tmpfs tmpfs /mnt/run
+root@debian:~# mkdir /mnt/run/lock
+root@debian:~# chroot /mnt /bin/bash --login
+root@debian:/# mount /boot
+mount: /boot: can't find in /etc/fstab.
+root@debian:/# cat /etc/fstab
+# UNCONFIGURED FSTAB FOR BASE SYSTEM
+root@debian:/# 
+</code></pre>
+<p><code>mount -a</code> seems to have no effect as all filesystems are already mounted.</p>
+<pre><code class="language-text">root@debian:/# df| wc -l
+24
+root@debian:/# mount -a
+root@debian:/# df| wc -l
+24
+root@debian:/# 
+</code></pre>
+<pre><code class="language-text">root@debian:/# df -h
+Filesystem                     Size  Used Avail Use% Mounted on
+rpool/ROOT/debian              201G  2.3G  199G   2% /
+bpool/BOOT/debian              744M  129M  616M  18% /boot
+rpool/srv                      199G  128K  199G   1% /srv
+rpool/var/cache                199G  355M  199G   1% /var/cache
+rpool/home                     199G  128K  199G   1% /home
+rpool/var/games                199G  128K  199G   1% /var/games
+rpool/var/spool                199G  512K  199G   1% /var/spool
+rpool/usr/local                199G   15M  199G   1% /usr/local
+rpool/var/snap                 199G  128K  199G   1% /var/snap
+rpool/home/root                199G  384K  199G   1% /root
+rpool/var/log                  199G   99M  199G   1% /var/log
+rpool/var/lib/docker           199G   35M  199G   1% /var/lib/docker
+rpool/var/mail                 199G  128K  199G   1% /var/mail
+rpool/var/lib/AccountsService  199G  128K  199G   1% /var/lib/AccountsService
+rpool/var/lib/NetworkManager   199G  128K  199G   1% /var/lib/NetworkManager
+rpool/var/tmp                  199G  128K  199G   1% /var/tmp
+rpool/home/hbarta              210G   11G  199G   6% /home/hbarta
+rpool/var/www                  199G  128K  199G   1% /var/www
+rpool/var/lib/nfs              199G  128K  199G   1% /var/lib/nfs
+rpool/home/hbarta/Programming  199G  2.3M  199G   1% /home/hbarta/Programming
+udev                           7.8G     0  7.8G   0% /dev
+tmpfs                          7.9G     0  7.9G   0% /dev/shm
+tmpfs                          7.9G     0  7.9G   0% /run
+root@debian:/# 
+</code></pre>
+<p>Perform sensible steps from <a href="https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bullseye%20Root%20on%20ZFS.html#step-4-system-configuration">https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bullseye%20Root%20on%20ZFS.html#step-4-system-configuration</a></p>
+<ul>
+<li>Confirm that <code>/dev/sdi</code> is the boot device.</li>
+<li><code>grub</code> is already installed.</li>
+<li><code>zfs-initramfs</code> is already installed.</li>
+<li><code>grub-probe /boot</code> reports <code>zfs</code>.</li>
+<li><code>update-initramfs -c -k all</code> generates entries for three kernels w/out reporting any problems.</li>
+<li><code>update-grub</code> finds the three initrd images and complains about <code>/dev/sdh2</code> (which is the USB holding the live image.)</li>
+<li><code>grub-install /dev/sdi</code> completes without error.</li>
+<li>Cache files for <code>rpool</code> and <code>bpool</code> exist and have the correct mount points (<code>/etc/zfs/zfs-list.cache/bpool</code> ands <code>/etc/zfs/zfs-list.cache/rpool</code>).</li>
+<li>The cache binary cache file <code>/etc/zfs/zpool.cache</code> appears to have the correct pool name but the wrong drive name. This does not seem to cause any problem.</li>
+<li>Exit the chroot.</li>
+<li>Unmount all <code>/mnt/...</code> mounts.</li>
+<li><code>zpool export -a</code> exports <code>bpool</code> but not <code>rpool</code> which is apparently a known issue.</li>
+<li>Power down.</li>
+<li>Remove live boot media, disconnect the original boot drive(s) and reboot, selecting the new SSD in the BIOS settings. (If the original boot drive is still attached, the system may import the original <code>rpool</code> instead of the new <code>rpool.</code>)</li>
+<li>On first boot from the new system, it may be necessary to <code>zpool import -f rpool</code> at the <code>(initramfs)</code> prompt.</li>
+</ul>
+<h2 id="errata">Errata</h2>
+<p>Despite renaming the pools on the original media, with the new SSD disconnected the original system booted but did not import the boot pool (now listed as <code>bpool_old</code>.) It was manually imported and given the original name name (<code>bpool</code>) and was automatically imported on subsequent boots.</p>
+<p>On the first try to boot the SSD with the original HDD still connected, the original root pool was imported as <code>rpool</code> and the new boot pool was imported as <code>bpool</code>. It seems likely that something in a cache file was pointing to the old root pool and that overrode the rename during the rescue operation.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
