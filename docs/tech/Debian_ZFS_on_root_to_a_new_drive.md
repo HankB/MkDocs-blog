@@ -4,6 +4,20 @@
 
 Old drives on a file server are old and decrepit and not long for this world. 
 
+## Contributing
+
+This description is licensed under `Creative Commons Zero v1.0 Universal`. I appreciate contributions including:
+
+* pointing out typos
+* identifying descriptions that are ambiguous or otherwise not clear
+* identifying obvious or not so obvious errors or ommisions
+* describing better ways to do any or all of this
+* anything else that improves these instructions
+
+Contributions can be submitted as issues or pull requests or direct contact. I will credit any contributors here.
+
+* Hank Barta - original version
+
 ## Initial setup
 
 DEBIAN 11 (Bullseye) with ZFS on root following the instructions at <https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bullseye%20Root%20on%20ZFS.html#>
