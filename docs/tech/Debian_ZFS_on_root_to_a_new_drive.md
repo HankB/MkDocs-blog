@@ -14,9 +14,16 @@ This description is licensed under `Creative Commons Zero v1.0 Universal`. I app
 * describing better ways to do any or all of this
 * anything else that improves these instructions
 
+Particular areas that would benefit
+
+* other ways to manage pool renaming
+* usage for systems that employ EFI boot
+
 Contributions can be submitted as issues or pull requests or direct contact. I will credit any contributors here.
 
 * Hank Barta - original version
+
+The actual repo for this document is <https://github.com/HankB/MkDocs-blog>.
 
 ## Initial setup
 
