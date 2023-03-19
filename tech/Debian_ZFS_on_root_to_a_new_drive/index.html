@@ -57,6 +57,10 @@
 </li>
                                     
 <li>
+    <a href="../Troubleshooting-Debian-root-on-ZFS/" class="dropdown-item">Troubleshooting Debian root on ZFS</a>
+</li>
+                                    
+<li>
     <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
 </li>
                                     
@@ -154,6 +158,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#alternatives" class="nav-link">Alternatives</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#errata" class="nav-link">Errata</a>
               <ul class="nav flex-column">
               </ul>
@@ -185,6 +193,7 @@
 <p>Contributions can be submitted as issues or pull requests or direct contact. I will credit any contributors here.</p>
 <ul>
 <li>Hank Barta - original version</li>
+<li>Sam Van den Eynde - clone w/out live environment and get renaming right</li>
 </ul>
 <p>The actual repo for this document is <a href="https://github.com/HankB/MkDocs-blog">https://github.com/HankB/MkDocs-blog</a>.</p>
 <h2 id="initial-setup">Initial setup</h2>
@@ -561,6 +570,8 @@ root@debian:/#
 <li>Remove live boot media, disconnect the original boot drive(s) and reboot, selecting the new SSD in the BIOS settings. (If the original boot drive is still attached, the system may import the original <code>rpool</code> instead of the new <code>rpool.</code>)</li>
 <li>On first boot from the new system, it may be necessary to <code>zpool import -f rpool</code> at the <code>(initramfs)</code> prompt.</li>
 </ul>
+<h2 id="alternatives">Alternatives</h2>
+<p><code>zfs-discuss</code> list user Sam Van den Eynde has described a procedure that does not require booting a live environment and manages the pool renaming issue that I struggled with in their email <a href="https://zfsonlinux.topicbox.com/groups/zfs-discuss/T536970860f9f34b4-Mb51bc8a885a9665639d79a13">https://zfsonlinux.topicbox.com/groups/zfs-discuss/T536970860f9f34b4-Mb51bc8a885a9665639d79a13</a></p>
 <h2 id="errata">Errata</h2>
 <p>Despite renaming the pools on the original media, with the new SSD disconnected the original system booted but did not import the boot pool (now listed as <code>bpool_old</code>.) It was manually imported and given the original name name (<code>bpool</code>) and was automatically imported on subsequent boots.</p>
 <p>On the first try to boot the SSD with the original HDD still connected, the original root pool was imported as <code>rpool</code> and the new boot pool was imported as <code>bpool</code>. It seems likely that something in a cache file was pointing to the old root pool and that overrode the rename during the rescue operation.</p></div>

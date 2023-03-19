@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Raspberry Pi - Hank's public Docs</title>
+        <title>Troubleshooting Debian root on ZFS - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -53,11 +53,11 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Raspberry Pi</a>
+    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
 </li>
                                     
 <li>
-    <a href="../Troubleshooting-Debian-root-on-ZFS/" class="dropdown-item">Troubleshooting Debian root on ZFS</a>
+    <a href="./" class="dropdown-item active">Troubleshooting Debian root on ZFS</a>
 </li>
                                     
 <li>
@@ -101,12 +101,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../OWI-535-Robot_Arm_Control_assembly/" class="nav-link">
+                                <a rel="prev" href="../Raspberry-Pi/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../Troubleshooting-Debian-root-on-ZFS/" class="nav-link">
+                                <a rel="next" href="../dphacks-CM4_Ether_Board/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -128,13 +128,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#raspberry-pi" class="nav-link">Raspberry Pi</a>
+            <li class="nav-item" data-level="1"><a href="#troubleshooting-debian-root-on-zfs" class="nav-link">Troubleshooting Debian root on ZFS</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#pi-4b" class="nav-link">Pi 4B</a>
+            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#pi-zero-w-2w-and-others" class="nav-link">Pi Zero, W, 2W and others</a>
+            <li class="nav-item" data-level="2"><a href="#contributions" class="nav-link">Contributions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#tldr-rescue" class="nav-link">TL;DR Rescue</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#cant-load-modules" class="nav-link">Can't load modules</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -145,37 +153,43 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="raspberry-pi">Raspberry Pi</h1>
-<h2 id="pi-4b">Pi 4B</h2>
-<p>Almost good enough to be a daily driver. Even overclocked, it can't play Youtube videos full screen smoothly. The main thing that hampers it IMO us the USB attachment to an SSD. I won't run one of these off an SD card as that's just not fast enough. My dream system for the Pi 4 is a compute module with a carrier that supports 4 SATA ports and has enough MMC to boot/root on.</p>
-<p>I've been preferentially running Debian on the one I use as a desktop. Raspberry Pi OS (R-Pi OS) is good enough for servers but I find the desktop too constraining. And I can't install my preferred desktop - Gnome - due to missing dependencies. I can install KDE and that's a whole 'nother discussion.</p>
-<p>I bounce back and forth between Bullseye (stable) and Bookworm (testing.) When I get bored of no drama on Bullseye I swap in an SSD that has Bookworm. I've submitted two bug reports so far, one of which was just closed this morning (2022-04-04.)</p>
-<p>Here are some tips for running Debian on a Pi 4B.</p>
-<ul>
-<li>The system will suspend just fine but I can't figure out how to unsuspend. The first thing I do on a new install is go into gnome settings and disable suspend. Then I tell Systemd and gnome not to suspend using the following commands. (Seems not to want to suspend with no DE installed.)</li>
-</ul>
-<pre><code class="language-text">sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+<h1 id="troubleshooting-debian-root-on-zfs">Troubleshooting Debian root on ZFS</h1>
+<h2 id="motivation">Motivation</h2>
+<p>I'm sorry to hear that users are having difficulties with Debian root on ZFS. I've been running my laptop that way since I bought it in 2019 and have also converted my desktop to root on ZFS. More recently I've put my server on ZFS root. I can't say this has all been without problems, but I have been able to overcome any difficulties fairly easily. My goal with this document is to identify problems I've encountered and list the solutions I've employed.</p>
+<p>These notes are focused on inability to boot. I use Debian so the notes are specific to that. Perhaps someone will submit a PR for other Linux distros.</p>
+<h2 id="contributions">Contributions</h2>
+<p>Are welcome for anything from typos and formatting to better information and corrections or additions. Submit as issues, PRs or via direct contact. The repo for this is at <a href="https://github.com/HankB/MkDocs-blog">https://github.com/HankB/MkDocs-blog</a></p>
+<h2 id="tldr-rescue">TL;DR Rescue</h2>
+<p>Some times all that is needs is to import the pools from a prompt provided within the startup (e.g. <code>enter the root password or hit &lt;ctrl&gt;D to continue</code> I may not have the wording correct, but that is the gist of it.) Enter the root password and then manually import the root and boot pools. I ran into this recently when moving root and boot pools to another drive. It was the <code>(initramfs)</code> prompt and it was not necessary to enter the root password, just type <code>zpool import -f rpool</code> Hit <code>&lt;ctrl&gt;D</code> and the system comes up normally. I don't know why this happens, but the fix is easy. At other times the <code>zfs import</code> command will report that no modules are loaded and attempts to load them do not succeed. This could mean that the <code>initramfs</code> was not rebuilt or the modules themselves ere not rebuilt. Some kind of rescue is needed.</p>
+<p>Debian leaves the previous kernel in the boot menu and the next thing I do is reboot and select the previous kernel. That should bring up the system with no difficulties. Then I try to rebuild the modules using</p>
+<pre><code class="language-text">dpkg-reconfigure zfs-dkms
 </code></pre>
-<ul>
-<li>If you install Bookworm, hold the <code>raspi-firmware</code> package until the fixed firmware is in the Testing repo. (<code>apt-mark hold raspi-firmware</code>) Or install from experimental. Or install from the tagged version <code>1.20220331</code>.</li>
-<li>The default setting for Ethernet is "unmanaged." It can be controlled using <code>ifdown eth0</code> / <code>ifup eth0</code> (but will be on again following the next reboot.) To let <code>NetworkManager</code> control, edit <code>/etc/NetworkManager/NetworkManager.conf</code> and change <code>managed=true</code> to <code>managed=false</code>. I'm not sure this is a complete fix for this issue as Ethernet will be back on the next boot regardless of the setting.</li>
-<li>Status of Bookworm seems pretty shaky right now. I get frequent loss of connection to the SSD and the only recovery is to pull power. Loss of connection to the SSD can lead to file corruption and may be the reason that my Bookworm installations seem to deteriorate with time.</li>
-<li>Using an SSD. You will really want a powered USB hub for this. SSDs that worked fine with a Pi 3B may not work well with a 4B because USB 3 supports the faster UAS driver and in turn that causes the SSD to require more power. You can disable UAS using <code>usb-storage.quirks</code> but I prefer the faster faster speed that UAS provides. I use the Wavlink Model: WL-UH3042P1 and power the Pi off the quick charge port. It's rated for 2.4A so I plug other accessories (mouse, keyboard) into the hub along with the SSD to reduce the power demands from the Pi.</li>
-<li>Overclocking is relatively straight forward. On my Nullseye install I have added the following to <code>/boot/firmware/config.txt</code></li>
-</ul>
-<pre><code class="language-text">arm_freq=2000
-over_voltage=6
-gpu_freq=750
+<p>Watch the output from this command to identify potential problems. If there are none, the system should then be able to boot the new kernel. If not, there may be other issues. Id so, read on.</p>
+<h2 id="cant-load-modules">Can't load modules</h2>
+<p>This usually means that either the modules were not built for the kernel or the initramfs was not rebuilt for the newer kernel. Usually the command listed above fixes this or helps to identify the problem. Problems I have run into include.</p>
+<h3 id="kernel-headers-not-installed">kernel headers not installed</h3>
+<p>If kernel headers are installed only for the specific (soon to be previous) kernel version, upgrading the kernel may not install the headers. On my Testing (currently Bookworm) laptop, I see the following headers listed.</p>
+<pre><code class="language-text">hbarta@rocinante:~/Documents/MkDocs-blog$ dpkg -l linux-headers*
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name                         Version      Architecture Description
++++-============================-============-============-=========================================================
+un  linux-headers                &lt;none&gt;       &lt;none&gt;       (no description available)
+ii  linux-headers-6.1.0-5-amd64  6.1.12-1     amd64        Header files for Linux 6.1.0-5-amd64
+ii  linux-headers-6.1.0-5-common 6.1.12-1     all          Common header files for Linux 6.1.0-5
+ii  linux-headers-6.1.0-6-amd64  6.1.15-1     amd64        Header files for Linux 6.1.0-6-amd64
+ii  linux-headers-6.1.0-6-common 6.1.15-1     all          Common header files for Linux 6.1.0-6
+un  linux-headers-686-pae        &lt;none&gt;       &lt;none&gt;       (no description available)
+ii  linux-headers-amd64          6.1.15-1     amd64        Header files for Linux amd64 configuration (meta-package)
+un  linux-headers-generic        &lt;none&gt;       &lt;none&gt;       (no description available)
+hbarta@rocinante:~/Documents/MkDocs-blog$ 
 </code></pre>
-<p>And have stress tested using a variety of stressers. The CPU temperature goes up to about 82°C max. I would be concerned if I was running that kind of load at all times, but I'm not.
-* CPU case. I like the FLIRC cases a lot. Big hunk of aluminum with a molded in protrusion that contacts the CPU through a small pad and does a great job of drawing heat from the processor. It's compoletely passive so it won't stop working if a fan fails because there is no fan needed.</p>
-<h2 id="pi-zero-w-2w-and-others">Pi Zero, W, 2W and others</h2>
-<ul>
-<li>Overlay FS and <code>unattended-upgrades</code> - No! I use some of these essentially as embedded systems so it seemed natural to employ the Overlay File System (R/O FS, Overlay FS) to reduce SD card failure. I run some of these on really cheap SD cards. I also prefer to keep <code>unattended-upgrades</code> installed to stay current with security upgrades. Unfortunately the two don't mix very well. The Overlay FS "overlays" the R/O FS with RAM so when <code>apt-get update</code> runs, it fills RAM with disk changes and results in "no space on /".</li>
-</ul>
-<p>On hosts that I have enabled Overlay RS, I have had to uninstall <code>unattended-upgrades</code>. I should look into PXE boot to see if systems that run from that can stay up to date and of course, not burn up SD cards. Unfortunately WiFi boot is problematic due to the need to establish an association before anything else can happen.</p></div>
+<p>It is the <code>linux-headers-amd64</code> package that will pull in the appropriate headers for the next kernel.</p>
+<h3 id="kernel-modules-not-built">kernel modules not built</h3>
+<p>This can happen when the kernel ABI changes and the corresponding changes to the ZFS packages have not yet been released. Supported kernel versions for ZFS releases can be viewed at <a href="https://github.com/openzfs/zfs/releases">https://github.com/openzfs/zfs/releases</a>. <em>Note:</em> That the modules may still build with an unsupported kernel version but there could be unexpected problems with operation.</p>
+<p>In this situation it may be possible to try a release that has not yet been packaged for the OS or perhaps even try an unrelease version of ZFS. My personal preference is to wait for the corresponding ZFS package to released and packaged for a new kernel. (This is usually not encountered on Debian Stable as the kernel version is not updated unless one is using a backported kernel.)</p>
+<p>Raspberry Pi OS does not (often? always?) rebuild the ZFS package, or at least the modules when a kernel is updated. The <code>dpkg-reconfigure zfs-dkms</code> command will fix this. Of course I have not found instructions for rooting Raspberry Pi OS on ZFS but these do exist for Ubuntu.</p></div>
             </div>
         </div>
 
