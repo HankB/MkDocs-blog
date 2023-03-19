@@ -22,6 +22,7 @@ Particular areas that would benefit
 Contributions can be submitted as issues or pull requests or direct contact. I will credit any contributors here.
 
 * Hank Barta - original version
+* Sam Van den Eynde - clone w/out live environment and get renaming right
 
 The actual repo for this document is <https://github.com/HankB/MkDocs-blog>.
 
@@ -456,6 +457,10 @@ Perform sensible steps from <https://openzfs.github.io/openzfs-docs/Getting%20St
 * Power down.
 * Remove live boot media, disconnect the original boot drive(s) and reboot, selecting the new SSD in the BIOS settings. (If the original boot drive is still attached, the system may import the original `rpool` instead of the new `rpool.`)
 * On first boot from the new system, it may be necessary to `zpool import -f rpool` at the `(initramfs)` prompt.
+
+## Alternatives
+
+`zfs-discuss` list user Sam Van den Eynde has described a procedure that does not require booting a live environment and manages the pool renaming issue that I struggled with in their email <https://zfsonlinux.topicbox.com/groups/zfs-discuss/T536970860f9f34b4-Mb51bc8a885a9665639d79a13>
 
 ## Errata
 
