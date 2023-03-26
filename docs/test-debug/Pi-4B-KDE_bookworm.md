@@ -1,12 +1,14 @@
-# KDE Bookworm
+# KDE Plasma X11 login hang
 
-Testing the KDE Plasma desktop on Debian Bookworm on a Pi 4B running the 64 bit Debian (not Raspberry Pi) OS.
+Host: Debian Bookworm on Raspberry Pi 4B (USB/SSD boot)
 
-## 2023-03-15 Previous
+Testing the KDE Plasma desktop on Debian Bookworm on a Pi 4B running the 64 bit Debian (not Raspberry Pi) OS. Bookworm is a pending Debian release which at present (2023-03-25) is in "hard freeze" and it is important to get all functionality working.
+
+## 2023-03-25 Previous
 
 During testing to confirm that the bug <https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700> had been fixed, it was noted that the desktop hung when logging in. In order to test the bug, the system was upgraded to Debian Unstable. When the system was on Debian Testing, the same issue occurred. Since Testing is in hard freeze (and to be released as Bookworm) the hang warranted further investigation  and on Bookworm. This Pi 4B is ordinarily run on a different SSD with Bullseye installed and has not had this problem.
 
-## 2023-03-15 Process
+## 2023-03-25 Process
 
 1. Image the SSD with  downloaded from <https://raspi.debian.net/tested-images/>.
 1. Boot and allow to resize and reboot and login. (Rebooting as necessary to get a session that did not exhibit the emmc timeout issue.)
@@ -28,7 +30,7 @@ After concluding that everything was good, I continued testing and found myself 
 1. Can't login.
 1. Add another user `arnold` and try to login as the new user. Still hangs.
 
-## Conclusion
+## ~~Conclusion~~ 2023-03-25
 
 Seems like a non-problem. Will continue to test. ... Sadly after some usage, login once again hangs. Will repeat the test.
 
@@ -54,3 +56,7 @@ Seems like a non-problem. Will continue to test. ... Sadly after some usage, log
 1. Login to X.org session. Login hangs.
 1. `systemctl restart sddm`
 1. Login to Wayland session. Login OK.
+
+## 2023-03-26 Filing a bug report
+
+1. Collect information
