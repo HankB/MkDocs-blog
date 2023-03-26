@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>KDE Bookworm - Hank's public Docs</title>
+        <title>KDE Plasma X11 login hang - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -88,7 +88,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">KDE Bookworm</a>
+    <a href="./" class="dropdown-item active">KDE Plasma X11 login hang</a>
 </li>
                                     
 <li>
@@ -132,17 +132,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#kde-bookworm" class="nav-link">KDE Bookworm</a>
+            <li class="nav-item" data-level="1"><a href="#kde-plasma-x11-login-hang" class="nav-link">KDE Plasma X11 login hang</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#2023-03-15-previous" class="nav-link">2023-03-15 Previous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#2023-03-15-process" class="nav-link">2023-03-15 Process</a>
+            <li class="nav-item" data-level="2"><a href="#2023-03-25-previous" class="nav-link">2023-03-25 Previous</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
+            <li class="nav-item" data-level="2"><a href="#2023-03-25-process" class="nav-link">2023-03-25 Process</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conclusion-2023-03-25" class="nav-link">~~Conclusion~~ 2023-03-25</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2023-03-26-filing-a-bug-report" class="nav-link">2023-03-26 Filing a bug report</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -153,11 +157,12 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="kde-bookworm">KDE Bookworm</h1>
-<p>Testing the KDE Plasma desktop on Debian Bookworm on a Pi 4B running the 64 bit Debian (not Raspberry Pi) OS.</p>
-<h2 id="2023-03-15-previous">2023-03-15 Previous</h2>
+<h1 id="kde-plasma-x11-login-hang">KDE Plasma X11 login hang</h1>
+<p>Host: Debian Bookworm on Raspberry Pi 4B (USB/SSD boot)</p>
+<p>Testing the KDE Plasma desktop on Debian Bookworm on a Pi 4B running the 64 bit Debian (not Raspberry Pi) OS. Bookworm is a pending Debian release which at present (2023-03-25) is in "hard freeze" and it is important to get all functionality working.</p>
+<h2 id="2023-03-25-previous">2023-03-25 Previous</h2>
 <p>During testing to confirm that the bug <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700</a> had been fixed, it was noted that the desktop hung when logging in. In order to test the bug, the system was upgraded to Debian Unstable. When the system was on Debian Testing, the same issue occurred. Since Testing is in hard freeze (and to be released as Bookworm) the hang warranted further investigation  and on Bookworm. This Pi 4B is ordinarily run on a different SSD with Bullseye installed and has not had this problem.</p>
-<h2 id="2023-03-15-process">2023-03-15 Process</h2>
+<h2 id="2023-03-25-process">2023-03-25 Process</h2>
 <ol>
 <li>Image the SSD with  downloaded from <a href="https://raspi.debian.net/tested-images/">https://raspi.debian.net/tested-images/</a>.</li>
 <li>Boot and allow to resize and reboot and login. (Rebooting as necessary to get a session that did not exhibit the emmc timeout issue.)</li>
@@ -179,7 +184,7 @@
 <li>Can't login.</li>
 <li>Add another user <code>arnold</code> and try to login as the new user. Still hangs.</li>
 </ol>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion-2023-03-25">~~Conclusion~~ 2023-03-25</h2>
 <p>Seems like a non-problem. Will continue to test. ... Sadly after some usage, login once again hangs. Will repeat the test.</p>
 <ol>
 <li>Image the SSD with  downloaded from <a href="https://raspi.debian.net/tested-images/">https://raspi.debian.net/tested-images/</a>.</li>
@@ -204,6 +209,10 @@
 <li>Login to X.org session. Login hangs.</li>
 <li><code>systemctl restart sddm</code></li>
 <li>Login to Wayland session. Login OK.</li>
+</ol>
+<h2 id="2023-03-26-filing-a-bug-report">2023-03-26 Filing a bug report</h2>
+<ol>
+<li>Collect information</li>
 </ol></div>
             </div>
         </div>
