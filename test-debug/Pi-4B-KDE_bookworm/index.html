@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Troubleshooting Debian root on ZFS - Hank's public Docs</title>
+        <title>KDE Bookworm - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -36,32 +36,32 @@
                             <li class="navitem">
                                 <a href="../.." class="nav-link">Hank's Docs home page</a>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../Debian_ZFS_on_root_to_a_new_drive/" class="dropdown-item">Debian Root on ZFS to a new drive</a>
+    <a href="../../tech/Debian_ZFS_on_root_to_a_new_drive/" class="dropdown-item">Debian Root on ZFS to a new drive</a>
 </li>
                                     
 <li>
-    <a href="../ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
+    <a href="../../tech/ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
 </li>
                                     
 <li>
-    <a href="../OWI-535-Robot_Arm_Control_assembly/" class="dropdown-item">OWI-535 Robot Arm Control assembly</a>
+    <a href="../../tech/OWI-535-Robot_Arm_Control_assembly/" class="dropdown-item">OWI-535 Robot Arm Control assembly</a>
 </li>
                                     
 <li>
-    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
+    <a href="../../tech/Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Troubleshooting Debian root on ZFS</a>
+    <a href="../../tech/Troubleshooting-Debian-root-on-ZFS/" class="dropdown-item">Troubleshooting Debian root on ZFS</a>
 </li>
                                     
 <li>
-    <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
+    <a href="../../tech/dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -69,30 +69,30 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../data/benchmarks/" class="dropdown-item">CM4 benchmarks</a>
+    <a href="../../tech/data/benchmarks/" class="dropdown-item">CM4 benchmarks</a>
 </li>
     </ul>
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../test-debug/Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
+    <a href="../Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
 </li>
                                     
 <li>
-    <a href="../../test-debug/Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
+    <a href="../Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
 </li>
                                     
 <li>
-    <a href="../../test-debug/Pi-4B-KDE_bookworm/" class="dropdown-item">KDE Bookworm</a>
+    <a href="./" class="dropdown-item active">KDE Bookworm</a>
 </li>
                                     
 <li>
-    <a href="../../test-debug/Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
+    <a href="../Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
 </li>
                                 </ul>
                             </li>
@@ -105,12 +105,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Raspberry-Pi/" class="nav-link">
+                                <a rel="prev" href="../Pi-4B-Bookworm-testing/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../dphacks-CM4_Ether_Board/" class="nav-link">
+                                <a rel="next" href="../Pi-4B-firmware/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -132,21 +132,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#troubleshooting-debian-root-on-zfs" class="nav-link">Troubleshooting Debian root on ZFS</a>
+            <li class="nav-item" data-level="1"><a href="#kde-bookworm" class="nav-link">KDE Bookworm</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#contributions" class="nav-link">Contributions</a>
+            <li class="nav-item" data-level="2"><a href="#2023-03-15-previous" class="nav-link">2023-03-15 Previous</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#tldr-rescue" class="nav-link">TL;DR Rescue</a>
+            <li class="nav-item" data-level="2"><a href="#2023-03-15-process" class="nav-link">2023-03-15 Process</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#cant-load-modules" class="nav-link">Can't load modules</a>
+            <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -157,43 +153,58 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="troubleshooting-debian-root-on-zfs">Troubleshooting Debian root on ZFS</h1>
-<h2 id="motivation">Motivation</h2>
-<p>I'm sorry to hear that users are having difficulties with Debian root on ZFS. I've been running my laptop that way since I bought it in 2019 and have also converted my desktop to root on ZFS. More recently I've put my server on ZFS root. I can't say this has all been without problems, but I have been able to overcome any difficulties fairly easily. My goal with this document is to identify problems I've encountered and list the solutions I've employed.</p>
-<p>These notes are focused on inability to boot. I use Debian so the notes are specific to that. Perhaps someone will submit a PR for other Linux distros.</p>
-<h2 id="contributions">Contributions</h2>
-<p>Are welcome for anything from typos and formatting to better information and corrections or additions. Submit as issues, PRs or via direct contact. The repo for this is at <a href="https://github.com/HankB/MkDocs-blog">https://github.com/HankB/MkDocs-blog</a></p>
-<h2 id="tldr-rescue">TL;DR Rescue</h2>
-<p>Some times all that is needs is to import the pools from a prompt provided within the startup (e.g. <code>enter the root password or hit &lt;ctrl&gt;D to continue</code> I may not have the wording correct, but that is the gist of it.) Enter the root password and then manually import the root and boot pools. I ran into this recently when moving root and boot pools to another drive. It was the <code>(initramfs)</code> prompt and it was not necessary to enter the root password, just type <code>zpool import -f rpool</code> Hit <code>&lt;ctrl&gt;D</code> and the system comes up normally. I don't know why this happens, but the fix is easy. At other times the <code>zfs import</code> command will report that no modules are loaded and attempts to load them do not succeed. This could mean that the <code>initramfs</code> was not rebuilt or the modules themselves ere not rebuilt. Some kind of rescue is needed.</p>
-<p>Debian leaves the previous kernel in the boot menu and the next thing I do is reboot and select the previous kernel. That should bring up the system with no difficulties. Then I try to rebuild the modules using</p>
-<pre><code class="language-text">dpkg-reconfigure zfs-dkms
-</code></pre>
-<p>Watch the output from this command to identify potential problems. If there are none, the system should then be able to boot the new kernel. If not, there may be other issues. Id so, read on.</p>
-<h2 id="cant-load-modules">Can't load modules</h2>
-<p>This usually means that either the modules were not built for the kernel or the initramfs was not rebuilt for the newer kernel. Usually the command listed above fixes this or helps to identify the problem. Problems I have run into include.</p>
-<h3 id="kernel-headers-not-installed">kernel headers not installed</h3>
-<p>If kernel headers are installed only for the specific (soon to be previous) kernel version, upgrading the kernel may not install the headers. On my Testing (currently Bookworm) laptop, I see the following headers listed.</p>
-<pre><code class="language-text">hbarta@rocinante:~/Documents/MkDocs-blog$ dpkg -l linux-headers*
-Desired=Unknown/Install/Remove/Purge/Hold
-| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
-|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
-||/ Name                         Version      Architecture Description
-+++-============================-============-============-=========================================================
-un  linux-headers                &lt;none&gt;       &lt;none&gt;       (no description available)
-ii  linux-headers-6.1.0-5-amd64  6.1.12-1     amd64        Header files for Linux 6.1.0-5-amd64
-ii  linux-headers-6.1.0-5-common 6.1.12-1     all          Common header files for Linux 6.1.0-5
-ii  linux-headers-6.1.0-6-amd64  6.1.15-1     amd64        Header files for Linux 6.1.0-6-amd64
-ii  linux-headers-6.1.0-6-common 6.1.15-1     all          Common header files for Linux 6.1.0-6
-un  linux-headers-686-pae        &lt;none&gt;       &lt;none&gt;       (no description available)
-ii  linux-headers-amd64          6.1.15-1     amd64        Header files for Linux amd64 configuration (meta-package)
-un  linux-headers-generic        &lt;none&gt;       &lt;none&gt;       (no description available)
-hbarta@rocinante:~/Documents/MkDocs-blog$ 
-</code></pre>
-<p>It is the <code>linux-headers-amd64</code> package that will pull in the appropriate headers for the next kernel.</p>
-<h3 id="kernel-modules-not-built">kernel modules not built</h3>
-<p>This can happen when the kernel ABI changes and the corresponding changes to the ZFS packages have not yet been released. Supported kernel versions for ZFS releases can be viewed at <a href="https://github.com/openzfs/zfs/releases">https://github.com/openzfs/zfs/releases</a>. <em>Note:</em> That the modules may still build with an unsupported kernel version but there could be unexpected problems with operation.</p>
-<p>In this situation it may be possible to try a release that has not yet been packaged for the OS or perhaps even try an unrelease version of ZFS. My personal preference is to wait for the corresponding ZFS package to released and packaged for a new kernel. (This is usually not encountered on Debian Stable as the kernel version is not updated unless one is using a backported kernel.)</p>
-<p>Raspberry Pi OS does not (often? always?) rebuild the ZFS package, or at least the modules when a kernel is updated. The <code>dpkg-reconfigure zfs-dkms</code> command will fix this. Of course I have not found instructions for rooting Raspberry Pi OS on ZFS but these do exist for Ubuntu.</p></div>
+<h1 id="kde-bookworm">KDE Bookworm</h1>
+<p>Testing the KDE Plasma desktop on Debian Bookworm on a Pi 4B running the 64 bit Debian (not Raspberry Pi) OS.</p>
+<h2 id="2023-03-15-previous">2023-03-15 Previous</h2>
+<p>During testing to confirm that the bug <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700</a> had been fixed, it was noted that the desktop hung when logging in. In order to test the bug, the system was upgraded to Debian Unstable. When the system was on Debian Testing, the same issue occurred. Since Testing is in hard freeze (and to be released as Bookworm) the hang warranted further investigation  and on Bookworm. This Pi 4B is ordinarily run on a different SSD with Bullseye installed and has not had this problem.</p>
+<h2 id="2023-03-15-process">2023-03-15 Process</h2>
+<ol>
+<li>Image the SSD with  downloaded from <a href="https://raspi.debian.net/tested-images/">https://raspi.debian.net/tested-images/</a>.</li>
+<li>Boot and allow to resize and reboot and login. (Rebooting as necessary to get a session that did not exhibit the emmc timeout issue.)</li>
+<li>Housekeeping: hostname (<code>charm</code>), time zone, install <code>sudo</code> and <code>vim</code> and add user <code>hbarta</code>.</li>
+<li><code>apt update</code>, <code>apt upgrade</code></li>
+<li>Install a kernel (from Unstable) <code>linux-image-6.1.0-7-arm64_6.1.20-1_arm64.deb</code> downloaded from <a href="https://packages.debian.org/sid/linux-image-6.1.0-7-arm64">https://packages.debian.org/sid/linux-image-6.1.0-7-arm64</a>. No additional dependencies were required.</li>
+<li>Reboot.</li>
+<li>Install a minimal KDE Plasma desktop (<code>apt install plasma-desktop</code>)</li>
+<li>Reboot. No DM. No <code>xinit</code>. No <code>startx</code>. Went ahead and installed <code>sddm</code>.</li>
+<li>Start <code>sddm</code> which brings up DM.</li>
+<li>Login in. Works as expected. Logout.</li>
+<li>Login using Wayland. Works as expected.</li>
+</ol>
+<p>After concluding that everything was good, I continued testing and found myself unable to log in again. Additional operations included:</p>
+<ol>
+<li>Install Chromium and Konsole.</li>
+<li>Overclocking to 2MHz</li>
+<li>Back out of the overclock.</li>
+<li>Can't login.</li>
+<li>Add another user <code>arnold</code> and try to login as the new user. Still hangs.</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>Seems like a non-problem. Will continue to test. ... Sadly after some usage, login once again hangs. Will repeat the test.</p>
+<ol>
+<li>Image the SSD with  downloaded from <a href="https://raspi.debian.net/tested-images/">https://raspi.debian.net/tested-images/</a>.</li>
+<li>Boot and allow to resize and reboot and login. (Rebooting as necessary to get a session that did not exhibit the emmc timeout issue.)</li>
+<li>Housekeeping: hostname (<code>charm</code>), time zone and add user <code>hbarta</code>.</li>
+<li><code>apt update</code>, <code>apt upgrade</code></li>
+<li>Install a kernel (from Unstable) <code>linux-image-6.1.0-7-arm64_6.1.20-1_arm64.deb</code> downloaded from <a href="https://packages.debian.org/sid/linux-image-6.1.0-7-arm64">https://packages.debian.org/sid/linux-image-6.1.0-7-arm64</a>. No additional dependencies were required.</li>
+<li><code>apt install plasma-desktop sddm konsole chromium vim -y</code></li>
+<li>Reboot.</li>
+<li>Login (defaults to Wayland) and looks OK.</li>
+<li>Logout and start monitors <code>dmesg -follow</code>, <code>cd /var/log;tail -f Xorg.0.log</code></li>
+<li>Login (Wayland) and all looks good.</li>
+<li>Logout</li>
+<li>Login (Wayland) and all looks good.</li>
+<li>Start and exit Konsole</li>
+<li>Start and exit Chromium</li>
+<li>logout and login</li>
+<li>Open Chromium. and open google.com. OK. Try to open second page and browser is foobar. Doesn't echo typing, finally able to open a second page (local MkDocs notes) and display is incomplete.</li>
+<li>Open system monitor and Konsole and they work OK. Close all and logout.</li>
+<li>Login to X.org session. Login hangs.</li>
+<li><code>systemctl restart sddm</code></li>
+<li>Login to X.org session. Login hangs.</li>
+<li><code>systemctl restart sddm</code></li>
+<li>Login to Wayland session. Login OK.</li>
+</ol></div>
             </div>
         </div>
 
