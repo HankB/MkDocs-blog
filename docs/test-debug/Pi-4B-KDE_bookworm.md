@@ -2,6 +2,8 @@
 
 Host: Debian Bookworm on Raspberry Pi 4B (USB/SSD boot)
 
+Reported at <https://bugs.kde.org/show_bug.cgi?id=467812>
+
 Testing the KDE Plasma desktop on Debian Bookworm on a Pi 4B running the 64 bit Debian (not Raspberry Pi) OS. Bookworm is a pending Debian release which at present (2023-03-25) is in "hard freeze" and it is important to get all functionality working.
 
 ## 2023-03-25 Previous
@@ -60,3 +62,17 @@ Seems like a non-problem. Will continue to test. ... Sadly after some usage, log
 ## 2023-03-26 Filing a bug report
 
 1. Collect information
+1. Prepare pastebin content
+
+## 2023-03-26 try XFCE
+
+Test two things:
+
+1. X11 works with another DE
+1. XFCE installs `lightdm`, can test that with KDE
+
+Result: 
+
+* XFCE (on X11) starts w/out issue using `lightdm` or `sddm`. 
+* Plasma/X11 hangs when started using `lightdm`.
+* Plasma/Wayland starts normally from `lightdm`.
