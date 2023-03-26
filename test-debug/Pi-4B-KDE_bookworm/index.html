@@ -150,6 +150,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#2023-03-26-try-xfce" class="nav-link">2023-03-26 try XFCE</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -159,6 +163,7 @@
 
 <h1 id="kde-plasma-x11-login-hang">KDE Plasma X11 login hang</h1>
 <p>Host: Debian Bookworm on Raspberry Pi 4B (USB/SSD boot)</p>
+<p>Reported at <a href="https://bugs.kde.org/show_bug.cgi?id=467812">https://bugs.kde.org/show_bug.cgi?id=467812</a></p>
 <p>Testing the KDE Plasma desktop on Debian Bookworm on a Pi 4B running the 64 bit Debian (not Raspberry Pi) OS. Bookworm is a pending Debian release which at present (2023-03-25) is in "hard freeze" and it is important to get all functionality working.</p>
 <h2 id="2023-03-25-previous">2023-03-25 Previous</h2>
 <p>During testing to confirm that the bug <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700</a> had been fixed, it was noted that the desktop hung when logging in. In order to test the bug, the system was upgraded to Debian Unstable. When the system was on Debian Testing, the same issue occurred. Since Testing is in hard freeze (and to be released as Bookworm) the hang warranted further investigation  and on Bookworm. This Pi 4B is ordinarily run on a different SSD with Bullseye installed and has not had this problem.</p>
@@ -213,7 +218,20 @@
 <h2 id="2023-03-26-filing-a-bug-report">2023-03-26 Filing a bug report</h2>
 <ol>
 <li>Collect information</li>
-</ol></div>
+<li>Prepare pastebin content</li>
+</ol>
+<h2 id="2023-03-26-try-xfce">2023-03-26 try XFCE</h2>
+<p>Test two things:</p>
+<ol>
+<li>X11 works with another DE</li>
+<li>XFCE installs <code>lightdm</code>, can test that with KDE</li>
+</ol>
+<p>Result: </p>
+<ul>
+<li>XFCE (on X11) starts w/out issue using <code>lightdm</code> or <code>sddm</code>. </li>
+<li>Plasma/X11 hangs when started using <code>lightdm</code>.</li>
+<li>Plasma/Wayland starts normally from <code>lightdm</code>.</li>
+</ul></div>
             </div>
         </div>
 
