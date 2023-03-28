@@ -76,3 +76,5 @@ Result:
 * XFCE (on X11) starts w/out issue using `lightdm` or `sddm`. 
 * Plasma/X11 hangs when started using `lightdm`.
 * Plasma/Wayland starts normally from `lightdm`.
+
+Bug report at <https://bugs.kde.org/show_bug.cgi?id=467812>
