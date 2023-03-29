@@ -177,6 +177,12 @@ CONSOLES="ttyS1,115200"root@cm4iob:~#
 root@cm4iob:~# 
 ```
 
+## 2023-03-29 focus on SD boot failure when PCIe card is present
+
+### Marvell PCIe/SATA adapter
+
+Successful boot [dmesg](./dmesg-SD-Debian-ASMedia_successful.txt) and [serial](./minicom-SD-Debian-ASMedia_success.cap.txt)
+
 ## TODO
 
 * ~~Report more information on the PCIe/SATA adapters.~~
