@@ -177,6 +177,12 @@ CONSOLES="ttyS1,115200"root@cm4iob:~#
 root@cm4iob:~# 
 ```
 
+Then run the following. Result will be additional serial debug information and no output to the screen.
+
+```text
+/etc/initramfs/post-update.d/z50-raspi-firmware
+```
+
 ## 2023-03-29 focus on SD boot failure when PCIe card is present
 
 ### Marvell PCIe/SATA adapter
