@@ -189,6 +189,8 @@ Then run the following. Result will be additional serial debug information and n
 
 Successful boot [dmesg](./dmesg-SD-Debian-ASMedia_successful.txt) and [serial](./minicom-SD-Debian-ASMedia_success.cap.txt)
 
+Kernel panic [serial capture](./minicom-SD-Debian-ASMedia_panic.cap.txt)
+
 ### Marvell PCIe/SATA adapter
 
 Kernel panic, [serial capture](./minicom-SD_Debian-Marvell-panic.cap.txt)
