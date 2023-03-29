@@ -320,9 +320,14 @@ root@cm4iob:~# tail /etc/default/raspi-firmware
 CONSOLES=&quot;ttyS1,115200&quot;root@cm4iob:~# 
 root@cm4iob:~# 
 </code></pre>
+<p>Then run the following. Result will be additional serial debug information and no output to the screen.</p>
+<pre><code class="language-text">/etc/initramfs/post-update.d/z50-raspi-firmware
+</code></pre>
 <h2 id="2023-03-29-focus-on-sd-boot-failure-when-pcie-card-is-present">2023-03-29 focus on SD boot failure when PCIe card is present</h2>
-<h3 id="marvell-pciesata-adapter">Marvell PCIe/SATA adapter</h3>
+<h3 id="asmedia-pciesata-adapter_1">ASMedia PCIe/SATA adapter</h3>
 <p>Successful boot <a href="../dmesg-SD-Debian-ASMedia_successful.txt">dmesg</a> and <a href="../minicom-SD-Debian-ASMedia_success.cap.txt">serial</a></p>
+<h3 id="marvell-pciesata-adapter">Marvell PCIe/SATA adapter</h3>
+<p>Kernel panic, <a href="../minicom-SD_Debian-Marvell-panic.cap.txt">serial capture</a></p>
 <h2 id="todo">TODO</h2>
 <ul>
 <li>~~Report more information on the PCIe/SATA adapters.~~</li>
