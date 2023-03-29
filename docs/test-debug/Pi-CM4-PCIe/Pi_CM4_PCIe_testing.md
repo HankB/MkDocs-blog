@@ -185,9 +185,13 @@ Then run the following. Result will be additional serial debug information and n
 
 ## 2023-03-29 focus on SD boot failure when PCIe card is present
 
-### Marvell PCIe/SATA adapter
+### ASMedia PCIe/SATA adapter
 
 Successful boot [dmesg](./dmesg-SD-Debian-ASMedia_successful.txt) and [serial](./minicom-SD-Debian-ASMedia_success.cap.txt)
+
+### Marvell PCIe/SATA adapter
+
+Kernel panic, [serial capture](./minicom-SD_Debian-Marvell-panic.cap.txt)
 
 ## TODO
 
