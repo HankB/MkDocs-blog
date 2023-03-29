@@ -179,7 +179,7 @@ root@cm4iob:~#
 
 ## TODO
 
-* ~~~Report more information on the PCIe/SATA adapters.~~~
-* ~~~Report `dmesg` output for various combinations (where boot was successful.)~~~
-* ~~~Perform serial debug for "didn't boot" scenarios.~~~
-* ~~~Search for tweaks to boot CM4 from PCIe/SATA.~~~
+* ~~Report more information on the PCIe/SATA adapters.~~
+* ~~Report `dmesg` output for various combinations (where boot was successful.)~~
+* ~~Perform serial debug for "didn't boot" scenarios.~~
+* ~~Search for tweaks to boot CM4 from PCIe/SATA.~~
