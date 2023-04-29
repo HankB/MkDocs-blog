@@ -78,3 +78,11 @@ Result:
 * Plasma/Wayland starts normally from `lightdm`.
 
 Bug report at <https://bugs.kde.org/show_bug.cgi?id=467812>
+
+## 2023-04-29 further patches to test.
+
+Ref: <https://lore.kernel.org/all/20230428223500.23337-5-jim2101024@gmail.com/> and <https://lore.kernel.org/all/20230428223500.23337-1-jim2101024@gmail.com/>  
+Suggested by kibi 
+
+> fetch the patch series from the LKML, and apply it either on the base commit mentioned there, or to current mainline master  
+>(b4 is super useful, `b4 mbox $message_id` and you got an mbox ready to `git am`)
