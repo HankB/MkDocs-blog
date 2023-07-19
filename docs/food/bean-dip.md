@@ -8,12 +8,12 @@ Inspired by my love of Pinto beans and Hummus. I started making this as a riff o
 * 1/2 tsp whole Cumin, toasted until fragrant then ground.
 * 3 oz (by weight) sharp cheddar.
 * 1 Jalapeno or equivalent, finely chopped.
-* 1 Tbsp lenon juice.
+* 1 Tbsp lemon juice.
 * chopped fresh Cilantro for garnish.
 
 ## Process
 
-1. Heat the beans, cheese and ground Cumin un a mycowave until warm enough to melt the cheese and mix well. (No reason not to heat on the stove top as long as you are attentive not to burn anything.)
+1. Heat the beans, cheese and ground Cumin in a microwave until warm enough to melt the cheese and mix well. (No reason not to heat on the stove top as long as you are attentive not to burn anything.)
 1. Add the chopped Jalapeno at any convenient time.
 1. Add the lemon juice after everything is blended and has cooled enough to not cook the juice.
 
