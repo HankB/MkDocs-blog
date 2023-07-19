@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Pi 4B Bookworm testing - Hank's public Docs</title>
+        <title>Bean Dip - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -36,12 +36,12 @@
                             <li class="navitem">
                                 <a href="../.." class="nav-link">Hank's Docs home page</a>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Food <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../food/bean-dip/" class="dropdown-item">Bean Dip</a>
+    <a href="./" class="dropdown-item active">Bean Dip</a>
 </li>
                                 </ul>
                             </li>
@@ -84,24 +84,24 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
+    <a href="../../test-debug/Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Pi 4B Bookworm testing</a>
+    <a href="../../test-debug/Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
 </li>
                                     
 <li>
-    <a href="../Pi-4B-KDE_bookworm/" class="dropdown-item">KDE Plasma X11 login hang</a>
+    <a href="../../test-debug/Pi-4B-KDE_bookworm/" class="dropdown-item">KDE Plasma X11 login hang</a>
 </li>
                                     
 <li>
-    <a href="../Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
+    <a href="../../test-debug/Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -109,7 +109,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../Pi-CM4-PCIe/Pi_CM4_PCIe_testing/" class="dropdown-item">Pi CM4 PCIe testing</a>
+    <a href="../../test-debug/Pi-CM4-PCIe/Pi_CM4_PCIe_testing/" class="dropdown-item">Pi CM4 PCIe testing</a>
 </li>
     </ul>
   </li>
@@ -124,12 +124,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Pi-4B-Bookworm-WiFi/" class="nav-link">
+                                <a rel="prev" href="../.." class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../Pi-4B-KDE_bookworm/" class="nav-link">
+                                <a rel="next" href="../../tech/Debian_ZFS_on_root_to_a_new_drive/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -151,13 +151,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#pi-4b-bookworm-testing" class="nav-link">Pi 4B Bookworm testing</a>
+            <li class="nav-item" data-level="1"><a href="#bean-dip" class="nav-link">Bean Dip</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#procedure" class="nav-link">Procedure</a>
+            <li class="nav-item" data-level="2"><a href="#ingredients" class="nav-link">Ingredients</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#results" class="nav-link">Results</a>
+            <li class="nav-item" data-level="2"><a href="#process" class="nav-link">Process</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#serve" class="nav-link">Serve</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#options" class="nav-link">Options</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -168,54 +176,32 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="pi-4b-bookworm-testing">Pi 4B Bookworm testing</h1>
-<p>Determine if some previous bugs have been fixed in more recent kernels. Bugs fell into two areas:</p>
+<h1 id="bean-dip">Bean Dip</h1>
+<p>Inspired by my love of Pinto beans and Hummus. I started making this as a riff on Hummus but using Pinto beans instead of Chickpeas and using Mexican flavors.</p>
+<h2 id="ingredients">Ingredients</h2>
 <ul>
-<li>vc4 module - this included a use-after-free as well as other issues reported in <code>dmesg</code>.</li>
-<li>SD card timeout - Timeout message repeated every 10s. This had manifested previously and a workaround was to insert an SD card into the slot and the messages stopped. This time that does not work. Further characteristics of the present situation:</li>
-<li>doesn't boot</li>
-<li>Boots from attached USB SSD skipping the SD card.</li>
-<li>No /dev/mmc* after boot accompanied by no WiFi.</li>
-<li>/dev/mmc* entries, can mount and read card and after several more timeout messages, they stop.</li>
-<li>When the timeout messages are being reported, the system cannot complete shutdown to reboot. It is necessary to remove power from the system.</li>
-<li>Normal boot, no mmc timeouts and apparently normal operation.</li>
+<li>1 16 oz. can of refried Pinto beans (Vegetarian is what I used - not sure how important that is.)</li>
+<li>1/2 tsp whole Cumin, toasted until fragrant then ground.</li>
+<li>3 oz (by weight) sharp cheddar.</li>
+<li>1 Jalapeno or equivalent, finely chopped.</li>
+<li>1 Tbsp lenon juice.</li>
+<li>chopped fresh Cilantro for garnish.</li>
 </ul>
-<p>In other words, there is a great variety of behavior with kernels with Bookworm. The good news is that later kernels do not exhibit the problems with the vc4 module so the focus on these notes is to better characterize the SD timeout issue now reported at <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700</a>.</p>
-<h2 id="procedure">Procedure</h2>
+<h2 id="process">Process</h2>
 <ol>
-<li>Start with a fresh install of <code>20220808_raspi_4_bookworm.img.xz</code> On an SD card.</li>
-<li>Boot, configure a user to facilitate access via SSH.</li>
-<li>Examine <code>dmesg</code> output to determine</li>
-<li>SD timeouts</li>
-<li><code>/dev/mmc*</code> emtries</li>
-<li>indication of WiFi functionality (via <code>ip addr</code>)</li>
-<li>Reboot mutiple times to determine pf the SD timeout problem exists.</li>
-<li>Update/upgrade to get new kernel and repeat checks above including multiple reboots.</li>
-<li>find and install other kernels and repeat checks/reboots.</li>
+<li>Heat the beans, cheese and ground Cumin un a mycowave until warm enough to melt the cheese and mix well. (No reason not to heat on the stove top as long as you are attentive not to burn anything.)</li>
+<li>Add the chopped Jalapeno at any convenient time.</li>
+<li>Add the lemon juice after everything is blended and has cooled enough to not cook the juice.</li>
 </ol>
-<h2 id="results">Results</h2>
-<h3 id="bullseye">Bullseye</h3>
-<pre><code class="language-text">Linux cm4pi 5.15.61-v8+ #1579 SMP PREEMPT Fri Aug 26 11:16:44 BST 2022 aarch64 GNU/Linux
-</code></pre>
+<h2 id="serve">Serve</h2>
+<p>Warm or chilled, sprinkle a lttle cfresh Cilantro on top and scoop with chips, crackers, etc.</p>
+<h2 id="options">Options</h2>
 <ul>
-<li>No SD timeouts (booted from SD)</li>
-<li>WiFi working</li>
-<li><code>/dev/mmc*</code> entries present</li>
-</ul>
-<h3 id="bookworm">Bookworm</h3>
-<p>Installed kernel</p>
-<pre><code class="language-text">Linux muon 5.18.0-3-arm64 #1 SMP Debian 5.18.14-1 (2022-07-23) aarch64 GNU/Linux
-</code></pre>
-<ul>
-<li>Came up on first install w/out difficulty.</li>
-<li>Rebooted and power cycled, 3 times each. No SD problem.</li>
-<li>update/upgrade and reboot.</li>
-</ul>
-<pre><code class="language-text">Linux muon 5.19.0-1-arm64 #1 SMP Debian 5.19.6-1 (2022-09-01) aarch64 GNU/Linux
-</code></pre>
-<ul>
-<li>On first boot mmc timeout messages are appearing. Delaying completion of boot. Remounting SD card. Cannot remote in. After waiting a couple minutes, tried C-A-D and no response. power cycled. </li>
-<li>Second boot OK.</li>
+<li>I usually make this with dry Pintos cooked in an Instant Pot and then drained completely. I reserve the liquid to add some while blending in a food processor to control the consistency. Starting with canned Pintos saves this step but limits the liquid additions or it turns into Pinto Bean Soup.</li>
+<li>1 Jalapeno is probably a little light. I prefer to keep the heat light for the more sensitive audience (grandkids, wife, and others who may not appreciate the heat. It's not a contest.) When I start with dry beans and canned Jalapenos, I can add some liquid from the Jalapeno can to heat things up a bit more. Likewise with the Coriander. A little of that can go a long way.</li>
+<li>I would not hesitate to try other kinds of beans.</li>
+<li>Proportions are approximate. Consider them a starting point and add more or less to suit your taste.</li>
+<li>I should probably add a little salt.</li>
 </ul></div>
             </div>
         </div>

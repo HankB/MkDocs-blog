@@ -37,6 +37,15 @@
                                 <a href="../.." class="nav-link">Hank's Docs home page</a>
                             </li>
                             <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Food <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../food/bean-dip/" class="dropdown-item">Bean Dip</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -164,6 +173,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#2023-04-29-further-patches-to-test" class="nav-link">2023-04-29 further patches to test.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -242,7 +255,14 @@
 <li>Plasma/X11 hangs when started using <code>lightdm</code>.</li>
 <li>Plasma/Wayland starts normally from <code>lightdm</code>.</li>
 </ul>
-<p>Bug report at <a href="https://bugs.kde.org/show_bug.cgi?id=467812">https://bugs.kde.org/show_bug.cgi?id=467812</a></p></div>
+<p>Bug report at <a href="https://bugs.kde.org/show_bug.cgi?id=467812">https://bugs.kde.org/show_bug.cgi?id=467812</a></p>
+<h2 id="2023-04-29-further-patches-to-test">2023-04-29 further patches to test.</h2>
+<p>Ref: <a href="https://lore.kernel.org/all/20230428223500.23337-5-jim2101024@gmail.com/">https://lore.kernel.org/all/20230428223500.23337-5-jim2101024@gmail.com/</a> and <a href="https://lore.kernel.org/all/20230428223500.23337-1-jim2101024@gmail.com/">https://lore.kernel.org/all/20230428223500.23337-1-jim2101024@gmail.com/</a><br />
+Suggested by kibi </p>
+<blockquote>
+<p>fetch the patch series from the LKML, and apply it either on the base commit mentioned there, or to current mainline master<br />
+(b4 is super useful, <code>b4 mbox $message_id</code> and you got an mbox ready to <code>git am</code>)</p>
+</blockquote></div>
             </div>
         </div>
 

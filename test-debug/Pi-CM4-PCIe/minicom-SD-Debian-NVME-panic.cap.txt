@@ -1,0 +1,246 @@
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd083]
+[    0.000000] Linux version 6.1.0-7-arm64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP Debian 6.1.20-1 (2023-03-19)
+[    0.000000] random: crng init done
+[    0.000000] Machine model: Raspberry Pi Compute Module 4 Rev 1.1
+[    0.000000] earlycon: uart8250 at MMIO32 0x00000000fe215040 (options '')
+[    0.000000] printk: bootconsole [uart8250] enabled
+[    0.000000] efi: UEFI not found.
+[    0.000000] Reserved memory: created CMA memory pool at 0x0000000037400000, size 64 MiB
+[    0.000000] OF: reserved mem: initialized node linux,cma, compatible id shared-dma-pool
+[    0.000000] NUMA: No NUMA configuration found
+[    0.000000] NUMA: Faking a node at [mem 0x0000000000000000-0x00000001ffffffff]
+[    0.000000] NUMA: NODE_DATA [mem 0x1ff012380-0x1ff014fff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000000000-0x000000003fffffff]
+[    0.000000]   DMA32    [mem 0x0000000040000000-0x00000000ffffffff]
+[    0.000000]   Normal   [mem 0x0000000100000000-0x00000001ffffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000003b3fffff]
+[    0.000000]   node   0: [mem 0x0000000040000000-0x00000000fbffffff]
+[    0.000000]   node   0: [mem 0x0000000100000000-0x00000001ffffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x00000001ffffffff]
+[    0.000000] On node 0, zone DMA32: 19456 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 16384 pages in unavailable ranges
+[    0.000000] percpu: Embedded 30 pages/cpu s83560 r8192 d31128 u122880
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: Spectre-v2
+[    0.000000] CPU features: detected: Spectre-v3a
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] CPU features: detected: Spectre-BHB
+[    0.000000] CPU features: kernel page table isolation forced ON by KASLR
+[    0.000000] CPU features: detected: Kernel page table isolation (KPTI)
+[    0.000000] CPU features: detected: ARM erratum 1742098
+[    0.000000] CPU features: detected: ARM errata 1165522, 1319367, or 1530923
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Fallback order for Node 0: 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 2028848
+[    0.000000] Policy zone: Normal
+[    0.000000] Kernel command line: video=HDMI-A-1:1600x1200M@60 dma.dmachans=0x37f5 bcm2709.boardrev=0xd03141 bcm2709.serial=0xc2ac5161 bcm2709.uart_clock=48000000 smsc95xx.macaddr=E4:5F:01:E3:49:90 vc_mem.mem_base=0x3ec00000 vc_mem.mem_size=0x40000000  console=ttyS1,115200 root=LABEL=RASPIROOT rw fsck.repair=yes net.ifnames=0  rootwait earlycon=uart8250,mmio32,0xfe215040
+[    0.000000] Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+[    0.000000] software IO TLB: area num 4.
+[    0.000000] software IO TLB: mapped [mem 0x0000000033400000-0x0000000037400000] (64MB)
+[    0.000000] Memory: 3977956K/8245248K available (12736K kernel code, 2752K rwdata, 18048K rodata, 6208K init, 610K bss, 299592K reserved, 65536K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] ftrace: allocating 42837 entries in 168 pages
+[    0.000000] ftrace: allocated 168 pages with 3 groups
+[    0.000000] trace event string verifier disabled
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=4.
+[    0.000000] 	Rude variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=4
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] Root IRQ handler: gic_handle_irq
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 54.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
+[    0.000000] sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
+[    0.008278] Console: colour dummy device 80x25
+[    0.012818] Calibrating delay loop (skipped), value calculated using timer frequency.. 108.00 BogoMIPS (lpj=216000)
+[    0.023370] pid_max: default: 32768 minimum: 301
+[    0.028089] LSM: Security Framework initializing
+[    0.032778] landlock: Up and running.
+[    0.036469] Yama: disabled by default; enable with sysctl kernel.yama.*
+[    0.043233] AppArmor: AppArmor initialized
+[    0.047371] TOMOYO Linux initialized
+[    0.050992] LSM support for eBPF active
+[    0.054965] Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.062662] Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.071987] cblist_init_generic: Setting adjustable number of callback queues.
+[    0.079311] cblist_init_generic: Setting shift to 2 and lim to 1.
+[    0.085521] cblist_init_generic: Setting shift to 2 and lim to 1.
+[    0.091814] rcu: Hierarchical SRCU implementation.
+[    0.096653] rcu: 	Max phase no-delay instances is 1000.
+[    0.103047] EFI services will not be available.
+[    0.107962] smp: Bringing up secondary CPUs ...
+[    0.112927] Detected PIPT I-cache on CPU1
+[    0.113010] CPU1: Booted secondary processor 0x0000000001 [0x410fd083]
+[    0.113394] Detected PIPT I-cache on CPU2
+[    0.113445] CPU2: Booted secondary processor 0x0000000002 [0x410fd083]
+[    0.113817] Detected PIPT I-cache on CPU3
+[    0.113869] CPU3: Booted secondary processor 0x0000000003 [0x410fd083]
+[    0.113913] smp: Brought up 1 node, 4 CPUs
+[    0.149957] SMP: Total of 4 processors activated.
+[    0.154705] CPU features: detected: 32-bit EL0 Support
+[    0.159892] CPU features: detected: 32-bit EL1 Support
+[    0.165080] CPU features: detected: CRC32 instructions
+[    0.170323] CPU: All CPU(s) started at EL2
+[    0.174466] alternatives: applying system-wide alternatives
+[    0.250689] node 0 deferred pages initialised in 68ms
+[    0.257170] devtmpfs: initialized
+[    0.265711] Registered cp15_barrier emulation handler
+[    0.270838] Registered setend emulation handler
+[    0.275536] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.285415] futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+[    0.293718] pinctrl core: initialized pinctrl subsystem
+[    0.299869] DMI not present or invalid.
+[    0.304081] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.311380] DMA: preallocated 1024 KiB GFP_KERNEL pool for atomic allocations
+[    0.319070] DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.327928] DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    0.336040] audit: initializing netlink subsys (disabled)
+[    0.341650] audit: type=2000 audit(0.248:1): state=initialized audit_enabled=0 res=1
+[    0.342176] thermal_sys: Registered thermal governor 'fair_share'
+[    0.349483] thermal_sys: Registered thermal governor 'bang_bang'
+[    0.355637] thermal_sys: Registered thermal governor 'step_wise'
+[    0.361702] thermal_sys: Registered thermal governor 'user_space'
+[    0.367767] thermal_sys: Registered thermal governor 'power_allocator'
+[    0.373949] cpuidle: using governor ladder
+[    0.384680] cpuidle: using governor menu
+[    0.388760] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.395673] ASID allocator initialised with 32768 entries
+[    0.401372] Serial: AMBA PL011 UART driver
+[    0.413129] KASLR enabled
+[    0.419044] HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+[    0.425911] HugeTLB: 0 KiB vmemmap can be freed for a 1.00 GiB page
+[    0.432241] HugeTLB: registered 32.0 MiB page size, pre-allocated 0 pages
+[    0.439095] HugeTLB: 0 KiB vmemmap can be freed for a 32.0 MiB page
+[    0.445424] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.452278] HugeTLB: 0 KiB vmemmap can be freed for a 2.00 MiB page
+[    0.458606] HugeTLB: registered 64.0 KiB page size, pre-allocated 0 pages
+[    0.465459] HugeTLB: 0 KiB vmemmap can be freed for a 64.0 KiB page
+[    0.472912] ACPI: Interpreter disabled.
+[    0.477046] iommu: Default domain type: Translated 
+[    0.481975] iommu: DMA domain TLB invalidation policy: strict mode 
+[    0.488429] EDAC MC: Ver: 3.0.0
+[    0.492373] NetLabel: Initializing
+[    0.495804] NetLabel:  domain hash size = 128
+[    0.500202] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[    0.505948] NetLabel:  unlabeled traffic allowed by default
+[    0.511710] vgaarb: loaded
+[    0.514695] clocksource: Switched to clocksource arch_sys_counter
+[    0.521285] VFS: Disk quotas dquot_6.6.0
+[    0.525368] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.532985] AppArmor: AppArmor Filesystem Enabled
+[    0.537925] pnp: PnP ACPI: disabled
+[    0.546165] NET: Registered PF_INET protocol family
+[    0.551638] IP idents hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    0.562853] tcp_listen_portaddr_hash hash table entries: 4096 (order: 4, 65536 bytes, linear)
+[    0.571654] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.579734] TCP established hash table entries: 65536 (order: 7, 524288 bytes, linear)
+[    0.588742] TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+[    0.598823] TCP: Hash tables configured (established 65536 bind 65536)
+[    0.605788] MPTCP token hash table entries: 8192 (order: 5, 196608 bytes, linear)
+[    0.613741] UDP hash table entries: 4096 (order: 5, 131072 bytes, linear)
+[    0.620706] UDP-Lite hash table entries: 4096 (order: 5, 131072 bytes, linear)
+[    0.628175] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.633918] NET: Registered PF_XDP protocol family
+[    0.638763] PCI: CLS 0 bytes, default 64
+[    0.643043] Trying to unpack rootfs image as initramfs...
+[    0.648584] hw perfevents: enabled with armv8_cortex_a72 PMU driver, 7 counters available
+[    0.657112] kvm [1]: IPA Size Limit: 44 bits
+[    0.663301] kvm [1]: vgic interrupt IRQ9
+[    0.668015] kvm [1]: Hyp mode initialized successfully
+[    0.674390] Initialise system trusted keyrings
+[    0.678953] Key type blacklist registered
+[    0.683271] workingset: timestamp_bits=42 max_order=21 bucket_order=0
+[    0.693138] zbud: loaded
+[    0.696514] integrity: Platform Keyring initialized
+[    0.701517] integrity: Machine keyring initialized
+[    0.706386] Key type asymmetric registered
+[    0.710550] Asymmetric key parser 'x509' registered
+[    1.656555] Freeing initrd memory: 32520K
+[    1.674200] alg: self-tests for CTR-KDF (hmac(sha256)) passed
+[    1.680107] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 249)
+[    1.687897] io scheduler mq-deadline registered
+[    1.694619] irq_brcmstb_l2: registered L2 intc (/soc/interrupt-controller@7ef00100, parent irq: 18)
+[    1.707495] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+[    1.714670] brcm-pcie fd500000.pcie: host bridge /scb/pcie@7d500000 ranges:
+[    1.721713] brcm-pcie fd500000.pcie:   No bus range found for /scb/pcie@7d500000, using [bus 00-ff]
+[    1.730867] brcm-pcie fd500000.pcie:      MEM 0x0600000000..0x0603ffffff -> 0x00f8000000
+[    1.739057] brcm-pcie fd500000.pcie:   IB MEM 0x0000000000..0x01ffffffff -> 0x0400000000
+[    1.747808] brcm-pcie fd500000.pcie: PCI host bridge to bus 0000:00
+[    1.754152] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    1.759696] pci_bus 0000:00: root bus resource [mem 0x600000000-0x603ffffff] (bus address [0xf8000000-0xfbffffff])
+[    1.770174] pci 0000:00:00.0: [14e4:2711] type 01 class 0x060400
+[    1.776286] pci 0000:00:00.0: PME# supported from D0 D3hot
+[    1.782776] pci 0000:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+[    1.840749] brcm-pcie fd500000.pcie: link up, 5.0 GT/s PCIe x1 (SSC)
+[    1.895317] SError Interrupt on CPU2, code 0x00000000bf000002 -- SError
+[    1.895323] CPU: 2 PID: 1 Comm: swapper/0 Not tainted 6.1.0-7-arm64 #1  Debian 6.1.20-1
+[    1.895328] Hardware name: Raspberry Pi Compute Module 4 Rev 1.1 (DT)
+[    1.895331] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    1.895336] pc : pci_generic_config_read+0x44/0xc0
+[    1.895345] lr : pci_generic_config_read+0x2c/0xc0
+[    1.895348] sp : ffff80000802b840
+[    1.895350] x29: ffff80000802b840 x28: ffff424800a7d000 x27: 0000000000000000
+[    1.895357] x26: ffff424800a7b800 x25: 0000000000000001 x24: 0000000000000000
+[    1.895362] x23: 0000000000000000 x22: ffff80000802b924 x21: ffffd46eb7f66000
+[    1.895367] x20: ffff80000802b8a4 x19: 0000000000000004 x18: 0000000000000006
+[    1.895372] x17: 6572202c295d3030 x16: ffffd46eb77bc008 x15: ffff80000802b340
+[    1.895377] x14: 0000000000000000 x13: 2943535328203178 x12: 206549435020732f
+[    1.895381] x11: 00000000ffffefff x10: ffffd46eb7cd01e0 x9 : ffffd46eb5e53bbc
+[    1.895386] x8 : 0000000000017fe8 x7 : c0000000ffffefff x6 : 000000000000000b
+[    1.895391] x5 : ffff424800a78380 x4 : ffff800008a10000 x3 : ffff800008a19000
+[    1.895396] x2 : 0000000000008000 x1 : 00000000deaddead x0 : ffff800008a18000
+[    1.895402] Kernel panic - not syncing: Asynchronous SError Interrupt
+[    1.895405] CPU: 2 PID: 1 Comm: swapper/0 Not tainted 6.1.0-7-arm64 #1  Debian 6.1.20-1
+[    1.895409] Hardware name: Raspberry Pi Compute Module 4 Rev 1.1 (DT)
+[    1.895411] Call trace:
+[    1.895413]  dump_backtrace+0xe4/0x140
+[    1.895420]  show_stack+0x20/0x30
+[    1.895423]  dump_stack_lvl+0x64/0x80
+[    1.895431]  dump_stack+0x18/0x34
+[    1.895437]  panic+0x180/0x358
+[    1.895443]  nmi_panic+0xb4/0xbc
+[    1.895448]  arm64_serror_panic+0x78/0x84
+[    1.895452]  do_serror+0x30/0x7c
+[    1.895456]  el1h_64_error_handler+0x30/0x4c
+[    1.895459]  el1h_64_error+0x64/0x68
+[    1.895463]  pci_generic_config_read+0x44/0xc0
+[    1.895466]  pci_bus_read_config_dword+0x9c/0x160
+[    1.895470]  pci_bus_generic_read_dev_vendor_id+0x38/0x180
+[    1.895475]  pci_scan_single_device+0xac/0x114
+[    1.895480]  pci_scan_slot+0x70/0x1fc
+[    1.895484]  pci_scan_child_bus_extend+0x50/0x2e0
+[    1.895489]  pci_scan_bridge_extend+0x32c/0x5c0
+[    1.895494]  pci_scan_child_bus_extend+0x1c4/0x2e0
+[    1.895498]  pci_scan_root_bus_bridge+0x6c/0xe0
+[    1.895503]  pci_host_probe+0x20/0xd0
+[    1.895508]  brcm_pcie_probe+0x258/0x630
+[    1.895515]  platform_probe+0x70/0xcc
+[    1.895521]  really_probe+0xc8/0x3e0
+[    1.895525]  __driver_probe_device+0x84/0x190
+[    1.895528]  driver_probe_device+0x44/0x120
+[    1.895532]  __driver_attach+0xfc/0x204
+[    1.895536]  bus_for_each_dev+0x7c/0xdc
+[    1.895543]  driver_attach+0x2c/0x40
+[    1.895546]  bus_add_driver+0x184/0x240
+[    1.895550]  driver_register+0x80/0x13c
+[    1.895554]  __platform_driver_register+0x30/0x3c
+[    1.895559]  brcm_pcie_driver_init+0x24/0x30
+[    1.895565]  do_one_initcall+0x60/0x260
+[    1.895569]  kernel_init_freeable+0x2a0/0x310
+[    1.895575]  kernel_init+0x2c/0x140
+[    1.895579]  ret_from_fork+0x10/0x20
+[    1.895586] SMP: stopping secondary CPUs
+[    1.895592] Kernel Offset: 0x546ead800000 from 0xffff800008000000
+[    1.895594] PHYS_OFFSET: 0xffffbdb900000000
+[    1.895597] CPU features: 0x20000,2013c080,0000421b
+[    1.895600] Memory Limit: none
+[    2.198977] ---[ end Kernel panic - not syncing: Asynchronous SError Interrupt ]---
