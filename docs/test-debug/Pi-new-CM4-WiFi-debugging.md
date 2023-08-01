@@ -36,3 +36,5 @@ I performed the following steps, not necessarily in the listed order, to tryt to
 1. Install the 256GB SSD (Debian) on the IO Board with the CM4/8GB. The `wlan0` device was not present. The common factor here is the S/W.
 
 At this point I saw the need to perform a more systematic investigation to try to narrow down the reason for the missing `wlan0` (and possible related WiFi issues.)
+
+1. Test with pristine R-Pi OS image (2023-05-03-raspios-bullseye-arm64-lite.img.xz.) No joy here. On first boot it loops in keytboard configuration and I cannot find a way to bypass that. I booted R-Pi OS (old installation) from SD card and `wlan0` is not present, but wifi is disabled in `/boot/config.txt`. Commented that out, rebooted and still no `wlan0` but I could have done something erlse like blacklisting the modules. Undid that and `wlan0` is present and appears to be working (obtained IP addr using DHCP.) I wrote the same image to an SD card and was able to boot w/out any issue. And the `wlan0` device was present. The next test is to copy the SD card to the NVME SSD and boot from that.
