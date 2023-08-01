@@ -36,7 +36,8 @@ Hosts
 
 * `mesquite` FreeBSD, `sanoid` 2.1.0.
 * `cm4iob` Debian 12 (Bookworm) `sanoid` 2.1.0 ->  `55c5e0e`
-* `piserver` 12 (Bookworm) `sanoid` 2.1.0
+* `piserver` Debian 12 (Bookworm) `sanoid` 2.1.0
+* `kweli` Debian 12 (bookworm) `sanoid` 
 
 * Twice hourly backup `cm4iob` -> `mesquite` (BSD) at 45,25.
 * Add hourly backup `cm4iob` -> `piserver` (Debian/ARM64)
@@ -48,3 +49,5 @@ Results
 1. Seed (first syncoid) `cm4iob` -> `piserver` 
 1. automate `cm4iob` -> `piserver` hourly at 32
 1. first hourly `cm4iob` -> `piserver` failed: `Target tank/backup/cm4iob exists but has no snapshots matching with e4d25c8051695501/backup/backup` Manual (with `-f`) was successful. Need to check in more detail next time a host is seeded.
+1. 2023-05-01
+1. `apt` suggests `sanoid` upgrade from repo. `apt-mark hold sanoid`
