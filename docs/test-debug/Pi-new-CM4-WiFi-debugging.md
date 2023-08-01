@@ -40,3 +40,6 @@ At this point I saw the need to perform a more systematic investigation to try t
 1. Test with pristine R-Pi OS image (2023-05-03-raspios-bullseye-arm64-lite.img.xz.) No joy here. On first boot it loops in keytboard configuration and I cannot find a way to bypass that. I booted R-Pi OS (old installation) from SD card and `wlan0` is not present, but wifi is disabled in `/boot/config.txt`. Commented that out, rebooted and still no `wlan0` but I could have done something erlse like blacklisting the modules. Undid that and `wlan0` is present and appears to be working (obtained IP addr using DHCP.) I wrote the same image to an SD card and was able to boot w/out any issue. And the `wlan0` device was present. The next test is to copy the SD card to the NVME SSD and boot from that.
 1. Image initialized on an SD card and copied to NVME SSD booted CM4/8GB/IO Board w/out difficulty and `wlan0` was present.
 1. Transferred the NVME SSD to the CM4/2GB/Ether Board. System booted, logged in and found that `wlan0` was present.
+1. Performed an upgrade (still on CM4/2GB/Ether Board) and rebooted. `wlan0` still present.
+
+In other words, on both H/W setups, `wlan0` was present.
