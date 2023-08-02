@@ -191,7 +191,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="new-raspberry-pi-cm4-wifi-testing">New Raspberry Pi CM4 WiFi testing</h1>
-<p>Explore WiFi on recently acquired Raspberry Pi Compute Mocule Lite with WiFi and Bluetooth.</p>
+<p>Explore WiFi on recently acquired Raspberry Pi Compute Module Lite with WiFi and Bluetooth.</p>
 <h2 id="motivation">Motivation</h2>
 <ol>
 <li>While provisioning the new CM4 it was noted that many IoT devices were droppinig from the LAN including TP-Link Kasa lights and outlets and Raspberry Pi Zeroes. This is not unusual, particularly the TP-Link devices, but it seemed that nearly half of the devices were disconnected and that is unusual.</li>
@@ -200,7 +200,7 @@
 <p>These may or may not be related. The milestones I can recall before taking a step back to investigate WiFi were:</p>
 <ol>
 <li>Install a NVME SSD with a copy of R-Pi OS (which has not been used for a while) on the Ether Board <a href="https://hankb.github.io/MkDocs-blog/tech/dphacks-CM4_Ether_Board/">https://hankb.github.io/MkDocs-blog/tech/dphacks-CM4_Ether_Board/</a>, attach the new CM4 to the board and boot. The board was connected to my LAN via Ethernet.</li>
-<li>Find the device on my LAN ans SSH in. I discovered that this install was R-Pi OS and wanted to use Debian for this system so I recorded the output of <code>ip addr</code> and shut the system down. (I needed the MAC addresses for Ethernet and WiFi to remap to avoid later confusion.)</li>
+<li>Find the device on my LAN and SSH in. I discovered that this install was R-Pi OS and wanted to use Debian for this system so I recorded the output of <code>ip addr</code> and shut the system down. (I needed the MAC addresses for Ethernet and WiFi to remap to avoid later confusion.)</li>
 <li>Install the most recent "tested Debian" build on the card including some additional setup. The image installed was <code>20230612_raspi_4_bookworm.img.xz</code> downloaded from <a href="https://raspi.debian.net/tested-images/">https://raspi.debian.net/tested-images/</a></li>
 <li>Completed initial configuration using the Ansible Playbooks at <a href="https://github.com/HankB/polana-ansible">https://github.com/HankB/polana-ansible</a>.</li>
 <li>Continued configuration and noticed that many devices on my IoT LAN were disconnected from my Access Point (AP.) I power cycled the AP and that did not seem to help. I was concerned about possible RF interference from the new CM4 since it was located about 1 foot from the AP. I was not planning on using WiFi so I thought to disable that radio in case it was the cause of the WiFi issues. That was when I noticed that <code>ip addr</code> no longer displayed a device <code>wlan0</code>.</li>
