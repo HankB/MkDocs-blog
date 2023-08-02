@@ -42,4 +42,22 @@ At this point I saw the need to perform a more systematic investigation to try t
 1. Transferred the NVME SSD to the CM4/2GB/Ether Board. System booted, logged in and found that `wlan0` was present.
 1. Performed an upgrade (still on CM4/2GB/Ether Board) and rebooted. `wlan0` still present.
 
-In other words, on both H/W setups, `wlan0` was present.
+In other words, on both H/W setups, `wlan0` was present. Next series involves testing with Debian `20230612_raspi_4_bookworm.img.xz`. No joy. Does not boot from NVME. Debugging that is an issue outside the scope of this investigation. `20230101_raspi_4_bookworm.img.xz` seems to be hanging at the same place.
+
+1. Copy `20230612_raspi_4_bookworm.img.xz` to the NVME SSD and try to boot the CM4/8GB/IO Board. Hung `<ctrl><alt><del>` led to a halted system. Repeated power cycles resulted in the same result.
+1. Copy `20230101_raspi_4_bookworm.img.xz` to the NVME SSD and repeat trying to boot the same H/W. It came up to the point where it reported `mmc0: Timeout waiting for cmd interrupt` (whichj has been fixed in subsequent kernels.) Working with this variant was abandoned (and later resumed.)
+1. Copy `20230612_raspi_4_bookworm.img.xz` to an SD card and attempt boot on CM4/8GB/IO Board. Boot completes and results in a login prompt on the console. `ip addr` lists only `lo` and `eth0`. Installed `pciutils` and `usbutils`. `lspci` lists nothing. `lsusb` lists 2 hubs and a keyboard.
+1.  Copy `20230101_raspi_4_bookworm.img.xz` to another SD card and boot. Repeatedly comes up with the `mmc0: Timeout waiting for cmd interrupt` but recollection from previous testing is that this does not happen 100% of the time. After 4 unsuccessful boots (requiring power cycling) the OS came up normally and presented a login prompt. The `wlan0` device was not present.
+
+## Conclusion
+
+This appears to be a S/W issue. R-Pi OS in the most recent version (based on Bullseye) brings up `wlan0` on the CM4/8GB/IO Board reliably. Recent versions of Debian (Bookworm) do not.
+
+The problems with other devices on my local LAN seem to be unrelated.
+
+## Future
+
+1. Determine why `wlan0` is not coming up on Debian Bookworm. This is not a high priority as I do not plan to use WiFi at present. I would nevertheless be willing to test if someone can point me in the right direction.
+1. Determine why Debian Bookworm does not boot from NVME. The interesting thing is that using my playbook to copy the image to the boot media and tweaking a few other things results in a system that does boot. One thing the playbook does is to resize the root partition (and creates an extra partition for ZFS) and that may bypass the boot problem.
+1. Test with Buster and Testing to see if results are different.
+1. Determine why R-Pi OS loops on keyboard configuration when booting from NVME SSD. Also not a high priority but if someone in a position to fix this is interested, I'd be happy to test.
