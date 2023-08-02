@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Pi 4B Bookworm testing - Hank's public Docs</title>
+        <title>New Raspberry Pi CM4 WiFi testing - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -93,7 +93,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Pi 4B Bookworm testing</a>
+    <a href="../Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
 </li>
                                     
 <li>
@@ -105,7 +105,7 @@
 </li>
                                     
 <li>
-    <a href="../Pi-new-CM4-WiFi-debugging/" class="dropdown-item">New Raspberry Pi CM4 WiFi testing</a>
+    <a href="./" class="dropdown-item active">New Raspberry Pi CM4 WiFi testing</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -138,12 +138,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Pi-4B-Bookworm-WiFi/" class="nav-link">
+                                <a rel="prev" href="../Pi-4B-firmware/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../Pi-4B-KDE_bookworm/" class="nav-link">
+                                <a rel="next" href="../Pi-CM4-PCIe/Pi_CM4_PCIe_testing/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -165,13 +165,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#pi-4b-bookworm-testing" class="nav-link">Pi 4B Bookworm testing</a>
+            <li class="nav-item" data-level="1"><a href="#new-raspberry-pi-cm4-wifi-testing" class="nav-link">New Raspberry Pi CM4 WiFi testing</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#procedure" class="nav-link">Procedure</a>
+            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#results" class="nav-link">Results</a>
+            <li class="nav-item" data-level="2"><a href="#initial-exploration" class="nav-link">initial exploration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#future" class="nav-link">Future</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -182,55 +190,70 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="pi-4b-bookworm-testing">Pi 4B Bookworm testing</h1>
-<p>Determine if some previous bugs have been fixed in more recent kernels. Bugs fell into two areas:</p>
-<ul>
-<li>vc4 module - this included a use-after-free as well as other issues reported in <code>dmesg</code>.</li>
-<li>SD card timeout - Timeout message repeated every 10s. This had manifested previously and a workaround was to insert an SD card into the slot and the messages stopped. This time that does not work. Further characteristics of the present situation:</li>
-<li>doesn't boot</li>
-<li>Boots from attached USB SSD skipping the SD card.</li>
-<li>No /dev/mmc* after boot accompanied by no WiFi.</li>
-<li>/dev/mmc* entries, can mount and read card and after several more timeout messages, they stop.</li>
-<li>When the timeout messages are being reported, the system cannot complete shutdown to reboot. It is necessary to remove power from the system.</li>
-<li>Normal boot, no mmc timeouts and apparently normal operation.</li>
-</ul>
-<p>In other words, there is a great variety of behavior with kernels with Bookworm. The good news is that later kernels do not exhibit the problems with the vc4 module so the focus on these notes is to better characterize the SD timeout issue now reported at <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700</a>.</p>
-<h2 id="procedure">Procedure</h2>
+<h1 id="new-raspberry-pi-cm4-wifi-testing">New Raspberry Pi CM4 WiFi testing</h1>
+<p>Explore WiFi on recently acquired Raspberry Pi Compute Mocule Lite with WiFi and Bluetooth.</p>
+<h2 id="motivation">Motivation</h2>
 <ol>
-<li>Start with a fresh install of <code>20220808_raspi_4_bookworm.img.xz</code> On an SD card.</li>
-<li>Boot, configure a user to facilitate access via SSH.</li>
-<li>Examine <code>dmesg</code> output to determine</li>
-<li>SD timeouts</li>
-<li><code>/dev/mmc*</code> emtries</li>
-<li>indication of WiFi functionality (via <code>ip addr</code>)</li>
-<li>Reboot mutiple times to determine pf the SD timeout problem exists.</li>
-<li>Update/upgrade to get new kernel and repeat checks above including multiple reboots.</li>
-<li>find and install other kernels and repeat checks/reboots.</li>
+<li>While provisioning the new CM4 it was noted that many IoT devices were droppinig from the LAN including TP-Link Kasa lights and outlets and Raspberry Pi Zeroes. This is not unusual, particularly the TP-Link devices, but it seemed that nearly half of the devices were disconnected and that is unusual.</li>
+<li>At that time I thought to turn off the radio on the new CM4 and discovered that <code>wlan0</code> did not appear in the output of <code>ip addr</code>.</li>
 </ol>
-<h2 id="results">Results</h2>
-<h3 id="bullseye">Bullseye</h3>
-<pre><code class="language-text">Linux cm4pi 5.15.61-v8+ #1579 SMP PREEMPT Fri Aug 26 11:16:44 BST 2022 aarch64 GNU/Linux
-</code></pre>
+<p>These may or may not be related. The milestones I can recall before taking a step back to investigate WiFi were:</p>
+<ol>
+<li>Install a NVME SSD with a copy of R-Pi OS (which has not been used for a while) on the Ether Board <a href="https://hankb.github.io/MkDocs-blog/tech/dphacks-CM4_Ether_Board/">https://hankb.github.io/MkDocs-blog/tech/dphacks-CM4_Ether_Board/</a>, attach the new CM4 to the board and boot. The board was connected to my LAN via Ethernet.</li>
+<li>Find the device on my LAN ans SSH in. I discovered that this install was R-Pi OS and wanted to use Debian for this system so I recorded the output of <code>ip addr</code> and shut the system down. (I needed the MAC addresses for Ethernet and WiFi to remap to avoid later confusion.)</li>
+<li>Install the most recent "tested Debian" build on the card including some additional setup. The image installed was <code>20230612_raspi_4_bookworm.img.xz</code> downloaded from <a href="https://raspi.debian.net/tested-images/">https://raspi.debian.net/tested-images/</a></li>
+<li>Completed initial configuration using the Ansible Playbooks at <a href="https://github.com/HankB/polana-ansible">https://github.com/HankB/polana-ansible</a>.</li>
+<li>Continued configuration and noticed that many devices on my IoT LAN were disconnected from my Access Point (AP.) I power cycled the AP and that did not seem to help. I was concerned about possible RF interference from the new CM4 since it was located about 1 foot from the AP. I was not planning on using WiFi so I thought to disable that radio in case it was the cause of the WiFi issues. That was when I noticed that <code>ip addr</code> no longer displayed a device <code>wlan0</code>.</li>
+</ol>
+<p>At this point I began a less than systematic exploration of the "missing <code>wlan0</code>" situation. Before I describe that, I'll list the CM4 related equipment I'm using.</p>
 <ul>
-<li>No SD timeouts (booted from SD)</li>
-<li>WiFi working</li>
-<li><code>/dev/mmc*</code> entries present</li>
+<li>CM4 Lite with WiFi/Ethernet and 8GB RAM. I have been using this for quite a while now. I will call it the "CM4/8GB" in the following discussion.</li>
+<li>Official Raspberry Pi IO Board (on which the CM4/8GB is presently mounted.)</li>
+<li>
+<p>PCIe/NVME adapter on which I can mount an NVME SSD and boot either R-Pi OS or Debian.</p>
+</li>
+<li>
+<p>CM4 Lite with WiFi/Ethernet and 2GB RAM. This is recently acquired.</p>
+</li>
+<li>
+<p>Dphacks Ether Board. I used the CM4/8GB on this for initial testing and confirmed that everythging I tested (including WiFi) worked as expected. When I received the CM4/2GB, I installed it on this board and proceeded with configuration.</p>
+</li>
+<li>
+<p>256GB KIOXIA NVME SSD which (along with an NVME/USB adapter) I used for initial configuration and plan to use for further testing.</p>
+</li>
+<li>128GB SK Hynix NVME SSD on which is installed a fully updated and overclocked 64 bit R-Pi OS. This was used during the initial exploration but will not be used for the more systematic testing.</li>
 </ul>
-<h3 id="bookworm">Bookworm</h3>
-<p>Installed kernel</p>
-<pre><code class="language-text">Linux muon 5.18.0-3-arm64 #1 SMP Debian 5.18.14-1 (2022-07-23) aarch64 GNU/Linux
-</code></pre>
-<ul>
-<li>Came up on first install w/out difficulty.</li>
-<li>Rebooted and power cycled, 3 times each. No SD problem.</li>
-<li>update/upgrade and reboot.</li>
-</ul>
-<pre><code class="language-text">Linux muon 5.19.0-1-arm64 #1 SMP Debian 5.19.6-1 (2022-09-01) aarch64 GNU/Linux
-</code></pre>
-<ul>
-<li>On first boot mmc timeout messages are appearing. Delaying completion of boot. Remounting SD card. Cannot remote in. After waiting a couple minutes, tried C-A-D and no response. power cycled. </li>
-<li>Second boot OK.</li>
-</ul></div>
+<h2 id="initial-exploration">initial exploration</h2>
+<p>I performed the following steps, not necessarily in the listed order, to tryt to isolate the issue. I did not record each step as I tested, hence the need to retest. Also I used existing installations which had been customized includinig overclocking.</p>
+<ol>
+<li>Swap the 128GB SSD to the Ether Board/CM4/2GB and boot. Confirm that <code>wlan0</code> does not appear in <code>ip addr</code>. Confirm that there are no messages that include <code>wlan0</code> or <code>wifi</code> in <code>dmesg</code> output. Confirm that there are Bluetooth (BT) related messages in <code>dmesg</code> output. The common factor hewre is the CM4/2GB and Ether Board.</li>
+<li>I believe I checked for (and found) <code>wlan0</code> with the CM4/8GB in the IO Board and running R-Pi OS from the 128GB SSD.</li>
+<li>Install the 256GB SSD (Debian) on the IO Board with the CM4/8GB. The <code>wlan0</code> device was not present. The common factor here is the S/W.</li>
+</ol>
+<p>At this point I saw the need to perform a more systematic investigation to try to narrow down the reason for the missing <code>wlan0</code> (and possible related WiFi issues.)</p>
+<ol>
+<li>Test with pristine R-Pi OS image (2023-05-03-raspios-bullseye-arm64-lite.img.xz.) No joy here. On first boot it loops in keytboard configuration and I cannot find a way to bypass that. I booted R-Pi OS (old installation) from SD card and <code>wlan0</code> is not present, but wifi is disabled in <code>/boot/config.txt</code>. Commented that out, rebooted and still no <code>wlan0</code> but I could have done something erlse like blacklisting the modules. Undid that and <code>wlan0</code> is present and appears to be working (obtained IP addr using DHCP.) I wrote the same image to an SD card and was able to boot w/out any issue. And the <code>wlan0</code> device was present. The next test is to copy the SD card to the NVME SSD and boot from that.</li>
+<li>Image initialized on an SD card and copied to NVME SSD booted CM4/8GB/IO Board w/out difficulty and <code>wlan0</code> was present.</li>
+<li>Transferred the NVME SSD to the CM4/2GB/Ether Board. System booted, logged in and found that <code>wlan0</code> was present.</li>
+<li>Performed an upgrade (still on CM4/2GB/Ether Board) and rebooted. <code>wlan0</code> still present.</li>
+</ol>
+<p>In other words, on both H/W setups, <code>wlan0</code> was present. Next series involves testing with Debian <code>20230612_raspi_4_bookworm.img.xz</code>. No joy. Does not boot from NVME. Debugging that is an issue outside the scope of this investigation. <code>20230101_raspi_4_bookworm.img.xz</code> seems to be hanging at the same place.</p>
+<ol>
+<li>Copy <code>20230612_raspi_4_bookworm.img.xz</code> to the NVME SSD and try to boot the CM4/8GB/IO Board. Hung <code>&lt;ctrl&gt;&lt;alt&gt;&lt;del&gt;</code> led to a halted system. Repeated power cycles resulted in the same result.</li>
+<li>Copy <code>20230101_raspi_4_bookworm.img.xz</code> to the NVME SSD and repeat trying to boot the same H/W. It came up to the point where it reported <code>mmc0: Timeout waiting for cmd interrupt</code> (whichj has been fixed in subsequent kernels.) Working with this variant was abandoned (and later resumed.)</li>
+<li>Copy <code>20230612_raspi_4_bookworm.img.xz</code> to an SD card and attempt boot on CM4/8GB/IO Board. Boot completes and results in a login prompt on the console. <code>ip addr</code> lists only <code>lo</code> and <code>eth0</code>. Installed <code>pciutils</code> and <code>usbutils</code>. <code>lspci</code> lists nothing. <code>lsusb</code> lists 2 hubs and a keyboard.</li>
+<li>Copy <code>20230101_raspi_4_bookworm.img.xz</code> to another SD card and boot. Repeatedly comes up with the <code>mmc0: Timeout waiting for cmd interrupt</code> but recollection from previous testing is that this does not happen 100% of the time. After 4 unsuccessful boots (requiring power cycling) the OS came up normally and presented a login prompt. The <code>wlan0</code> device was not present.</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>This appears to be a S/W issue. R-Pi OS in the most recent version (based on Bullseye) brings up <code>wlan0</code> on the CM4/8GB/IO Board reliably. Recent versions of Debian (Bookworm) do not.</p>
+<p>The problems with other devices on my local LAN seem to be unrelated.</p>
+<h2 id="future">Future</h2>
+<ol>
+<li>Determine why <code>wlan0</code> is not coming up on Debian Bookworm. This is not a high priority as I do not plan to use WiFi at present. I would nevertheless be willing to test if someone can point me in the right direction.</li>
+<li>Determine why Debian Bookworm does not boot from NVME. The interesting thing is that using my playbook to copy the image to the boot media and tweaking a few other things results in a system that does boot. One thing the playbook does is to resize the root partition (and creates an extra partition for ZFS) and that may bypass the boot problem.</li>
+<li>Test with Buster and Testing to see if results are different.</li>
+<li>Determine why R-Pi OS loops on keyboard configuration when booting from NVME SSD. Also not a high priority but if someone in a position to fix this is interested, I'd be happy to test.</li>
+</ol></div>
             </div>
         </div>
 
