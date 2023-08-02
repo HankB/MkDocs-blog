@@ -1,6 +1,6 @@
 # New Raspberry Pi CM4 WiFi testing
 
-Explore WiFi on recently acquired Raspberry Pi Compute Mocule Lite with WiFi and Bluetooth.
+Explore WiFi on recently acquired Raspberry Pi Compute Module Lite with WiFi and Bluetooth.
 
 ## Motivation
 
@@ -10,7 +10,7 @@ Explore WiFi on recently acquired Raspberry Pi Compute Mocule Lite with WiFi and
 These may or may not be related. The milestones I can recall before taking a step back to investigate WiFi were:
 
 1. Install a NVME SSD with a copy of R-Pi OS (which has not been used for a while) on the Ether Board <https://hankb.github.io/MkDocs-blog/tech/dphacks-CM4_Ether_Board/>, attach the new CM4 to the board and boot. The board was connected to my LAN via Ethernet.
-1. Find the device on my LAN ans SSH in. I discovered that this install was R-Pi OS and wanted to use Debian for this system so I recorded the output of `ip addr` and shut the system down. (I needed the MAC addresses for Ethernet and WiFi to remap to avoid later confusion.)
+1. Find the device on my LAN and SSH in. I discovered that this install was R-Pi OS and wanted to use Debian for this system so I recorded the output of `ip addr` and shut the system down. (I needed the MAC addresses for Ethernet and WiFi to remap to avoid later confusion.)
 1. Install the most recent "tested Debian" build on the card including some additional setup. The image installed was `20230612_raspi_4_bookworm.img.xz` downloaded from <https://raspi.debian.net/tested-images/>
 1. Completed initial configuration using the Ansible Playbooks at <https://github.com/HankB/polana-ansible>.
 1. Continued configuration and noticed that many devices on my IoT LAN were disconnected from my Access Point (AP.) I power cycled the AP and that did not seem to help. I was concerned about possible RF interference from the new CM4 since it was located about 1 foot from the AP. I was not planning on using WiFi so I thought to disable that radio in case it was the cause of the WiFi issues. That was when I noticed that `ip addr` no longer displayed a device `wlan0`.
