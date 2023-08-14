@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Troubleshooting Debian root on ZFS - Hank's public Docs</title>
+        <title>Peach Cobbler from scratch - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -36,45 +36,45 @@
                             <li class="navitem">
                                 <a href="../.." class="nav-link">Hank's Docs home page</a>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Food <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../food/bean-dip/" class="dropdown-item">Bean Dip</a>
+    <a href="../bean-dip/" class="dropdown-item">Bean Dip</a>
 </li>
                                     
 <li>
-    <a href="../../food/peach-cobbler/" class="dropdown-item">Peach Cobbler from scratch</a>
+    <a href="./" class="dropdown-item active">Peach Cobbler from scratch</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../Debian_ZFS_on_root_to_a_new_drive/" class="dropdown-item">Debian Root on ZFS to a new drive</a>
+    <a href="../../tech/Debian_ZFS_on_root_to_a_new_drive/" class="dropdown-item">Debian Root on ZFS to a new drive</a>
 </li>
                                     
 <li>
-    <a href="../ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
+    <a href="../../tech/ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
 </li>
                                     
 <li>
-    <a href="../OWI-535-Robot_Arm_Control_assembly/" class="dropdown-item">OWI-535 Robot Arm Control assembly</a>
+    <a href="../../tech/OWI-535-Robot_Arm_Control_assembly/" class="dropdown-item">OWI-535 Robot Arm Control assembly</a>
 </li>
                                     
 <li>
-    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
+    <a href="../../tech/Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Troubleshooting Debian root on ZFS</a>
+    <a href="../../tech/Troubleshooting-Debian-root-on-ZFS/" class="dropdown-item">Troubleshooting Debian root on ZFS</a>
 </li>
                                     
 <li>
-    <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
+    <a href="../../tech/dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -82,7 +82,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../data/benchmarks/" class="dropdown-item">CM4 benchmarks</a>
+    <a href="../../tech/data/benchmarks/" class="dropdown-item">CM4 benchmarks</a>
 </li>
     </ul>
   </li>
@@ -142,12 +142,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Raspberry-Pi/" class="nav-link">
+                                <a rel="prev" href="../bean-dip/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../dphacks-CM4_Ether_Board/" class="nav-link">
+                                <a rel="next" href="../../tech/Debian_ZFS_on_root_to_a_new_drive/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -169,21 +169,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#troubleshooting-debian-root-on-zfs" class="nav-link">Troubleshooting Debian root on ZFS</a>
+            <li class="nav-item" data-level="1"><a href="#peach-cobbler-from-scratch" class="nav-link">Peach Cobbler from scratch</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#result" class="nav-link">Result</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#contributions" class="nav-link">Contributions</a>
+            <li class="nav-item" data-level="2"><a href="#canonical-recipe" class="nav-link">Canonical recipe</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#tldr-rescue" class="nav-link">TL;DR Rescue</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#cant-load-modules" class="nav-link">Can't load modules</a>
+            <li class="nav-item" data-level="2"><a href="#trials" class="nav-link">trials</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -194,43 +194,24 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="troubleshooting-debian-root-on-zfs">Troubleshooting Debian root on ZFS</h1>
+<h1 id="peach-cobbler-from-scratch">Peach Cobbler from scratch</h1>
+<h2 id="result">Result</h2>
+<p>TBD - WIP</p>
 <h2 id="motivation">Motivation</h2>
-<p>I'm sorry to hear that users are having difficulties with Debian root on ZFS. I've been running my laptop that way since I bought it in 2019 and have also converted my desktop to root on ZFS. More recently I've put my server on ZFS root. I can't say this has all been without problems, but I have been able to overcome any difficulties fairly easily. My goal with this document is to identify problems I've encountered and list the solutions I've employed.</p>
-<p>These notes are focused on inability to boot. I use Debian so the notes are specific to that. Perhaps someone will submit a PR for other Linux distros.</p>
-<h2 id="contributions">Contributions</h2>
-<p>Are welcome for anything from typos and formatting to better information and corrections or additions. Submit as issues, PRs or via direct contact. The repo for this is at <a href="https://github.com/HankB/MkDocs-blog">https://github.com/HankB/MkDocs-blog</a></p>
-<h2 id="tldr-rescue">TL;DR Rescue</h2>
-<p>Some times all that is needs is to import the pools from a prompt provided within the startup (e.g. <code>enter the root password or hit &lt;ctrl&gt;D to continue</code> I may not have the wording correct, but that is the gist of it.) Enter the root password and then manually import the root and boot pools. I ran into this recently when moving root and boot pools to another drive. It was the <code>(initramfs)</code> prompt and it was not necessary to enter the root password, just type <code>zpool import -f rpool</code> Hit <code>&lt;ctrl&gt;D</code> and the system comes up normally. I don't know why this happens, but the fix is easy. At other times the <code>zfs import</code> command will report that no modules are loaded and attempts to load them do not succeed. This could mean that the <code>initramfs</code> was not rebuilt or the modules themselves ere not rebuilt. Some kind of rescue is needed.</p>
-<p>Debian leaves the previous kernel in the boot menu and the next thing I do is reboot and select the previous kernel. That should bring up the system with no difficulties. Then I try to rebuild the modules using</p>
-<pre><code class="language-text">dpkg-reconfigure zfs-dkms
-</code></pre>
-<p>Watch the output from this command to identify potential problems. If there are none, the system should then be able to boot the new kernel. If not, there may be other issues. Id so, read on.</p>
-<h2 id="cant-load-modules">Can't load modules</h2>
-<p>This usually means that either the modules were not built for the kernel or the initramfs was not rebuilt for the newer kernel. Usually the command listed above fixes this or helps to identify the problem. Problems I have run into include.</p>
-<h3 id="kernel-headers-not-installed">kernel headers not installed</h3>
-<p>If kernel headers are installed only for the specific (soon to be previous) kernel version, upgrading the kernel may not install the headers. On my Testing (currently Bookworm) laptop, I see the following headers listed.</p>
-<pre><code class="language-text">hbarta@rocinante:~/Documents/MkDocs-blog$ dpkg -l linux-headers*
-Desired=Unknown/Install/Remove/Purge/Hold
-| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
-|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
-||/ Name                         Version      Architecture Description
-+++-============================-============-============-=========================================================
-un  linux-headers                &lt;none&gt;       &lt;none&gt;       (no description available)
-ii  linux-headers-6.1.0-5-amd64  6.1.12-1     amd64        Header files for Linux 6.1.0-5-amd64
-ii  linux-headers-6.1.0-5-common 6.1.12-1     all          Common header files for Linux 6.1.0-5
-ii  linux-headers-6.1.0-6-amd64  6.1.15-1     amd64        Header files for Linux 6.1.0-6-amd64
-ii  linux-headers-6.1.0-6-common 6.1.15-1     all          Common header files for Linux 6.1.0-6
-un  linux-headers-686-pae        &lt;none&gt;       &lt;none&gt;       (no description available)
-ii  linux-headers-amd64          6.1.15-1     amd64        Header files for Linux amd64 configuration (meta-package)
-un  linux-headers-generic        &lt;none&gt;       &lt;none&gt;       (no description available)
-hbarta@rocinante:~/Documents/MkDocs-blog$ 
-</code></pre>
-<p>It is the <code>linux-headers-amd64</code> package that will pull in the appropriate headers for the next kernel.</p>
-<h3 id="kernel-modules-not-built">kernel modules not built</h3>
-<p>This can happen when the kernel ABI changes and the corresponding changes to the ZFS packages have not yet been released. Supported kernel versions for ZFS releases can be viewed at <a href="https://github.com/openzfs/zfs/releases">https://github.com/openzfs/zfs/releases</a>. <em>Note:</em> That the modules may still build with an unsupported kernel version but there could be unexpected problems with operation.</p>
-<p>In this situation it may be possible to try a release that has not yet been packaged for the OS or perhaps even try an unrelease version of ZFS. My personal preference is to wait for the corresponding ZFS package to released and packaged for a new kernel. (This is usually not encountered on Debian Stable as the kernel version is not updated unless one is using a backported kernel.)</p>
-<p>Raspberry Pi OS does not (often? always?) rebuild the ZFS package, or at least the modules when a kernel is updated. The <code>dpkg-reconfigure zfs-dkms</code> command will fix this. Of course I have not found instructions for rooting Raspberry Pi OS on ZFS but these do exist for Ubuntu.</p></div>
+<p>Canonical recipe (box cake mix and canned peaches) results on dessert that is just too swet for me. First ingredient on the box mis is sugar. It should be possible to make a replacement for the box mix that is sufficiently sweet and makes a good cobbler. Canned peaches (or other fruit) also provide sweetness.</p>
+<h2 id="canonical-recipe">Canonical recipe</h2>
+<p>TODO</p>
+<h2 id="trials">trials</h2>
+<p>Strategy is to search for various recipes that do not use box mix and then try them out with varying amounts of sugar. To get accurate proportions the quantities specified in the recipe will be weighed and then a fraction of the original weight will be used to make a batch. To further simplify the process, the mix will be "baked" in the microwave with a small portion of peach mix and a pt of butter. This should be sufficiently close for the purpose of the evaluation.</p>
+<p>Candidates</p>
+<ul>
+<li><a href="https://www.allrecipes.com/recipe/51535/fresh-southern-peach-cobbler/">https://www.allrecipes.com/recipe/51535/fresh-southern-peach-cobbler/</a></li>
+<li><a href="https://www.allrecipes.com/recipe/8489232/blackberry-cobbler-with-frozen-blackberries/">https://www.allrecipes.com/recipe/8489232/blackberry-cobbler-with-frozen-blackberries/</a></li>
+<li><a href="https://www.mrshappyhomemaker.com/chicken-cobbler/#recipe">https://www.mrshappyhomemaker.com/chicken-cobbler/#recipe</a> (Bisquick is a satisfactory alternative to a box cake mix as it can be duplicated in the home kitchen.)</li>
+<li><a href="https://www.allrecipes.com/recipe/12379/strawberry-cobbler-i/">https://www.allrecipes.com/recipe/12379/strawberry-cobbler-i/</a></li>
+<li><a href="https://www.allrecipes.com/recipe/238975/jasons-whole-wheat-blackberry-cobbler/">https://www.allrecipes.com/recipe/238975/jasons-whole-wheat-blackberry-cobbler/</a></li>
+<li><a href="https://www.allrecipes.com/recipe/219449/healthier-southern-peach-cobbler/">https://www.allrecipes.com/recipe/219449/healthier-southern-peach-cobbler/</a></li>
+</ul></div>
             </div>
         </div>
 
