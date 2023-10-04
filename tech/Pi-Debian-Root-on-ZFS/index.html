@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Raspberry Pi installed with root on ZFS - Hank's public Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Hank's public Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Hank's Docs home page</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Food <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../food/bean-dip/" class="dropdown-item">Bean Dip</a>
+</li>
+                                    
+<li>
+    <a href="../../food/peach-cobbler/" class="dropdown-item">Peach Cobbler from scratch</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../Debian_ZFS_on_root_to_a_new_drive/" class="dropdown-item">Debian Root on ZFS to a new drive</a>
+</li>
+                                    
+<li>
+    <a href="../ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
+</li>
+                                    
+<li>
+    <a href="../NVME_performance-Bicool_Mini_Base-vs-IO_Board/" class="dropdown-item">Pi CM4 NVME performance: Bicool Mini Base vs. IO Board</a>
+</li>
+                                    
+<li>
+    <a href="../OWI-535-Robot_Arm_Control_assembly/" class="dropdown-item">OWI-535 Robot Arm Control assembly</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Raspberry Pi installed with root on ZFS</a>
+</li>
+                                    
+<li>
+    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
+</li>
+                                    
+<li>
+    <a href="../Troubleshooting-Debian-root-on-ZFS/" class="dropdown-item">Troubleshooting Debian root on ZFS</a>
+</li>
+                                    
+<li>
+    <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Data</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../data/benchmarks/" class="dropdown-item">CM4 benchmarks</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-KDE_bookworm/" class="dropdown-item">KDE Plasma X11 login hang</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-new-CM4-WiFi-debugging/" class="dropdown-item">New Raspberry Pi CM4 WiFi testing</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Pi CM4 PCIe</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../test-debug/Pi-CM4-PCIe/Pi_CM4_PCIe_testing/" class="dropdown-item">Pi CM4 PCIe testing</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Sanoid</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../test-debug/Sanoid/sanoid/" class="dropdown-item">Sanoid issue #813 testing</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../OWI-535-Robot_Arm_Control_assembly/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../Raspberry-Pi/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#raspberry-pi-installed-with-root-on-zfs" class="nav-link">Raspberry Pi installed with root on ZFS</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-by-step" class="nav-link">Step by step</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-1-disk-formatting" class="nav-link">Step 1: Disk Formatting</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-2-setup-zfs" class="nav-link">Step 2: Setup ZFS</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-3-system-installation" class="nav-link">Step 3: System Installation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-4-system-configuration" class="nav-link">Step 4: System Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="raspberry-pi-installed-with-root-on-zfs">Raspberry Pi installed with root on ZFS</h1>
+<p>Following a blend of the instrustions at <a href="https://openzfs.github.io/openzfs-docs/Getting%20Started/Ubuntu/Ubuntu%2022.04%20Root%20on%20ZFS%20for%20Raspberry%20Pi.html#">https://openzfs.github.io/openzfs-docs/Getting%20Started/Ubuntu/Ubuntu%2022.04%20Root%20on%20ZFS%20for%20Raspberry%20Pi.html#</a> and <a href="https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bullseye%20Root%20on%20ZFS.html">https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bullseye%20Root%20on%20ZFS.html</a> and the information about configuring Debian on Raspberry Pi at <a href="https://raspi.debian.net/defaults-and-settings/">https://raspi.debian.net/defaults-and-settings/</a></p>
+<h2 id="motivation">Motivation</h2>
+<p>Debian on a Raspberry P (4B, CM4.)</p>
+<h2 id="step-by-step">Step by step</h2>
+<p>Step numbers refer to the Ubuntu instructions. Initial provisioning is performed on an X86_64 desktop running Debian Bookworm. Install target is a SATA SSD which will be connected to a Pi 4B. The instructions are for Bullseye but Bookworm (Pi) images will be used. Encryption will not be explored at this time.</p>
+<h2 id="step-1-disk-formatting">Step 1: Disk Formatting</h2>
+<h3 id="1-download-and-unpack-the-official-image">1. Download and unpack the official image:</h3>
+<pre><code class="language-text">curl https://gemmei.ftp.acc.umu.se/cdimage/unofficial/raspi//daily/raspi_4_bookworm.img.xz | xzcat &gt;$(date +%Y%m%d)_raspi_4_bookworm.img
+</code></pre>
+<h3 id="2-dump-the-partition-table-for-the-image">2. Dump the partition table for the image:</h3>
+<pre><code class="language-text">sfdisk -d 20230901_raspi_4_bookworm.img
+</code></pre>
+<p>resulting in</p>
+<pre><code class="language-text">hbarta@olive:~/Downloads/Debian_pi_root_ZFS$ sfdisk -d 20230901_raspi_4_bookworm.img 
+label: dos
+label-id: 0x91e11d01
+device: 20230901_raspi_4_bookworm.img
+unit: sectors
+sector-size: 512
+
+20230901_raspi_4_bookworm.img1 : start=        8192, size=     1040384, type=c
+20230901_raspi_4_bookworm.img2 : start=     1048576, size=     4071424, type=83
+hbarta@olive:~/Downloads/Debian_pi_root_ZFS$
+</code></pre>
+<p>The required variables are then </p>
+<pre><code class="language-text">BOOT=1040384
+ROOT=4071424
+</code></pre>
+<h3 id="3-create-a-partition-script">3. Create a partition script:</h3>
+<pre><code class="language-text">cat &gt; partitions &lt;&lt; EOF
+label: dos
+unit: sectors
+
+1 : start=  2048,  size=$BOOT,  type=c, bootable
+2 : start=$((2048+BOOT)),  size=$ROOT, type=83
+3 : start=$((2048+BOOT+ROOT)), size=$ROOT, type=83
+EOF
+</code></pre>
+<h3 id="4-connect-the-disk">4. Connect the disk:</h3>
+<p>In this case <code>/dev/sdb</code>, and create the necessary variables.</p>
+<pre><code class="language-text">DISK=/dev/sdb
+export DISKP=${DISK}
+</code></pre>
+<h3 id="5-ensure-swap-partitions-are-not-in-use">5. Ensure swap partitions are not in use:</h3>
+<pre><code class="language-text">swapon -v
+</code></pre>
+<p>(None in use.)</p>
+<h3 id="6-clear-old-zfs-labels">6. Clear old ZFS labels:</h3>
+<pre><code class="language-text">sudo zpool labelclear -f ${DISK}
+</code></pre>
+<p>(Secure erase or <code>blkdiscard</code> are alternate options for an SSD drive)</p>
+<pre><code class="language-text">sudo blkdiscard -f $DISK
+</code></pre>
+<h3 id="7-delete-existing-partitions">7. Delete existing partitions:</h3>
+<pre><code class="language-text">echo &quot;label: dos&quot; | sudo sfdisk ${DISK}
+sudo partprobe
+ls ${DISKP}*
+</code></pre>
+<p>(Not needed when <code>blkdiscard</code> is used)</p>
+<h3 id="8-create-the-partitions">8. Create the partitions:</h3>
+<pre><code class="language-text">sudo sfdisk $DISK &lt; partitions
+</code></pre>
+<h3 id="9-loopback-mount-the-image">9. Loopback mount the image:</h3>
+<pre><code class="language-text">IMG=$(sudo losetup -fP --show 20230901_raspi_4_bookworm.img)
+</code></pre>
+<h3 id="10-copy-the-bootloader-data">10. Copy the bootloader data:</h3>
+<pre><code class="language-text">sudo dd if=${IMG}p1 of=${DISKP}1 bs=1M
+</code></pre>
+<h3 id="11-clear-old-labels-from-partition-2">11. Clear old label(s) from partition 2:</h3>
+<pre><code class="language-text">sudo wipefs -a ${DISKP}2
+</code></pre>
+<h3 id="12-copy-the-root-filesystem-data">12. Copy the root filesystem data:</h3>
+<pre><code class="language-text"># NOTE: the destination is p3, not p2.
+sudo dd if=${IMG}p2 of=${DISKP}3 bs=1M status=progress conv=fsync
+</code></pre>
+<h3 id="13-unmount-the-image">13. Unmount the image:</h3>
+<pre><code class="language-text">sudo losetup -d $IMG
+</code></pre>
+<h3 id="14-if-setting-up-a-usb-disk">14. If setting up a USB disk:</h3>
+<p>This is where the Debian seems to differ from Ubuntu. <code>zcat -qf</code> on the installed image produces output that is bit for bit identical with the input. For now this will be left as is.</p>
+<p>Debian provides configuration options that will be set here. In particular <code>root_authorized_key</code> is necessary in order to SSH in later since Debian does not create a default user account. It is also convenient to set <code>hostname</code> at this time.</p>
+<pre><code class="language-text">sudo -sE
+
+MNT=$(mktemp -d /mnt/XXXXXXXX)
+mkdir -p $MNT/boot
+mount ${DISKP}1 $MNT/boot
+vi $MNT/boot/sysconf.txt # add public key as root_authorized_key
+umount $MNT/*
+rm -rf $MNT
+exit
+</code></pre>
+<h3 id="15-boot-the-raspberry-pi">15. Boot the Raspberry Pi.</h3>
+<p>(Successful.)</p>
+<h2 id="step-2-setup-zfs">Step 2: Setup ZFS</h2>
+<h3 id="1-become-root">1. Become root:</h3>
+<p>Determine IP address of the Pi SSH in as root.</p>
+<h3 id="2-set-the-disk-and-diskp-variables-again">2. Set the DISK and DISKP variables again:</h3>
+<pre><code class="language-text">DISK=/dev/sda
+DISKP=${DISK}
+</code></pre>
+<h3 id="3-install-zfs">3. Install ZFS:</h3>
+<p>Instructions differ with Ubuntu as ZFS modules must be built for Debian.</p>
+<pre><code class="language-text">vi /etc/apt/sources.list # add &quot;contrib&quot; repo
+apt update
+apt install pv zfs-initramfs console-setup locales
+dpkg-reconfigure locales
+zfs --version
+</code></pre>
+<pre><code class="language-text">root@mercury:~# zfs --version
+zfs-2.1.11-1
+zfs-kmod-2.1.11-1
+root@mercury:~# 
+</code></pre>
+<h3 id="4-create-the-root-pool">4. Create the root pool:</h3>
+<p>(unencrypted)</p>
+<pre><code class="language-text">zpool create \
+    -o ashift=12 \
+    -O acltype=posixacl -O canmount=off -O compression=lz4 \
+    -O dnodesize=auto -O normalization=formD -O relatime=on \
+    -O xattr=sa -O mountpoint=/ -R /mnt \
+    rpool ${DISKP}2
+</code></pre>
+<pre><code class="language-text">root@mercury:~# zpool list
+NAME    SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+rpool  1.88G   476K  1.87G        -         -     0%     0%  1.00x    ONLINE  /mnt
+root@mercury:~# 
+</code></pre>
+<h2 id="step-3-system-installation">Step 3: System Installation</h2>
+<h3 id="1-create-a-filesystem-dataset-to-act-as-a-container">1. Create a filesystem dataset to act as a container:</h3>
+<pre><code class="language-text">zfs create -o canmount=off -o mountpoint=none rpool/ROOT
+</code></pre>
+<h3 id="2-create-a-filesystem-dataset-for-the-root-filesystem">2. Create a filesystem dataset for the root filesystem:</h3>
+<p>Question: Are the <code>zsys</code> relkated properties useful for Debian? Also is the unique (UUID) name desired? Following Debian policy on this.</p>
+<pre><code class="language-text">zfs create -o canmount=noauto -o mountpoint=/ rpool/ROOT/debian
+zfs mount rpool/ROOT/debian
+</code></pre>
+<h3 id="3-create-datasets">3. Create datasets:</h3>
+<p>More possible differences in the way Ubuntu dreates a dataset for <code>/root</code>. Again following Debian policy (And copying the commands from the Debian instruyction page.) And not bothering with the optional datasets at this time but wiull create the tmpfs fpr <code>/tmp</code></p>
+<pre><code class="language-text">zfs create                     rpool/home
+zfs create -o mountpoint=/root rpool/home/root
+chmod 700 /mnt/root
+zfs create -o canmount=off     rpool/var
+zfs create -o canmount=off     rpool/var/lib
+zfs create                     rpool/var/log
+zfs create -o com.sun:auto-snapshot=false  rpool/tmp
+chmod 1777 /mnt/tmp
+</code></pre>
+<h3 id="4-debian-mount-a-tmpfs-at-run">4. (Debian) Mount a tmpfs at /run:</h3>
+<pre><code class="language-text">mkdir /mnt/run
+mount -t tmpfs tmpfs /mnt/run
+mkdir /mnt/run/lock
+</code></pre>
+<h3 id="4-ubuntu-optional-ignore-synchronous-requests">4. (Ubuntu) Optional: Ignore synchronous requests:</h3>
+<p>Not done.</p>
+<h3 id="5-copy-the-system-into-the-zfs-filesystems">5. Copy the system into the ZFS filesystems:</h3>
+<pre><code class="language-text">(cd /; tar -cf - --one-file-system --warning=no-file-ignored .) | \
+    pv -p -bs $(du -sxm --apparent-size / | cut -f1)m | \
+    (cd /mnt ; tar -x)
+</code></pre>
+<h2 id="step-4-system-configuration">Step 4: System Configuration</h2>
+<h3 id="step-1-configure-the-hostname">Step 1. Configure the hostname:</h3>
+<p>(Set earlier but <code>/etc/hosts</code> requires the addition.)</p>
+<pre><code class="language-text">vi /mnt/etc/hosts
+</code></pre>
+<h3 id="2-stop-zed">2. Stop `zed``:</h3>
+<p>Not apparently running</p>
+<pre><code class="language-text">root@mercury:~# systemctl status zed
+○ zfs-zed.service - ZFS Event Daemon (zed)
+     Loaded: loaded (/lib/systemd/system/zfs-zed.service; enabled; preset: enabled)
+     Active: inactive (dead)
+  Condition: start condition failed at Fri 2023-09-01 16:24:08 UTC; 30min ago
+       Docs: man:zed(8)
+
+Sep 01 16:24:08 mercury systemd[1]: zfs-zed.service - ZFS Event Daemon (zed) was skipped because of an unmet condition check (ConditionPathIsDire&gt;
+root@mercury:~# 
+</code></pre>
+<h3 id="3-bind-the-virtual-filesystems-from-the-running-environment-to-the-new-zfs-environment-and-chroot-into-it">3. Bind the virtual filesystems from the running environment to the new ZFS environment and chroot into it:</h3>
+<pre><code class="language-text">mount --make-private --rbind /boot/firmware /mnt/boot/firmware
+mount --make-private --rbind /dev  /mnt/dev
+mount --make-private --rbind /proc /mnt/proc
+mount --make-private --rbind /run  /mnt/run
+mount --make-private --rbind /sys  /mnt/sys
+chroot /mnt /usr/bin/env DISK=$DISK UUID=$UUID bash --login
+</code></pre>
+<h3 id="4-configure-a-basic-system-environment">4. Configure a basic system environment:</h3>
+<pre><code class="language-text">apt update
+dpkg-reconfigure locales
+dpkg-reconfigure tzdata
+</code></pre>
+<h3 id="5-for-luks-installs-only-setup-etccrypttab">5. For LUKS installs only, setup <code>/etc/crypttab</code>:</h3>
+<p>Not needed.</p>
+<h3 id="6-optional-mount-a-tmpfs-to-tmp">6. Optional: Mount a tmpfs to /tmp</h3>
+<pre><code class="language-text">cp /usr/share/systemd/tmp.mount /etc/systemd/system/
+systemctl enable tmp.mount
+</code></pre>
+<h3 id="7-setup-system-groups">7. Setup system groups:</h3>
+<pre><code class="language-text">addgroup --system lpadmin
+addgroup --system sambashare
+</code></pre>
+<h3 id="8-fix-filesystem-mount-ordering">8. Fix filesystem mount ordering:</h3>
+<pre><code class="language-text">zfs set canmount=noauto rpool/ROOT/debian
+cat /etc/zfs/zfs-list.cache/rpool 
+fg
+&lt;ctrl&gt;C
+sed -Ei &quot;s|/mnt/?|/|&quot; /etc/zfs/zfs-list.cache/*
+</code></pre>
+<h3 id="9-remove-old-filesystem-from-etcfstab">9. Remove old filesystem from <code>/etc/fstab</code>:</h3>
+<pre><code class="language-text">vi /etc/fstab
+# Remove the old root filesystem line:
+#   LABEL=RASPIROOT / ext4 ...
+</code></pre>
+<h3 id="debian-update-initramfs">(Debian) update initramfs</h3>
+<pre><code class="language-text">update-initramfs -c -b /boot/firmware -k all
+</code></pre>
+<h3 id="10-configure-kernel-command-line">10. Configure kernel command line:</h3>
+<pre><code class="language-text">cp /boot/firmware/cmdline.txt /boot/firmware/cmdline.txt.bak
+sed -i &quot;s|root=LABEL=RASPIROOT|root=ZFS=rpool/ROOT/debian|&quot; \
+    /boot/firmware/cmdline.txt
+sed -i &quot;s| fixrtc||&quot; /boot/firmware/cmdline.txt
+sed -i &quot;s|$| init_on_alloc=0|&quot; /boot/firmware/cmdline.txt
+</code></pre>
+<h3 id="11-optional-but-highly-recommended-make-debugging-booting-easier">11. Optional (but highly recommended): Make debugging booting easier:</h3>
+<pre><code class="language-text">sed -i &quot;s|$| nosplash|&quot; /boot/firmware/cmdline.txt
+</code></pre>
+<pre><code class="language-text">root@mercury:/# cat /boot/firmware/cmdline.txt
+console=tty0 console=ttyS1,115200 root=ZFS=rpool/ROOT/debian rw fsck.repair=yes net.ifnames=0  rootwait  init_on_alloc=0 nosplash
+root@mercury:/# 
+</code></pre>
+<ol>
+<li>(Cross fingers and) Reboot</li>
+</ol>
+<pre><code class="language-text">exit
+reboot
+</code></pre>
+<p>System stops at </p>
+<pre><code class="language-text">[    7.nnnnnn] sd 0:0:0:0: [sda] Attached SCSI
+</code></pre>
+<p>Maybe need to run <code>update-initramfs -c -b /boot/firmware -k all</code> during installation. Attempt to rescue - no joy. Try the full install again. No joy. Need to step back and figure out what's not working.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
