@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Compare performance of an NVME SSD on the (Waveshare) Bicool Mini Base A vs. the official Compute module 4 IO Board. Testinig is on CM4 H/W that uses direct PCIe/NVME connections (no USB adapter.)
+Compare performance of an NVME SSD on the (Waveshare) Bicool Mini Base A vs. the official Compute module 4 IO Board. testing is on CM4 H/W that uses direct PCIe/NVME connections (no USB adapter.)
 
 ## Motivation:
 
-I configured a recently received CM4 on a Mini Base and performed some intitial testing to establish correct operation. Initial tests produced lower than expected disk bakdwidth. But there are confounding factors that could affect the tests. The initial test was performed with the SSD installed on an IO Board using a PCIe/NVME adapter and a CM4 with 8GB RAM. The card was then moved to the Mini Base which had a CM4 with 4GB RAM. Possible confounding factors.
+I configured a recently received CM4 on a Mini Base and performed some intitial testing to establish correct operation. Initial tests produced lower than expected disk bandwidth. But there are confounding factors that could affect the tests. The initial test was performed with the SSD installed on an IO Board using a PCIe/NVME adapter and a CM4 with 8GB RAM. The card was then moved to the Mini Base which had a CM4 with 4GB RAM. Possible confounding factors.
 
 * 4GB vs 8GB CM4
 * Cooling on the SSD due to mounting location.
@@ -15,7 +15,7 @@ I configured a recently received CM4 on a Mini Base and performed some intitial 
 
 ## Process
 
-1. Install vanilla Debian Bookworm to the 256GB NVME SSD. The same SSD will be used for all testinig. It will be erased using `blkdiscard` prior to each installatioin and it will be trimmed prior to each disk benchmark.
+1. Install vanilla Debian Bookworm to the 256GB NVME SSD. The same SSD will be used for all testing. It will be erased using `blkdiscard` prior to each installatioin and it will be trimmed prior to each disk benchmark.
 1. Perform two benchmarks on the CM4/4GB on the Mini Base. Direct a small fan at the SSD to control temperature and note results including SSD temperature.
 1. Evaluate.
 1. Swap the NVME SSD to the IO Board with the CM4/8GB.
@@ -26,7 +26,7 @@ time -p fio --randrepeat=1 --ioengine=libaio --gtod_reduce=1 --directory=/home/h
 time -p fio --randrepeat=1 --ioengine=libaio --gtod_reduce=1 --directory=/home/hbarta/ --name="io 256GB SSSTC NVME CM4/8GB IO Board" --filename=test.dat --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
 ```
 
-### Testinig on 
+### Testing on Bicool Mini Base
 
 ```text
 hbarta@io:~$ time -p iozone -f /home/hbarta/iozone.tst -e -o -a -s 100M -r 4k -i 0 -i 1 -i 2
