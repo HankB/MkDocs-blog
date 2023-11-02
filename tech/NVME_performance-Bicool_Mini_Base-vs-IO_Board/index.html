@@ -204,9 +204,9 @@
 
 <h1 id="pi-cm4-nvme-performance-bicool-mini-base-vs-io-board">Pi CM4 NVME performance: Bicool Mini Base vs. IO Board</h1>
 <h2 id="purpose">Purpose</h2>
-<p>Compare performance of an NVME SSD on the (Waveshare) Bicool Mini Base A vs. the official Compute module 4 IO Board. Testinig is on CM4 H/W that uses direct PCIe/NVME connections (no USB adapter.)</p>
+<p>Compare performance of an NVME SSD on the (Waveshare) Bicool Mini Base A vs. the official Compute module 4 IO Board. testing is on CM4 H/W that uses direct PCIe/NVME connections (no USB adapter.)</p>
 <h2 id="motivation">Motivation:</h2>
-<p>I configured a recently received CM4 on a Mini Base and performed some intitial testing to establish correct operation. Initial tests produced lower than expected disk bakdwidth. But there are confounding factors that could affect the tests. The initial test was performed with the SSD installed on an IO Board using a PCIe/NVME adapter and a CM4 with 8GB RAM. The card was then moved to the Mini Base which had a CM4 with 4GB RAM. Possible confounding factors.</p>
+<p>I configured a recently received CM4 on a Mini Base and performed some intitial testing to establish correct operation. Initial tests produced lower than expected disk bandwidth. But there are confounding factors that could affect the tests. The initial test was performed with the SSD installed on an IO Board using a PCIe/NVME adapter and a CM4 with 8GB RAM. The card was then moved to the Mini Base which had a CM4 with 4GB RAM. Possible confounding factors.</p>
 <ul>
 <li>4GB vs 8GB CM4</li>
 <li>Cooling on the SSD due to mounting location.</li>
@@ -215,7 +215,7 @@
 </ul>
 <h2 id="process">Process</h2>
 <ol>
-<li>Install vanilla Debian Bookworm to the 256GB NVME SSD. The same SSD will be used for all testinig. It will be erased using <code>blkdiscard</code> prior to each installatioin and it will be trimmed prior to each disk benchmark.</li>
+<li>Install vanilla Debian Bookworm to the 256GB NVME SSD. The same SSD will be used for all testing. It will be erased using <code>blkdiscard</code> prior to each installatioin and it will be trimmed prior to each disk benchmark.</li>
 <li>Perform two benchmarks on the CM4/4GB on the Mini Base. Direct a small fan at the SSD to control temperature and note results including SSD temperature.</li>
 <li>Evaluate.</li>
 <li>Swap the NVME SSD to the IO Board with the CM4/8GB.</li>
@@ -224,7 +224,7 @@
 time -p fio --randrepeat=1 --ioengine=libaio --gtod_reduce=1 --directory=/home/hbarta/ --name=&quot;io 256GB SSSTC NVME CM4/4GB Mini Base&quot; --filename=test.dat --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
 time -p fio --randrepeat=1 --ioengine=libaio --gtod_reduce=1 --directory=/home/hbarta/ --name=&quot;io 256GB SSSTC NVME CM4/8GB IO Board&quot; --filename=test.dat --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
 </code></pre>
-<h3 id="testinig-on">Testinig on</h3>
+<h3 id="testing-on-bicool-mini-base">Testing on Bicool Mini Base</h3>
 <pre><code class="language-text">hbarta@io:~$ time -p iozone -f /home/hbarta/iozone.tst -e -o -a -s 100M -r 4k -i 0 -i 1 -i 2
         Iozone: Performance Test of File I/O
                 Version $Revision: 3.489 $
