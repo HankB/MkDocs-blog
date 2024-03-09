@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Void Linux, MBR boot using ZFSBootMenu - Hank's public Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Hank's public Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Hank's Docs home page</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Food <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../food/bean-dip/" class="dropdown-item">Bean Dip</a>
+</li>
+                                    
+<li>
+    <a href="../../food/peach-cobbler/" class="dropdown-item">Peach Cobbler from scratch</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../Debian_ZFS_on_root_to_a_new_drive/" class="dropdown-item">Debian Root on ZFS to a new drive</a>
+</li>
+                                    
+<li>
+    <a href="../ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
+</li>
+                                    
+<li>
+    <a href="../NVME_performance-Bicool_Mini_Base-vs-IO_Board/" class="dropdown-item">Pi CM4 NVME performance: Bicool Mini Base vs. IO Board</a>
+</li>
+                                    
+<li>
+    <a href="../OWI-535-Robot_Arm_Control_assembly/" class="dropdown-item">OWI-535 Robot Arm Control assembly</a>
+</li>
+                                    
+<li>
+    <a href="../Pi-Debian-Root-on-ZFS/" class="dropdown-item">Raspberry Pi installed with root on ZFS</a>
+</li>
+                                    
+<li>
+    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
+</li>
+                                    
+<li>
+    <a href="../Troubleshooting-Debian-root-on-ZFS/" class="dropdown-item">Troubleshooting Debian root on ZFS</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Void Linux, MBR boot using ZFSBootMenu</a>
+</li>
+                                    
+<li>
+    <a href="../ZFS-boot-menu/" class="dropdown-item">ZFS boot menu</a>
+</li>
+                                    
+<li>
+    <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Data</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../data/benchmarks/" class="dropdown-item">CM4 benchmarks</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-KDE_bookworm/" class="dropdown-item">KDE Plasma X11 login hang</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-new-CM4-WiFi-debugging/" class="dropdown-item">New Raspberry Pi CM4 WiFi testing</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Pi CM4 PCIe</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../test-debug/Pi-CM4-PCIe/Pi_CM4_PCIe_testing/" class="dropdown-item">Pi CM4 PCIe testing</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Sanoid</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../test-debug/Sanoid/sanoid/" class="dropdown-item">Sanoid issue #813 testing</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../Troubleshooting-Debian-root-on-ZFS/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../ZFS-boot-menu/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#void-linux-mbr-boot-using-zfsbootmenu" class="nav-link">Void Linux, MBR boot using ZFSBootMenu</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#2024-03-09-download-and-install-to-ventoy" class="nav-link">2024-03-09 Download and install to Ventoy</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-09-boot-hrmpf" class="nav-link">2024-03-09 boot hrmpf</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-09-configure-live-environment" class="nav-link">2024-03-09 Configure Live Environment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-09-zfs-pool-creation" class="nav-link">2024-03-09 ZFS pool creation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-09-basic-void-configuration" class="nav-link">2024-03-09 Basic Void configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-09-zfs-configuration" class="nav-link">2024-03-09 ZFS Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="void-linux-mbr-boot-using-zfsbootmenu">Void Linux, MBR boot using ZFSBootMenu</h1>
+<p>Motivation: Familiarize using syslinux with ZFSBootMenu (ZBM)on a host that uses legacy (MBR) boot. Eventually syslinux/ZBM will be used to boot Debian Bookworm with ZFS on root.</p>
+<ul>
+<li><a href="https://docs.zfsbootmenu.org/en/v2.3.x/guides/void-linux/syslinux-mbr.html#">https://docs.zfsbootmenu.org/en/v2.3.x/guides/void-linux/syslinux-mbr.html#</a></li>
+<li><a href="https://github.com/leahneukirchen/hrmpf/releases">https://github.com/leahneukirchen/hrmpf/releases</a></li>
+</ul>
+<h2 id="2024-03-09-download-and-install-to-ventoy">2024-03-09 Download and install to Ventoy</h2>
+<p>From <a href="https://github.com/leahneukirchen/hrmpf/releases">https://github.com/leahneukirchen/hrmpf/releases</a> download <code>hrmpf-x86_64-6.5.12_1-20231124.iso</code> (No peers for the torrent.) Confirm <code>sha256sum</code>. Copy to Ventoy USB drive.</p>
+<h2 id="2024-03-09-boot-hrmpf">2024-03-09 boot hrmpf</h2>
+<p>Boot <code>hrmpf</code> and select first option to run. Comes up to console with SSH server available. Login with <code>anon</code>/<code>voidlinux</code> and passwordless <code>sudo</code>.</p>
+<h2 id="2024-03-09-configure-live-environment">2024-03-09 Configure Live Environment</h2>
+<h3 id="source-etcos-release">Source <code>/etc/os-release</code></h3>
+<pre><code class="language-text">source /etc/os-release
+export ID
+echo $ID
+</code></pre>
+<pre><code class="language-text">bash-5.2# source /etc/os-release
+bash-5.2# export ID
+bash-5.2# echo $ID
+void
+bash-5.2# 
+</code></pre>
+<h3 id="generate-etchostid">Generate <code>/etc/hostid</code></h3>
+<pre><code class="language-text">zgenhostid -f 0x00bab10c
+</code></pre>
+<h3 id="define-disk-variables">Define disk variables</h3>
+<p>Confirm (Kingston) SSD device node. <code>/dev/sda</code> it is!</p>
+<pre><code class="language-text">bash-5.2# sgdisk /dev/sda -p
+Disk /dev/sda: 234441648 sectors, 111.8 GiB
+Model: KINGSTON SA400S3
+Sector size (logical/physical): 512/512 bytes
+Disk identifier (GUID): 7B794CDC-A742-48C3-BDC2-3825E3E776DD
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 234441614
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 22494 sectors (11.0 MiB)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048         1050623   512.0 MiB   EF00  
+   2         1050624       234421134   111.3 GiB   BF00  
+bash-5.2# 
+</code></pre>
+<pre><code class="language-text">export BOOT_DISK=&quot;/dev/sda&quot;
+export BOOT_PART=&quot;1&quot;
+export BOOT_DEVICE=&quot;${BOOT_DISK}${BOOT_PART}&quot;
+
+export POOL_DISK=&quot;/dev/sda&quot;
+export POOL_PART=&quot;2&quot;
+export POOL_DEVICE=&quot;${POOL_DISK}${POOL_PART}&quot;
+</code></pre>
+<h3 id="disk-preparation">Disk preparation</h3>
+<pre><code class="language-text">blkdiscard -f $BOOT_DISK
+cat &lt;&lt;EOF | sfdisk &quot;${POOL_DISK}&quot;
+label: dos
+start=1MiB, size=512MiB, type=83, bootable
+start=513MiB, size=+, type=83
+EOF
+</code></pre>
+<pre><code class="language-text">bash-5.2# blkdiscard -f $BOOT_DISK
+blkdiscard: Operation forced, data will be lost!
+bash-5.2# 
+
+bash-5.2# cat &lt;&lt;EOF | sfdisk &quot;${POOL_DISK}&quot;
+label: dos
+start=1MiB, size=512MiB, type=83, bootable
+start=513MiB, size=+, type=83
+EOF
+Checking that no-one is using this disk right now ... OK
+
+Disk /dev/sda: 111.79 GiB, 120034123776 bytes, 234441648 sectors
+Disk model: KINGSTON SA400S3
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+&gt;&gt;&gt; Script header accepted.
+&gt;&gt;&gt; Created a new DOS disklabel with disk identifier 0x14b74275.
+/dev/sda1: Created a new partition 1 of type 'Linux' and of size 512 MiB.
+/dev/sda2: Created a new partition 2 of type 'Linux' and of size 111.3 GiB.
+/dev/sda3: Done.
+
+New situation:
+Disklabel type: dos
+Disk identifier: 0x14b74275
+
+Device     Boot   Start       End   Sectors   Size Id Type
+/dev/sda1  *       2048   1050623   1048576   512M 83 Linux
+/dev/sda2       1050624 234441647 233391024 111.3G 83 Linux
+
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+bash-5.2# 
+</code></pre>
+<h2 id="2024-03-09-zfs-pool-creation">2024-03-09 ZFS pool creation</h2>
+<h3 id="create-the-zpool">Create the zpool</h3>
+<pre><code class="language-text">zpool create -f -o ashift=12 \
+ -O compression=lz4 \
+ -O acltype=posixacl \
+ -O xattr=sa \
+ -O relatime=on \
+ -o autotrim=on \
+ -o compatibility=openzfs-2.1-linux \
+ -m none zroot &quot;$POOL_DEVICE&quot;
+ zpool list
+ ```
+
+ ```text
+ bash-5.2# zpool create -f -o ashift=12 \
+ -O compression=lz4 \
+ -O acltype=posixacl \
+ -O xattr=sa \
+ -O relatime=on \
+ -o autotrim=on \
+ -o compatibility=openzfs-2.1-linux \
+ -m none zroot &quot;$POOL_DEVICE&quot;
+bash-5.2#  zpool list
+NAME    SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+zroot   111G   588K   111G        -         -     0%     0%  1.00x    ONLINE  -
+bash-5.2# 
+</code></pre>
+<h3 id="create-initial-file-systems">Create initial file systems</h3>
+<pre><code class="language-text">zfs create -o mountpoint=none zroot/ROOT
+zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/${ID}
+zfs create -o mountpoint=/home zroot/home
+
+zpool set bootfs=zroot/ROOT/${ID} zroot
+</code></pre>
+<pre><code class="language-text">bash-5.2# zfs create -o mountpoint=none zroot/ROOT
+bash-5.2# zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/${ID}
+bash-5.2# zfs create -o mountpoint=/home zroot/home
+bash-5.2# zpool set bootfs=zroot/ROOT/${ID} zroot
+bash-5.2# zfs list -r
+NAME              USED  AVAIL  REFER  MOUNTPOINT
+zroot             972K   108G    96K  none
+zroot/ROOT        192K   108G    96K  none
+zroot/ROOT/void    96K   108G    96K  /
+zroot/home         96K   108G    96K  /home
+bash-5.2# 
+</code></pre>
+<h3 id="export-then-re-import-with-a-temporary-mountpoint-of-mnt">Export, then re-import with a temporary mountpoint of /mnt</h3>
+<pre><code class="language-text">zpool export zroot
+zpool import -N -R /mnt zroot
+zfs mount zroot/ROOT/${ID}
+zfs mount zroot/home
+</code></pre>
+<pre><code class="language-text">bash-5.2# zpool export zroot
+bash-5.2# zpool import -N -R /mnt zroot
+bash-5.2# zfs mount zroot/ROOT/${ID}
+bash-5.2# zfs mount zroot/home
+bash-5.2# zfs list -r
+NAME              USED  AVAIL  REFER  MOUNTPOINT
+zroot             996K   108G    96K  none
+zroot/ROOT        192K   108G    96K  none
+zroot/ROOT/void    96K   108G    96K  /mnt
+zroot/home         96K   108G    96K  /mnt/home
+bash-5.2# 
+</code></pre>
+<h3 id="verify-that-everything-is-mounted-correctly">Verify that everything is mounted correctly</h3>
+<pre><code class="language-text">bash-5.2# mount | grep mnt
+zroot/ROOT/void on /mnt type zfs (rw,relatime,xattr,posixacl,casesensitive)
+zroot/home on /mnt/home type zfs (rw,relatime,xattr,posixacl,casesensitive)
+bash-5.2# 
+</code></pre>
+<h3 id="update-device-symlinks">Update device symlinks</h3>
+<pre><code class="language-text">udevadm trigger
+</code></pre>
+<h3 id="install-void">Install Void</h3>
+<pre><code class="language-text">XBPS_ARCH=x86_64 xbps-install \
+  -S -R https://mirrors.servercentral.com/voidlinux/current \
+  -r /mnt base-system
+</code></pre>
+<pre><code class="language-text">...
+base-system-0.114_1: configuring ...
+base-system-0.114_1: installed successfully.
+
+130 downloaded, 130 installed, 0 updated, 130 configured, 0 removed.
+bash-5.2# 
+</code></pre>
+<h3 id="copy-our-files-into-the-new-install">Copy our files into the new install</h3>
+<pre><code class="language-text">cp /etc/hostid /mnt/etc
+</code></pre>
+<h2 id="2024-03-09-basic-void-configuration">2024-03-09 Basic Void configuration</h2>
+<h3 id="set-the-keymap-timezone-and-hardware-clock">Set the keymap, timezone and hardware clock</h3>
+<pre><code class="language-text">cat &lt;&lt; EOF &gt;&gt; /etc/rc.conf
+KEYMAP=&quot;us&quot;
+HARDWARECLOCK=&quot;UTC&quot;
+EOF
+ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
+</code></pre>
+<pre><code class="language-text">[xchroot /mnt] # cat &lt;&lt; EOF &gt;&gt; /etc/rc.conf
+KEYMAP=&quot;us&quot;
+HARDWARECLOCK=&quot;UTC&quot;
+EOF
+ln -sf /usr/share/zoneinfo/&lt;timezone&gt; /etc/localtime
+bash: timezone: No such file or directory
+[xchroot /mnt] # ls /usr/share/zoneinfo/America/Chicago
+/usr/share/zoneinfo/America/Chicago
+[xchroot /mnt] # ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
+[xchroot /mnt] # 
+</code></pre>
+<h3 id="configure-your-glibc-locale">Configure your glibc locale</h3>
+<pre><code class="language-text">cat &lt;&lt; EOF &gt;&gt; /etc/default/libc-locales
+en_US.UTF-8 UTF-8
+en_US ISO-8859-1
+EOF
+xbps-reconfigure -f glibc-locales
+</code></pre>
+<pre><code class="language-text">[xchroot /mnt] # cat &lt;&lt; EOF &gt;&gt; /etc/default/libc-locales
+en_US.UTF-8 UTF-8
+en_US ISO-8859-1
+EOF
+xbps-reconfigure -f glibc-locales
+glibc-locales: configuring ...
+Generating GNU libc locales...
+  en_US.UTF-8... done.
+  en_US.ISO-8859-1... done.
+glibc-locales: configured successfully.
+[xchroot /mnt] # 
+</code></pre>
+<h3 id="set-a-root-password">Set a root password</h3>
+<pre><code class="language-text">passwd
+</code></pre>
+<h2 id="2024-03-09-zfs-configuration">2024-03-09 ZFS Configuration</h2>
+<h3 id="configure-dracut-to-load-zfs-support">Configure Dracut to load ZFS support</h3>
+<pre><code class="language-text">cat &lt;&lt; EOF &gt; /etc/dracut.conf.d/zol.conf
+nofsck=&quot;yes&quot;
+add_dracutmodules+=&quot; zfs &quot;
+omit_dracutmodules+=&quot; btrfs &quot;
+EOF
+</code></pre>
+<h3 id="install-zfs">Install ZFS</h3>
+<pre><code class="language-text">xbps-install -S zfs
+</code></pre>
+<p><code>``text
+[xchroot /mnt] # xbps-install -S zfs
+[*] Updating repository</code>https://repo-default.voidlinux.org/current/x86_64-repodata' ...</p>
+<p>Name                Action    Version           New version            Download size
+bc                  install   -                 1.07.1_5               80KB 
+binutils-doc        install   -                 2.41_2                 750KB 
+binutils-libs       install   -                 2.41_2                 2188KB 
+libunistring        install   -                 1.0_1                  583KB 
+libidn2             install   -                 2.3.4_1                168KB 
+public-suffix       install   -                 2024.03.01_1           128KB 
+libpsl              install   -                 0.21.5_1               72KB 
+libssh2             install   -                 1.11.0_2               121KB 
+c-ares              install   -                 1.27.0_1               79KB 
+jansson             install   -                 2.14_1                 29KB 
+libev               install   -                 4.33_1                 31KB 
+nghttp2             install   -                 1.59.0_1               711KB 
+libcurl             install   -                 8.6.0_1                340KB 
+libdebuginfod       install   -                 0.190_1                15KB 
+binutils            install   -                 2.41_2                 4120KB 
+kernel-libc-headers install   -                 6.1_1                  1328KB 
+glibc-devel         install   -                 2.38_5                 3233KB 
+libatomic           install   -                 13.2.0_2               11KB 
+libatomic-devel     install   -                 13.2.0_2               11KB 
+libgcc-devel        install   -                 13.2.0_2               1404KB 
+libstdc++-devel     install   -                 13.2.0_2               2829KB 
+gcc                 install   -                 13.2.0_2               71MB 
+linux6.6-headers    install   -                 6.6.21_1               12MB 
+linux-headers       install   -                 6.6_1                  542B 
+make                install   -                 4.4.1_1                535KB 
+dkms                install   -                 3.0.12_1               36KB 
+libtirpc            install   -                 1.3.4_1                89KB 
+libzfs              install   -                 2.2.3_1                1746KB 
+gdbm                install   -                 1.23_1                 167KB 
+libxcrypt-devel     install   -                 4.4.36_3               110KB 
+perl                install   -                 5.38.2_3               14MB 
+expat               install   -                 2.6.1_1                68KB 
+libffi              install   -                 3.3_2                  19KB 
+sqlite              install   -                 3.44.2_2               1245KB 
+python3             install   -                 3.12.2_2               7785KB 
+zfs                 install   -                 2.2.3_1                32MB </p>
+<p>Size to download:              159MB
+Size required on disk:         515MB
+Space available on disk:       106GB</p>
+<p>Do you want to continue? [Y/n] 
+...</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
