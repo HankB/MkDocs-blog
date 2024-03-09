@@ -1,5 +1,22 @@
 # ZFS boot menu
 
+## Motivation
+
+Server running Debian Bookworm (upgraded from Bullseye and IIRC Buster before that) running with ZFS on root using the `bpooll`/`rpool` arrangement per the instrustions for OpenZFS has become unbootable following upgrade from 2.2.2 to 2.2.3. Initial attempts to rescue by fixing Grub were not successful and ZFSBootMenu (ZBM) is being explored.
+
+## References
+
+* <https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bookworm%20Root%20on%20ZFS.html#> OpenZFS instructions
+* <https://docs.zfsbootmenu.org/en/v2.3.x/guides/debian/bookworm-uefi.html#> ZBM instructions for Debian Bookworm on EFI.
+* <https://zfsonlinux.topicbox.com/groups/zfs-discuss/Ta5fb6dd04ec3db73-M5376d5345e7f07e678dea23e> Email discussion on `zfs-discuss` list including an extensive reply by "comrade meowski" <https://zfsonlinux.topicbox.com/groups/zfs-discuss/Ta5fb6dd04ec3db73-M5376d5345e7f07e678dea23e>
+* <https://web.libera.chat/#zfsbootmenu> ZBM IRC channel
+
+## Plan
+
+Explore ZBM ising a spare SSD on target H/W (Supermicro X8SIL) which does not support UEFI boot. (And being very grateful that Ventoy boots on it w/ no difficulty.)
+
+## Process notes
+
 Perform another trial before attempting to rescue `oak`. Installing on the 128GB Kingston SSD on `oak` H/W (other drives disconnected) and booting the live Debian 12 install w/ persistence and following instructions at <https://docs.zfsbootmenu.org/en/v2.3.x/guides/debian/bookworm-uefi.html> 
 
 ```text
