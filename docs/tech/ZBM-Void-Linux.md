@@ -356,3 +356,107 @@ Space available on disk:       106GB
 
 Do you want to continue? [Y/n] 
 ...
+
+### Install the ZFSBootMenu package
+
+```text
+xbps-install -S zfsbootmenu
+```
+
+### Enable zfsbootmenu image creation
+
+```text
+cat <<EOF >/etc/zfsbootmenu/config.yaml
+Global:
+  ManageImages: true
+  BootMountPoint: /boot/syslinux
+Components:
+  Enabled: true
+  Versions: false
+  ImageDir: /boot/syslinux/zfsbootmenu
+EOF
+```
+
+
+```text
+[xchroot /mnt] # cat <<EOF >/etc/zfsbootmenu/config.yaml
+Global:
+  ManageImages: true
+  BootMountPoint: /boot/syslinux
+Components:
+  Enabled: true
+  Versions: false
+  ImageDir: /boot/syslinux/zfsbootmenu
+EOF
+[xchroot /mnt] # cat /etc/zfsbootmenu/config.yaml
+Global:
+  ManageImages: true
+  BootMountPoint: /boot/syslinux
+Components:
+  Enabled: true
+  Versions: false
+  ImageDir: /boot/syslinux/zfsbootmenu
+[xchroot /mnt] # 
+```
+
+### Configure syslinux
+
+```text
+mkdir -p /boot/syslinux/
+cat > /boot/syslinux/syslinux.cfg <<EOF
+UI menu.c32
+PROMPT 0
+
+MENU TITLE ZFSBootMenu
+TIMEOUT 50
+
+DEFAULT zfsbootmenu
+
+LABEL zfsbootmenu
+  MENU LABEL ZFSBootMenu
+  KERNEL /zfsbootmenu/vmlinuz-bootmenu
+  INITRD /zfsbootmenu/initramfs-bootmenu.img
+  APPEND zfsbootmenu quiet
+
+LABEL zfsbootmenu-backup
+  MENU LABEL ZFSBootMenu (Backup)
+  KERNEL /zfsbootmenu/vmlinuz-bootmenu-backup
+  INITRD /zfsbootmenu/initramfs-bootmenu-backup.img
+  APPEND zfsbootmenu quiet
+EOF
+```
+
+### Generate the initial ZFSBootMenu initramfs
+
+```text
+xbps-reconfigure -f zfsbootmenu
+```
+
+```text
+[xchroot /mnt] # xbps-reconfigure -f zfsbootmenu
+zfsbootmenu: configuring ...
+No initramfs generator specified; using dracut
+Mounting /boot/syslinux
+mount: /boot/syslinux: can't find in /etc/fstab.
+Unable to mount /boot/syslinux
+zfsbootmenu: configured successfully.
+[xchroot /mnt] # 
+```
+
+## 2024-03-09 Prepare for first boot
+
+### Exit the chroot, unmount everything
+
+```text
+exit
+umount -n -R /mnt
+```
+
+### Export the zpool and reboot
+
+```text
+zpool export zroot
+reboot
+```
+
+No joy. Flashing underline cursor upper left, blank screen. Repeating the procedure.
