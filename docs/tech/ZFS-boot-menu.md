@@ -497,3 +497,38 @@ LABEL zfsbootmenu-backup
   APPEND zfsbootmenu quiet
 EOF
 ```
+
+### Generate the initial ZFSBootMenu initramfs
+
+This is where things got murky. I tried using `update-initramfs -c -k all` to generate the initrd but it's not clear to me that this is needed. And the command failed anyway. I copied the files from the `latest.tar.gz` to `/boot` where `update-initramfs` would find them. On the first try it complained about not finding `/boot/config-bootmenu`. The corresponding one for the running kernel included the build config settings so I created an empty config file `touch /boot/config-bootmenu`. the next complaint was about missing compression:
+
+```text
+root@debian:/# update-initramfs -c -k all
+update-initramfs: Generating /boot/initrd.img-6.1.0-18-amd64
+update-initramfs: Generating /boot/initrd.img-bootmenu
+W: zstd compression (CONFIG_RD_ZSTD) not supported by kernel, using gzip
+E: gzip compression (CONFIG_RD_GZIP) not supported by kernel
+update-initramfs: failed for /boot/initrd.img-bootmenu with 1.
+root@debian:/# 
+```
+
+I added `CONFIG_RD_ZSTD=y` to `/boot/config-bootmenu` and got the following result:
+
+```text
+root@debian:/# update-initramfs -c -k all
+update-initramfs: Generating /boot/initrd.img-6.1.0-18-amd64
+update-initramfs: Generating /boot/initrd.img-bootmenu
+W: missing /lib/modules/bootmenu
+W: Ensure all necessary drivers are built into the linux image!
+depmod: ERROR: Bad version passed bootmenu
+cat: /var/tmp/mkinitramfs_6RYan1/lib/modules/bootmenu/modules.builtin: No such file or directory
+W: Can't find modules.builtin.modinfo (for locating built-in drivers' firmware, supported in Linux >=5.2)
+depmod: ERROR: Bad version passed bootmenu
+root@debian:/# 
+```
+
+When I asked about this at <https://web.libera.chat/#zfsbootmenu> I was told it was not necessary for `update-initramfs` to see the ZFS modules since the initrd was already build.
+
+At this point I crossed my fingers, held my breath(*) and rebooted. The system boot looped without apparentloy finding anything to boot nor asking for a bootable drive.
+
+(*) Didn't really hold my breath. This is an ancient Supermicro server motherboiard that takes too long to post.
