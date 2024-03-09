@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>ZFS boot menu - Hank's public Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Hank's public Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Hank's Docs home page</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Food <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../food/bean-dip/" class="dropdown-item">Bean Dip</a>
+</li>
+                                    
+<li>
+    <a href="../../food/peach-cobbler/" class="dropdown-item">Peach Cobbler from scratch</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../Debian_ZFS_on_root_to_a_new_drive/" class="dropdown-item">Debian Root on ZFS to a new drive</a>
+</li>
+                                    
+<li>
+    <a href="../ESP8266-RTOS-SDK_on_Debian/" class="dropdown-item">Using ESP8266-RTOS-SDK on Debian</a>
+</li>
+                                    
+<li>
+    <a href="../NVME_performance-Bicool_Mini_Base-vs-IO_Board/" class="dropdown-item">Pi CM4 NVME performance: Bicool Mini Base vs. IO Board</a>
+</li>
+                                    
+<li>
+    <a href="../OWI-535-Robot_Arm_Control_assembly/" class="dropdown-item">OWI-535 Robot Arm Control assembly</a>
+</li>
+                                    
+<li>
+    <a href="../Pi-Debian-Root-on-ZFS/" class="dropdown-item">Raspberry Pi installed with root on ZFS</a>
+</li>
+                                    
+<li>
+    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
+</li>
+                                    
+<li>
+    <a href="../Troubleshooting-Debian-root-on-ZFS/" class="dropdown-item">Troubleshooting Debian root on ZFS</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">ZFS boot menu</a>
+</li>
+                                    
+<li>
+    <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Data</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../data/benchmarks/" class="dropdown-item">CM4 benchmarks</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-Bookworm-WiFi/" class="dropdown-item">Testing networking (WiFi, ETH) Pi 4B</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-KDE_bookworm/" class="dropdown-item">KDE Plasma X11 login hang</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-4B-firmware/" class="dropdown-item">Firmware issue raspi-firmware Debian Bookworm</a>
+</li>
+                                    
+<li>
+    <a href="../../test-debug/Pi-new-CM4-WiFi-debugging/" class="dropdown-item">New Raspberry Pi CM4 WiFi testing</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Pi CM4 PCIe</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../test-debug/Pi-CM4-PCIe/Pi_CM4_PCIe_testing/" class="dropdown-item">Pi CM4 PCIe testing</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Sanoid</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../test-debug/Sanoid/sanoid/" class="dropdown-item">Sanoid issue #813 testing</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../Troubleshooting-Debian-root-on-ZFS/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../dphacks-CM4_Ether_Board/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#zfs-boot-menu" class="nav-link">ZFS boot menu</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#2024-03-08-configure-live-environment" class="nav-link">2024-03-08 Configure Live Environment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-08-define-disk-variables" class="nav-link">2024-03-08 Define disk variables</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-08-disk-preparation" class="nav-link">2024-03-08 Disk preparation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-08-zfs-configuration" class="nav-link">2024-03-08 ZFS Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-08-install-and-configure-zfsbootmenu" class="nav-link">2024-03-08 Install and configure ZFSBootMenu</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-08-install-and-configure-syslinux" class="nav-link">2024-03-08 Install and configure syslinux</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-03-08-install-and-configure-zfsbootmenu_1" class="nav-link">2024-03-08 Install and configure ZFSBootMenu</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="zfs-boot-menu">ZFS boot menu</h1>
+<p>Perform another trial before attempting to rescue <code>oak</code>. Installing on the 128GB Kingston SSD on <code>oak</code> H/W (other drives disconnected) and booting the live Debian 12 install w/ persistence and following instructions at <a href="https://docs.zfsbootmenu.org/en/v2.3.x/guides/debian/bookworm-uefi.html">https://docs.zfsbootmenu.org/en/v2.3.x/guides/debian/bookworm-uefi.html</a> </p>
+<pre><code class="language-text">ssh user@192.168.1.80 # passwd = live
+</code></pre>
+<h2 id="2024-03-08-configure-live-environment">2024-03-08 Configure Live Environment</h2>
+<p>No EFI vars, as expected., Apt already configured and ZFS installed.</p>
+<pre><code class="language-text">root@debian:~# cat /etc/os-release
+PRETTY_NAME=&quot;Debian GNU/Linux 12 (bookworm)&quot;
+NAME=&quot;Debian GNU/Linux&quot;
+VERSION_ID=&quot;12&quot;
+VERSION=&quot;12 (bookworm)&quot;
+VERSION_CODENAME=bookworm
+ID=debian
+HOME_URL=&quot;https://www.debian.org/&quot;
+SUPPORT_URL=&quot;https://www.debian.org/support&quot;
+BUG_REPORT_URL=&quot;https://bugs.debian.org/&quot;
+root@debian:~# 
+
+root@debian:~# cat /etc/apt/sources.list
+deb http://deb.debian.org/debian/ bookworm main non-free-firmware contrib non-free
+deb-src http://deb.debian.org/debian/ bookworm main non-free-firmware contrib non-free
+deb [trusted=yes] file:/run/live/medium bookworm main non-free-firmware
+root@debian:~# 
+
+root@debian:~# zfs --version
+zfs-2.1.11-1
+zfs-kmod-2.1.11-1
+root@debian:~# 
+</code></pre>
+<h2 id="2024-03-08-define-disk-variables">2024-03-08 Define disk variables</h2>
+<p>variables for <strong>boot files</strong></p>
+<pre><code class="language-text">export BOOT_DISK=&quot;/dev/sda&quot;
+export BOOT_PART=&quot;1&quot;
+export BOOT_DEVICE=&quot;${BOOT_DISK}${BOOT_PART}&quot;
+</code></pre>
+<p>variables for <strong>ZFS pool</strong></p>
+<pre><code class="language-text">export POOL_DISK=&quot;/dev/sda&quot;
+export POOL_PART=&quot;2&quot;
+export POOL_DEVICE=&quot;${POOL_DISK}${POOL_PART}&quot;
+</code></pre>
+<h2 id="2024-03-08-disk-preparation">2024-03-08 Disk preparation</h2>
+<h3 id="wipe-partitions">Wipe partitions</h3>
+<p>Wipe the SSD After confirming that <code>/dev/sda</code> is in fact the Kingston 128GB SSD.</p>
+<pre><code class="language-text">root@debian:~# blkdiscard -f /dev/sda
+blkdiscard: Operation forced, data will be lost!
+root@debian:~# 
+</code></pre>
+<h3 id="create-efi-boot-partition">Create EFI boot partition</h3>
+<p>Not used for this install, but perhaps in the future</p>
+<pre><code class="language-text">sgdisk -n &quot;${BOOT_PART}:1m:+512m&quot; -t &quot;${BOOT_PART}:ef00&quot; &quot;$BOOT_DISK&quot;
+</code></pre>
+<pre><code class="language-text">root@debian:~# sgdisk -n &quot;${BOOT_PART}:1m:+512m&quot; -t &quot;${BOOT_PART}:ef00&quot; &quot;$BOOT_DISK&quot;
+Creating new GPT entries in memory.
+The operation has completed successfully.
+root@debian:~# sgdisk -p /dev/sda
+Disk /dev/sda: 234441648 sectors, 111.8 GiB
+Model: KINGSTON SA400S3
+Sector size (logical/physical): 512/512 bytes
+Disk identifier (GUID): 7B794CDC-A742-48C3-BDC2-3825E3E776DD
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 234441614
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 233393005 sectors (111.3 GiB)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048         1050623   512.0 MiB   EF00  
+root@debian:~# 
+</code></pre>
+<h3 id="create-zpool-partition">Create zpool partition</h3>
+<pre><code class="language-text">sgdisk -n &quot;${POOL_PART}:0:-10m&quot; -t &quot;${POOL_PART}:bf00&quot; &quot;$POOL_DISK&quot;
+</code></pre>
+<pre><code class="language-text">root@debian:~# sgdisk -n &quot;${POOL_PART}:0:-10m&quot; -t &quot;${POOL_PART}:bf00&quot; &quot;$POOL_DISK&quot;
+The operation has completed successfully.
+root@debian:~# sgdisk -p /dev/sda
+Disk /dev/sda: 234441648 sectors, 111.8 GiB
+Model: KINGSTON SA400S3
+Sector size (logical/physical): 512/512 bytes
+Disk identifier (GUID): 7B794CDC-A742-48C3-BDC2-3825E3E776DD
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 234441614
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 22494 sectors (11.0 MiB)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048         1050623   512.0 MiB   EF00  
+   2         1050624       234421134   111.3 GiB   BF00  
+root@debian:~# ```
+
+## 2024-03-08 ZFS pool creation
+
+### Create the zpool
+
+```text
+zpool create -f -o ashift=12 \
+ -O compression=lz4 \
+ -O acltype=posixacl \
+ -O xattr=sa \
+ -O relatime=on \
+ -o autotrim=off \
+ -o compatibility=openzfs-2.1-linux \
+ -m none zroot &quot;$POOL_DEVICE&quot;
+</code></pre>
+<pre><code class="language-text">root@debian:~# zpool create -f -o ashift=12 \
+ -O compression=lz4 \
+ -O acltype=posixacl \
+ -O xattr=sa \
+ -O relatime=on \
+ -o autotrim=off \
+ -o compatibility=openzfs-2.1-linux \
+ -m none zroot &quot;$POOL_DEVICE&quot;
+root@debian:~# zpool list
+NAME    SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+zroot   111G   504K   111G        -         -     0%     0%  1.00x    ONLINE  -
+root@debian:~# 
+</code></pre>
+<h3 id="create-initial-file-systems">Create initial file systems</h3>
+<pre><code class="language-text">zfs create -o mountpoint=none zroot/ROOT
+zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/${ID}
+zfs create -o mountpoint=/home zroot/home
+
+export export ID=bookworm
+zpool set bootfs=zroot/ROOT/${ID} zroot
+</code></pre>
+<pre><code class="language-text">root@debian:~# zfs create -o mountpoint=none zroot/ROOT
+zfs create -o mountpoint=/ -o canmount=noauto zroot/ROOT/${ID}
+zfs create -o mountpoint=/home zroot/home
+
+root@debian:~# zpool set bootfs=zroot/ROOT/bookworm zroot
+cannot set property for 'zroot': no such pool or dataset
+root@debian:~# zpool get bootfs zroot
+NAME   PROPERTY  VALUE   SOURCE
+zroot  bootfs    -       default
+root@debian:~# 
+</code></pre>
+<h3 id="export-then-re-import-with-a-temporary-mountpoint-of-mnt">Export, then re-import with a temporary mountpoint of <code>/mnt</code></h3>
+<pre><code class="language-text">zpool export zroot
+zpool import -N -R /mnt zroot
+zfs mount zroot/ROOT/${ID}
+zfs mount zroot/home
+</code></pre>
+<h3 id="verify-that-everything-is-mounted-correctly">Verify that everything is mounted correctly</h3>
+<pre><code class="language-text">root@debian:~# zpool export zroot
+root@debian:~# zpool import -N -R /mnt zroot
+root@debian:~# zfs mount zroot/ROOT/${ID}
+root@debian:~# zfs mount zroot/home
+root@debian:~# mount | grep mnt
+zroot/ROOT/bookworm on /mnt type zfs (rw,relatime,xattr,posixacl)
+zroot/home on /mnt/home type zfs (rw,relatime,xattr,posixacl)
+root@debian:~# 
+</code></pre>
+<h3 id="update-device-symlinks">Update device symlinks</h3>
+<pre><code class="language-text">udevadm trigger
+</code></pre>
+<h3 id="install-debian">Install Debian</h3>
+<pre><code class="language-text">time -p debootstrap bookworm /mnt
+</code></pre>
+<pre><code class="language-text">root@debian:~# time -p debootstrap bookworm /mnt
+I: Target architecture can be executed
+I: Retrieving InRelease 
+I: Checking Release signature
+I: Valid Release signature (key id 4D64FEC119C2029067D6E791F8D2585B8783D481)
+I: Retrieving Packages 
+...
+I: Base system installed successfully.
+real 105.99
+user 70.91
+sys 24.98
+root@debian:~# 
+</code></pre>
+<h3 id="copy-files-into-the-new-install">Copy files into the new install</h3>
+<pre><code class="language-text">cp /etc/hostid /mnt/etc
+cp /etc/resolv.conf /mnt/etc
+</code></pre>
+<h3 id="chroot-into-the-new-os">Chroot into the new OS</h3>
+<pre><code class="language-text">mount -t proc proc /mnt/proc
+mount -t sysfs sys /mnt/sys
+mount -B /dev /mnt/dev
+mount -t devpts pts /mnt/dev/pts
+chroot /mnt /bin/bash
+</code></pre>
+<h3 id="set-a-hostname">Set a hostname</h3>
+<pre><code class="language-text">export YOURHOSTNAME=oakzbm
+echo ${YOURHOSTNAME} &gt; /etc/hostname
+echo -e &quot;127.0.1.1\t${YOURHOSTNAME}&quot; &gt;&gt; /etc/hosts
+</code></pre>
+<pre><code class="language-text">root@debian:/# cat /etc/hostname
+oakzbm
+root@debian:/# cat /etc/hosts
+127.0.0.1       localhost
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+
+127.0.1.1       oakzbm
+root@debian:/# 
+</code></pre>
+<h3 id="set-a-root-password">Set a root password</h3>
+<pre><code class="language-text">passwd
+</code></pre>
+<h3 id="configure-apt">configure <code>apt</code></h3>
+<p>NB Add firmware entry.</p>
+<pre><code class="language-text">cat &lt;&lt;EOF &gt; /etc/apt/sources.list
+deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware
+EOF
+</code></pre>
+<pre><code class="language-text">root@debian:/# cat /etc/apt/sources.list
+deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware
+root@debian:/# 
+</code></pre>
+<h3 id="update-the-repository-cache">Update the repository cache</h3>
+<pre><code class="language-text">apt update
+</code></pre>
+<h3 id="install-additional-base-packages">Install additional base packages</h3>
+<pre><code class="language-text">apt install -y locales keyboard-configuration console-setup
+</code></pre>
+<h3 id="configure-packages-to-customize-local-and-console-properties">Configure packages to customize local and console properties</h3>
+<pre><code class="language-text">dpkg-reconfigure locales tzdata keyboard-configuration console-setup
+</code></pre>
+<h2 id="2024-03-08-zfs-configuration">2024-03-08 ZFS Configuration</h2>
+<h3 id="install-required-packages">Install required packages</h3>
+<pre><code class="language-text">apt install linux-headers-amd64 linux-image-amd64 zfs-initramfs dosfstools
+echo &quot;REMAKE_INITRD=yes&quot; &gt; /etc/dkms/zfs.conf
+</code></pre>
+<h3 id="enable-systemd-zfs-services">Enable systemd ZFS services</h3>
+<pre><code class="language-text">systemctl enable zfs.target
+systemctl enable zfs-import-cache
+systemctl enable zfs-mount
+systemctl enable zfs-import.target
+</code></pre>
+<h3 id="configure-initramfs-tools">Configure initramfs-tools</h3>
+<p>(No required steps)</p>
+<h3 id="rebuild-the-initramfs">Rebuild the initramfs</h3>
+<pre><code class="language-text">update-initramfs -c -k all
+</code></pre>
+<h2 id="2024-03-08-install-and-configure-zfsbootmenu">2024-03-08 Install and configure ZFSBootMenu</h2>
+<h3 id="set-zfsbootmenu-properties-on-datasets">Set ZFSBootMenu properties on datasets</h3>
+<pre><code class="language-text">zfs set org.zfsbootmenu:commandline=&quot;quiet&quot; zroot/ROOT
+</code></pre>
+<h2 id="2024-03-08-install-and-configure-syslinux">2024-03-08 Install and configure syslinux</h2>
+<p>Need to review instructions at https://docs.zfsbootmenu.org/en/v2.3.x/guides/void-linux/syslinux-mbr.html#install-and-configure-syslinux</p>
+<h3 id="create-a-ext4-boot-filesystem">Create a ext4 boot filesystem</h3>
+<pre><code class="language-text">mkfs.ext4 -O '^64bit' &quot;$BOOT_DEVICE&quot;
+</code></pre>
+<h3 id="create-an-fstab-entry-and-mount">Create an fstab entry and mount</h3>
+<pre><code class="language-text">cat &lt;&lt; EOF &gt;&gt; /etc/fstab
+$( blkid | grep &quot;$BOOT_DEVICE&quot; | cut -d ' ' -f 2 ) /boot/syslinux ext4 defaults 0 0
+EOF
+
+mkdir /boot/syslinux
+mount /boot/syslinux
+</code></pre>
+<pre><code class="language-text">root@debian:/# df /boot/syslinux
+Filesystem     1K-blocks  Used Available Use% Mounted on
+/dev/sda1         499284    24    462564   1% /boot/syslinux
+root@debian:/# 
+</code></pre>
+<h3 id="install-the-syslinux-package-copy-modules">Install the syslinux package, copy modules</h3>
+<pre><code class="language-text">apt install -y syslinux extlinux
+cp /usr/lib/syslinux/modules/bios/*.c32 /boot/syslinux
+</code></pre>
+<pre><code class="language-text">root@debian:/# find /boot/syslinux | wc -l
+62
+root@debian:/# 
+</code></pre>
+<h3 id="install-extlinux">Install extlinux</h3>
+<pre><code class="language-text">extlinux --install /boot/syslinux
+</code></pre>
+<h3 id="install-the-syslinux-mbr-data">Install the syslinux MBR data</h3>
+<pre><code class="language-text">dd bs=440 count=1 conv=notrunc if=/usr/lib/syslinux/mbr/mbr.bin of=&quot;$BOOT_DISK&quot;
+</code></pre>
+<pre><code class="language-text">root@debian:/# dd bs=440 count=1 conv=notrunc if=/usr/lib/syslinux/mbr/mbr.bin of=&quot;$BOOT_DISK&quot;
+1+0 records in
+1+0 records out
+440 bytes copied, 0.000356405 s, 1.2 MB/s
+root@debian:/# 
+</code></pre>
+<h2 id="2024-03-08-install-and-configure-zfsbootmenu_1">2024-03-08 Install and configure ZFSBootMenu</h2>
+<h3 id="set-zfsbootmenu-properties-on-datasets_1">Set ZFSBootMenu properties on datasets</h3>
+<p>(Already done above)</p>
+<h3 id="install-the-zfsbootmenu-package">Install the ZFSBootMenu package</h3>
+<pre><code class="language-text">wget get.zfsboot.menu/latest.tar.gz
+</code></pre>
+<p>Deposits a file <code>latest.tar.gz</code> that unpacks to </p>
+<pre><code class="language-text">root@debian:/# tar tf latest.tar.gz
+zfsbootmenu-release-x86_64-v2.3.0/
+zfsbootmenu-release-x86_64-v2.3.0/vmlinuz-bootmenu
+zfsbootmenu-release-x86_64-v2.3.0/initramfs-bootmenu.img
+root@debian:/# 
+</code></pre>
+<p>(Need to sort out the signature verification at <a href="https://docs.zfsbootmenu.org/en/v2.3.x/#signature-verification-and-prebuilt-efi-executables">https://docs.zfsbootmenu.org/en/v2.3.x/#signature-verification-and-prebuilt-efi-executables</a>)</p>
+<pre><code class="language-text">mkdir -p /boot/syslinux/zfsbootmenu/
+cp zfsbootmenu-release-x86_64-v2.3.0/* /boot/syslinux/zfsbootmenu/
+</code></pre>
+<h3 id="enable-zfsbootmenu-image-creation">Enable zfsbootmenu image creation</h3>
+<p>Edit <code>/etc/zfsbootmenu/config.yaml</code> and make sure that the following parameters are set:</p>
+<pre><code class="language-text">Global:
+  ManageImages: true
+  BootMountPoint: /boot/syslinux
+Components:
+  Enabled: true
+  Versions: false
+  ImageDir: /boot/syslinux/zfsbootmenu
+</code></pre>
+<pre><code class="language-text">mkdir -p /etc/zfsbootmenu/
+cat &lt;&lt;EOF &gt; /etc/zfsbootmenu/config.yaml
+Global:
+  ManageImages: true
+  BootMountPoint: /boot/syslinux
+Components:
+  Enabled: true
+  Versions: false
+  ImageDir: /boot/syslinux/zfsbootmenu
+EOF
+</code></pre>
+<h3 id="configure-syslinux">Configure syslinux</h3>
+<pre><code class="language-text">cat &gt; /boot/syslinux/syslinux.cfg &lt;&lt;EOF
+UI menu.c32
+PROMPT 0
+
+MENU TITLE ZFSBootMenu
+TIMEOUT 50
+
+DEFAULT zfsbootmenu
+
+LABEL zfsbootmenu
+  MENU LABEL ZFSBootMenu
+  KERNEL /zfsbootmenu/vmlinuz-bootmenu
+  INITRD /zfsbootmenu/initramfs-bootmenu.img
+  APPEND zfsbootmenu quiet
+
+LABEL zfsbootmenu-backup
+  MENU LABEL ZFSBootMenu (Backup)
+  KERNEL /zfsbootmenu/vmlinuz-bootmenu-backup
+  INITRD /zfsbootmenu/initramfs-bootmenu-backup.img
+  APPEND zfsbootmenu quiet
+EOF
+</code></pre>
+<h3 id="generate-the-initial-zfsbootmenu-initramfs">Generate the initial ZFSBootMenu initramfs</h3>
+<p>This is where things got murky. I tried using <code>update-initramfs -c -k all</code> to generate the initrd but it's not clear to me that this is needed. And the command failed anyway. I copied the files from the <code>latest.tar.gz</code> to <code>/boot</code> where <code>update-initramfs</code> would find them. On the first try it complained about not finding <code>/boot/config-bootmenu</code>. The corresponding one for the running kernel included the build config settings so I created an empty config file <code>touch /boot/config-bootmenu</code>. the next complaint was about missing compression:</p>
+<pre><code class="language-text">root@debian:/# update-initramfs -c -k all
+update-initramfs: Generating /boot/initrd.img-6.1.0-18-amd64
+update-initramfs: Generating /boot/initrd.img-bootmenu
+W: zstd compression (CONFIG_RD_ZSTD) not supported by kernel, using gzip
+E: gzip compression (CONFIG_RD_GZIP) not supported by kernel
+update-initramfs: failed for /boot/initrd.img-bootmenu with 1.
+root@debian:/# 
+</code></pre>
+<p>I added <code>CONFIG_RD_ZSTD=y</code> to <code>/boot/config-bootmenu</code> and got the following result:</p>
+<pre><code class="language-text">root@debian:/# update-initramfs -c -k all
+update-initramfs: Generating /boot/initrd.img-6.1.0-18-amd64
+update-initramfs: Generating /boot/initrd.img-bootmenu
+W: missing /lib/modules/bootmenu
+W: Ensure all necessary drivers are built into the linux image!
+depmod: ERROR: Bad version passed bootmenu
+cat: /var/tmp/mkinitramfs_6RYan1/lib/modules/bootmenu/modules.builtin: No such file or directory
+W: Can't find modules.builtin.modinfo (for locating built-in drivers' firmware, supported in Linux &gt;=5.2)
+depmod: ERROR: Bad version passed bootmenu
+root@debian:/# 
+</code></pre>
+<p>When I asked about this at <a href="https://web.libera.chat/#zfsbootmenu">https://web.libera.chat/#zfsbootmenu</a> I was told it was not necessary for <code>update-initramfs</code> to see the ZFS modules since the initrd was already build.</p>
+<p>At this point I crossed my fingers, held my breath(*) and rebooted. The system boot looped without apparentloy finding anything to boot nor asking for a bootable drive.</p>
+<p>(*) Didn't really hold my breath. This is an ancient Supermicro server motherboiard that takes too long to post.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
