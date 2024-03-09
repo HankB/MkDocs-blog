@@ -8,7 +8,7 @@ Server running Debian Bookworm (upgraded from Bullseye and IIRC Buster before th
 
 * <https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/Debian%20Bookworm%20Root%20on%20ZFS.html#> OpenZFS instructions
 * <https://docs.zfsbootmenu.org/en/v2.3.x/guides/debian/bookworm-uefi.html#> ZBM instructions for Debian Bookworm on EFI.
-* <https://zfsonlinux.topicbox.com/groups/zfs-discuss/Ta5fb6dd04ec3db73-M5376d5345e7f07e678dea23e> Email discussion on `zfs-discuss` list including an extensive reply by "comrade meowski" <https://zfsonlinux.topicbox.com/groups/zfs-discuss/Ta5fb6dd04ec3db73-M5376d5345e7f07e678dea23e>
+* <https://zfsonlinux.topicbox.com/groups/zfs-discuss/Ta5fb6dd04ec3db73-M5376d5345e7f07e678dea23e> Email discussion on `zfs-discuss` list including an extensive reply by "comrade meowski" <https://zfsonlinux.topicbox.com/groups/zfs-discuss/Ta5fb6dd04ec3db73-M149b799ff0487c7ed35d5e4a/grub-malfunction-debian-root-on-zfs>
 * <https://web.libera.chat/#zfsbootmenu> ZBM IRC channel
 
 ## Plan
