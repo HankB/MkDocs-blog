@@ -118,6 +118,9 @@ Syncing disks.
 bash-5.2# 
 ```
 
+NB `blkdiscard` either doesn't work or is s-l-o-w on this device. and running `sfdisk` too soon results in warnings.
+
+
 ## 2024-03-09 ZFS pool creation
 
 
@@ -363,9 +366,158 @@ Do you want to continue? [Y/n]
 xbps-install -S zfsbootmenu
 ```
 
+## 2024-03-09 Install and configure syslinux
+
+### Create a ext4 boot filesystem
+
+```text
+mkfs.ext4 -O '^64bit' "$BOOT_DEVICE"
+```
+
+```text
+[xchroot /mnt] # echo  "$BOOT_DEVICE"
+/dev/sda1
+[xchroot /mnt] # mkfs.ext4 -O '^64bit' "$BOOT_DEVICE"
+mke2fs 1.47.0 (5-Feb-2023)
+64-bit filesystem support is not enabled.  The larger fields afforded by this feature enable full-strength checksumming.  Pass -O 64bit to rectify.
+Discarding device blocks: done                            
+Creating filesystem with 131072 4k blocks and 32768 inodes
+Filesystem UUID: dc13df92-52bb-4da2-a57f-4ee69bf4e090
+Superblock backups stored on blocks: 
+        32768, 98304
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+[xchroot /mnt] # 
+```
+
+### Create an fstab entry and mount
+
+```text
+cat << EOF >> /etc/fstab
+$( blkid | grep "$BOOT_DEVICE" | cut -d ' ' -f 2 ) /boot/syslinux ext4 defaults 0 0
+EOF
+
+mkdir /boot/syslinux
+mount /boot/syslinux
+```
+
+```text
+[xchroot /mnt] # cat << EOF >> /etc/fstab
+$( blkid | grep "$BOOT_DEVICE" | cut -d ' ' -f 2 ) /boot/syslinux ext4 defaults 0 0
+EOF
+
+mkdir /boot/syslinux
+mount /boot/syslinux
+[xchroot /mnt] # df /boot/syslinux
+Filesystem     1K-blocks  Used Available Use% Mounted on
+/dev/sda1         499284   152    462436   1% /boot/syslinux
+[xchroot /mnt] #
+```
+
+### Install the syslinux package, copy modules
+
+```text
+xbps-install -S syslinux
+cp /usr/lib/syslinux/*.c32 /boot/syslinux
+```
+
+```text
+[xchroot /mnt] # xbps-install -S syslinux
+cp /usr/lib/syslinux/*.c32 /boot/syslinux
+[*] Updating repository `https://repo-default.voidlinux.org/current/x86_64-repodata' ...
+
+Name     Action    Version           New version            Download size
+syslinux install   -                 6.03_8                 1322KB 
+
+Size to download:             1323KB
+Size required on disk:        3400KB
+Space available on disk:       106GB
+
+Do you want to continue? [Y/n] 
+
+[*] Downloading packages
+syslinux-6.03_8.x86_64.xbps.sig2: 512B [avg rate: 19MB/s]
+syslinux-6.03_8.x86_64.xbps: 1322KB [avg rate: 2064KB/s]
+syslinux-6.03_8: verifying RSA signature...
+
+[*] Collecting package files
+syslinux-6.03_8: collecting files...
+
+[*] Unpacking packages
+syslinux-6.03_8: unpacking ...
+
+[*] Configuring unpacked packages
+syslinux-6.03_8: configuring ...
+syslinux-6.03_8: post-install message:
+========================================================================
+Some optional packages must be installed for additional functionality:
+
+ - mtools: mkdiskimage and syslinux support
+ - gptfdisk: GPT support
+ - efibootmgr: EFI support
+ - dosfstools: EFI support
+========================================================================
+syslinux-6.03_8: installed successfully.
+
+1 downloaded, 1 installed, 0 updated, 1 configured, 0 removed.
+[xchroot /mnt] #
+[xchroot /mnt] # ls -l /boot/syslinux/*c32|wc -l
+59
+[xchroot /mnt] # ls -l /boot/syslinux/|wc -l
+61
+[xchroot /mnt] # 
+```
+
+### Install extlinux
+
+```text
+extlinux --install /boot/syslinux
+```
+
+```text
+[xchroot /mnt] # extlinux --install /boot/syslinux
+/boot/syslinux is device /dev/sda1
+[xchroot /mnt] # 
+```
+
+### Install the syslinux MBR data
+
+```text
+dd bs=440 count=1 conv=notrunc if=/usr/lib/syslinux/mbr.bin of="$BOOT_DISK"
+```
+
+```text
+[xchroot /mnt] # dd bs=440 count=1 conv=notrunc if=/usr/lib/syslinux/mbr.bin of="$BOOT_DISK"
+1+0 records in
+1+0 records out
+440 bytes copied, 8.3113e-05 s, 5.3 MB/s
+[xchroot /mnt] # 
+```
+
+## 2024-03-09 Install and configure ZFSBootMenu
+
+### Set ZFSBootMenu properties on datasets
+
+```text
+zfs set org.zfsbootmenu:commandline="quiet" zroot/ROOT
+```
+
+```text
+[xchroot /mnt] # zfs set org.zfsbootmenu:commandline="quiet" zroot/ROOT
+[xchroot /mnt] # zfs get org.zfsbootmenu:commandline zroot/ROOT
+NAME        PROPERTY                     VALUE                        SOURCE
+zroot/ROOT  org.zfsbootmenu:commandline  quiet                        local
+[xchroot /mnt] # 
+```
+
 ### Enable zfsbootmenu image creation
 
 ```text
+mkdir -p /etc/zfsbootmenu/
 cat <<EOF >/etc/zfsbootmenu/config.yaml
 Global:
   ManageImages: true
@@ -376,7 +528,6 @@ Components:
   ImageDir: /boot/syslinux/zfsbootmenu
 EOF
 ```
-
 
 ```text
 [xchroot /mnt] # cat <<EOF >/etc/zfsbootmenu/config.yaml
@@ -429,6 +580,7 @@ EOF
 ### Generate the initial ZFSBootMenu initramfs
 
 ```text
+mkdir -p /zfsbootmenu
 xbps-reconfigure -f zfsbootmenu
 ```
 
@@ -460,3 +612,43 @@ reboot
 ```
 
 No joy. Flashing underline cursor upper left, blank screen. Repeating the procedure.
+
+When verifying the device (still `/dev/sda`) `sgdisk is not happy but sfdisk is, probably because it is using MBR partition table.
+
+```text
+bash-5.2# sgdisk -p /dev/sda 
+Caution: invalid main GPT header, but valid backup; regenerating main header
+from backup!
+
+Warning: Invalid CRC on main header data; loaded backup partition table.
+Warning! Main and backup partition tables differ! Use the 'c' and 'e' options
+on the recovery & transformation menu to examine the two tables.
+
+Warning! Main partition table CRC mismatch! Loaded backup partition table
+instead of main partition table!
+
+Warning! One or more CRCs don't match. You should repair the disk!
+Main header: ERROR
+Backup header: OK
+Main partition table: ERROR
+Backup partition table: OK
+
+Invalid partition data!
+bash-5.2# sfdisk -l /dev/sda
+Disk /dev/sda: 111.79 GiB, 120034123776 bytes, 234441648 sectors
+Disk model: KINGSTON SA400S3
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x14b74275
+
+Device     Boot   Start       End   Sectors   Size Id Type
+/dev/sda1  *       2048   1050623   1048576   512M 83 Linux
+/dev/sda2       1050624 234441647 233391024 111.3G 83 Linux
+bash-5.2#
+```
+
+## 2024-03-09 Great Success!
+
+After running through the procedure for a third time I got a system that boots. Following along with my notes the second time it seems like there were big sections mssing. Overlooked? I suspect I got tangled up trying to keep notes and execute the commands at the same time and skipped some crucial step. (They're probably all crucial.) The third time I kept no notes and just followed the procedure.
