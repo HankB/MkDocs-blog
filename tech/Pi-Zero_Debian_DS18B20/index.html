@@ -211,11 +211,10 @@ Linux ceres 6.1.0-26-rpi #1 Debian 6.1.112-1 (2024-09-30) armv6l GNU/Linux
 hbarta@ceres:~$
 </code></pre>
 <p><code>ukleinek</code> suggests "bookworm kernel is fine. 6.1.94-1 is the first good kernel." so I shouyld be good here.</p>
-<pre><code class="language-text">
-root@ceres:~# lsmod|grep -E &quot;wire|w1&quot;
-w1_therm               28672  0
-wire                   45056  1 w1_therm
-root@ceres:~# 
+<pre><code class="language-text">root@ceres:~# cat /sys/kernel/debug/devices_deferred
+root@ceres:~#
+
+root@ceres:~# modprobe w1_therm
 
 root@ceres:~# lsmod|grep -E &quot;wire|w1&quot;
 w1_therm               28672  0
@@ -253,7 +252,8 @@ total 0
 root@ceres:~# 
 </code></pre>
 <pre><code class="language-text">ukleinek starrs at w1-gpio.dtbo # presume 'starts'
-</code></pre></div>
+</code></pre>
+<p>This one? <a href="https://github.com/raspberrypi/firmware/blob/master/boot/overlays/w1-gpio.dtbo">https://github.com/raspberrypi/firmware/blob/master/boot/overlays/w1-gpio.dtbo</a></p></div>
             </div>
         </div>
 
