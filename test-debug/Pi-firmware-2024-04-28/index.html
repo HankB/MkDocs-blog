@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>KDE Plasma X11 login hang - Hank's public Docs</title>
+        <title>Pi Firmware 2024-04-28 - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -121,7 +121,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">KDE Plasma X11 login hang</a>
+    <a href="../Pi-4B-KDE_bookworm/" class="dropdown-item">KDE Plasma X11 login hang</a>
 </li>
                                     
 <li>
@@ -129,7 +129,7 @@
 </li>
                                     
 <li>
-    <a href="../Pi-firmware-2024-04-28/" class="dropdown-item">Pi Firmware 2024-04-28</a>
+    <a href="./" class="dropdown-item active">Pi Firmware 2024-04-28</a>
 </li>
                                     
 <li>
@@ -166,12 +166,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Pi-4B-Bookworm-testing/" class="nav-link">
+                                <a rel="prev" href="../Pi-4B-firmware/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../Pi-4B-firmware/" class="nav-link">
+                                <a rel="next" href="../Pi-new-CM4-WiFi-debugging/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -193,29 +193,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#kde-plasma-x11-login-hang" class="nav-link">KDE Plasma X11 login hang</a>
+            <li class="nav-item" data-level="1"><a href="#pi-firmware-2024-04-28" class="nav-link">Pi Firmware 2024-04-28</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#2023-03-25-previous" class="nav-link">2023-03-25 Previous</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#2023-03-25-process" class="nav-link">2023-03-25 Process</a>
+            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#conclusion-2023-03-25" class="nav-link">~~Conclusion~~ 2023-03-25</a>
+            <li class="nav-item" data-level="2"><a href="#2024-04-29-cm4trixie-install" class="nav-link">2024-04-29 CM4/Trixie install</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#2023-03-26-filing-a-bug-report" class="nav-link">2023-03-26 Filing a bug report</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#2023-03-26-try-xfce" class="nav-link">2023-03-26 try XFCE</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#2023-04-29-further-patches-to-test" class="nav-link">2023-04-29 further patches to test.</a>
+            <li class="nav-item" data-level="2"><a href="#2024-04-30-4btrixie-install" class="nav-link">2024-04-30 4B/Trixie install</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -226,85 +214,80 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="kde-plasma-x11-login-hang">KDE Plasma X11 login hang</h1>
-<p>Host: Debian Bookworm on Raspberry Pi 4B (USB/SSD boot)</p>
-<p>Reported at <a href="https://bugs.kde.org/show_bug.cgi?id=467812">https://bugs.kde.org/show_bug.cgi?id=467812</a></p>
-<p>Testing the KDE Plasma desktop on Debian Bookworm on a Pi 4B running the 64 bit Debian (not Raspberry Pi) OS. Bookworm is a pending Debian release which at present (2023-03-25) is in "hard freeze" and it is important to get all functionality working.</p>
-<h2 id="2023-03-25-previous">2023-03-25 Previous</h2>
-<p>During testing to confirm that the bug <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700</a> had been fixed, it was noted that the desktop hung when logging in. In order to test the bug, the system was upgraded to Debian Unstable. When the system was on Debian Testing, the same issue occurred. Since Testing is in hard freeze (and to be released as Bookworm) the hang warranted further investigation  and on Bookworm. This Pi 4B is ordinarily run on a different SSD with Bullseye installed and has not had this problem.</p>
-<h2 id="2023-03-25-process">2023-03-25 Process</h2>
-<ol>
-<li>Image the SSD with  downloaded from <a href="https://raspi.debian.net/tested-images/">https://raspi.debian.net/tested-images/</a>.</li>
-<li>Boot and allow to resize and reboot and login. (Rebooting as necessary to get a session that did not exhibit the emmc timeout issue.)</li>
-<li>Housekeeping: hostname (<code>charm</code>), time zone, install <code>sudo</code> and <code>vim</code> and add user <code>hbarta</code>.</li>
-<li><code>apt update</code>, <code>apt upgrade</code></li>
-<li>Install a kernel (from Unstable) <code>linux-image-6.1.0-7-arm64_6.1.20-1_arm64.deb</code> downloaded from <a href="https://packages.debian.org/sid/linux-image-6.1.0-7-arm64">https://packages.debian.org/sid/linux-image-6.1.0-7-arm64</a>. No additional dependencies were required.</li>
-<li>Reboot.</li>
-<li>Install a minimal KDE Plasma desktop (<code>apt install plasma-desktop</code>)</li>
-<li>Reboot. No DM. No <code>xinit</code>. No <code>startx</code>. Went ahead and installed <code>sddm</code>.</li>
-<li>Start <code>sddm</code> which brings up DM.</li>
-<li>Login in. Works as expected. Logout.</li>
-<li>Login using Wayland. Works as expected.</li>
-</ol>
-<p>After concluding that everything was good, I continued testing and found myself unable to log in again. Additional operations included:</p>
-<ol>
-<li>Install Chromium and Konsole.</li>
-<li>Overclocking to 2MHz</li>
-<li>Back out of the overclock.</li>
-<li>Can't login.</li>
-<li>Add another user <code>arnold</code> and try to login as the new user. Still hangs.</li>
-</ol>
-<h2 id="conclusion-2023-03-25">~~Conclusion~~ 2023-03-25</h2>
-<p>Seems like a non-problem. Will continue to test. ... Sadly after some usage, login once again hangs. Will repeat the test.</p>
-<ol>
-<li>Image the SSD with  downloaded from <a href="https://raspi.debian.net/tested-images/">https://raspi.debian.net/tested-images/</a>.</li>
-<li>Boot and allow to resize and reboot and login. (Rebooting as necessary to get a session that did not exhibit the emmc timeout issue.)</li>
-<li>Housekeeping: hostname (<code>charm</code>), time zone and add user <code>hbarta</code>.</li>
-<li><code>apt update</code>, <code>apt upgrade</code></li>
-<li>Install a kernel (from Unstable) <code>linux-image-6.1.0-7-arm64_6.1.20-1_arm64.deb</code> downloaded from <a href="https://packages.debian.org/sid/linux-image-6.1.0-7-arm64">https://packages.debian.org/sid/linux-image-6.1.0-7-arm64</a>. No additional dependencies were required.</li>
-<li><code>apt install plasma-desktop sddm konsole chromium vim -y</code></li>
-<li>Reboot.</li>
-<li>Login (defaults to Wayland) and looks OK.</li>
-<li>Logout and start monitors <code>dmesg -follow</code>, <code>cd /var/log;tail -f Xorg.0.log</code></li>
-<li>Login (Wayland) and all looks good.</li>
-<li>Logout</li>
-<li>Login (Wayland) and all looks good.</li>
-<li>Start and exit Konsole</li>
-<li>Start and exit Chromium</li>
-<li>logout and login</li>
-<li>Open Chromium. and open google.com. OK. Try to open second page and browser is foobar. Doesn't echo typing, finally able to open a second page (local MkDocs notes) and display is incomplete.</li>
-<li>Open system monitor and Konsole and they work OK. Close all and logout.</li>
-<li>Login to X.org session. Login hangs.</li>
-<li><code>systemctl restart sddm</code></li>
-<li>Login to X.org session. Login hangs.</li>
-<li><code>systemctl restart sddm</code></li>
-<li>Login to Wayland session. Login OK.</li>
-</ol>
-<h2 id="2023-03-26-filing-a-bug-report">2023-03-26 Filing a bug report</h2>
-<ol>
-<li>Collect information</li>
-<li>Prepare pastebin content</li>
-</ol>
-<h2 id="2023-03-26-try-xfce">2023-03-26 try XFCE</h2>
-<p>Test two things:</p>
-<ol>
-<li>X11 works with another DE</li>
-<li>XFCE installs <code>lightdm</code>, can test that with KDE</li>
-</ol>
-<p>Result: </p>
-<ul>
-<li>XFCE (on X11) starts w/out issue using <code>lightdm</code> or <code>sddm</code>. </li>
-<li>Plasma/X11 hangs when started using <code>lightdm</code>.</li>
-<li>Plasma/Wayland starts normally from <code>lightdm</code>.</li>
-</ul>
-<p>Bug report at <a href="https://bugs.kde.org/show_bug.cgi?id=467812">https://bugs.kde.org/show_bug.cgi?id=467812</a></p>
-<h2 id="2023-04-29-further-patches-to-test">2023-04-29 further patches to test.</h2>
-<p>Ref: <a href="https://lore.kernel.org/all/20230428223500.23337-5-jim2101024@gmail.com/">https://lore.kernel.org/all/20230428223500.23337-5-jim2101024@gmail.com/</a> and <a href="https://lore.kernel.org/all/20230428223500.23337-1-jim2101024@gmail.com/">https://lore.kernel.org/all/20230428223500.23337-1-jim2101024@gmail.com/</a><br />
-Suggested by kibi </p>
-<blockquote>
-<p>fetch the patch series from the LKML, and apply it either on the base commit mentioned there, or to current mainline master<br />
-(b4 is super useful, <code>b4 mbox $message_id</code> and you got an mbox ready to <code>git am</code>)</p>
-</blockquote></div>
+<h1 id="pi-firmware-2024-04-28">Pi Firmware 2024-04-28</h1>
+<h2 id="motivation">Motivation</h2>
+<p>Notification of new firmware via IRC channel provided by <code>@gwolf</code>.</p>
+<p>Download from <a href="http://people.debian.org/~gwolf/raspi-firmware_1.20240424+ds-1_all.deb">http://people.debian.org/~gwolf/raspi-firmware_1.20240424+ds-1_all.deb</a> Now available from <a href="https://packages.debian.org/sid/raspi-firmware">https://packages.debian.org/sid/raspi-firmware</a></p>
+<h2 id="2024-04-29-cm4trixie-install">2024-04-29 CM4/Trixie install</h2>
+<p>Tested with CM4 running fully up to date Trixie and no issues noted. WiFi device still not present. The following error messages are seen in <code>dmesg</code> output.</p>
+<pre><code class="language-text">[   15.701315] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.bin (-2)
+[   15.701324] firmware_class: See https://wiki.debian.org/Firmware for information about missing firmware
+[   15.701449] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.bin (-2)
+[   15.701454] brcmfmac mmc0:0001:1: Direct firmware load for brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.bin failed with error -2
+[   15.705868] usbcore: registered new interface driver brcmfmac
+[   15.733657] bcm2835_mmal_vchiq: module is from the staging directory, the quality is unknown, you have been warned.
+[   15.736147] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.bin
+[   15.769863] bcm2835_v4l2: module is from the staging directory, the quality is unknown, you have been warned.
+[   15.780030] Bluetooth: HCI UART driver ver 2.3
+[   15.802241] Bluetooth: HCI UART protocol H4 registered
+[   15.805372] Bluetooth: HCI UART protocol LL registered
+[   15.809317] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.txt (-2)
+[   15.812716] Bluetooth: HCI UART protocol ATH3K registered
+[   15.812819] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[   15.825001] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.txt (-2)
+[   15.830030] Bluetooth: HCI UART protocol Intel registered
+[   15.844964] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.txt
+[   15.846942] Bluetooth: HCI UART protocol Broadcom registered
+[   15.853373] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.clm_blob (-2)
+[   15.861088] Bluetooth: HCI UART protocol QCA registered
+[   15.866842] hci_uart_bcm serial0-0: supply vbat not found, using dummy regulator
+[   15.878266] Bluetooth: HCI UART protocol AG6XX registered
+[   15.878334] Bluetooth: HCI UART protocol Marvell registered
+[   15.885060] hci_uart_bcm serial0-0: supply vddio not found, using dummy regulator
+[   15.926548] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.clm_blob (-2)
+[   15.926942] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.clm_blob
+[   16.047564] uart-pl011 fe201000.serial: no DMA platform data
+[   16.332010] Bluetooth: hci0: BCM: chip id 107
+[   16.337957] Bluetooth: hci0: BCM: features 0x2f
+[   16.345716] Bluetooth: hci0: BCM4345C0
+[   16.351305] Bluetooth: hci0: BCM4345C0 (003.001.025) build 0000
+[   16.351407] bluetooth hci0: firmware: failed to load brcm/BCM4345C0.raspberrypi,4-compute-module.hcd (-2)
+[   16.370373] bluetooth hci0: firmware: failed to load brcm/BCM4345C0.raspberrypi,4-compute-module.hcd (-2)
+[   16.371188] bluetooth hci0: firmware: direct-loading firmware brcm/BCM4345C0.hcd
+[   16.371711] Bluetooth: hci0: BCM4345C0 'brcm/BCM4345C0.hcd' Patch
+</code></pre>
+<h2 id="2024-04-30-4btrixie-install">2024-04-30 4B/Trixie install</h2>
+<p>Headless host, no issues identified. Comparing firmware load messages from <code>dmesg</code></p>
+<pre><code class="language-text">[   13.735062] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.bin (-2)
+[   13.745678] firmware_class: See https://wiki.debian.org/Firmware for information about missing firmware
+[   13.750549] bcm2835_v4l2: module is from the staging directory, the quality is unknown, you have been warned.
+[   13.755816] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.bin (-2)
+[   13.775815] brcmfmac mmc0:0001:1: Direct firmware load for brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.bin failed with error -2
+[   13.788038] usbcore: registered new interface driver brcmfmac
+[   13.809305] vc4-drm gpu: bound fe400000.hvs (ops vc4_hvs_ops [vc4])
+[   13.818800] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.bin
+[   13.830369] Bluetooth: HCI UART driver ver 2.3
+[   13.835507] Bluetooth: HCI UART protocol H4 registered
+[   13.842096] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.txt
+[   13.853028] Registered IR keymap rc-cec
+[   13.855707] Bluetooth: HCI UART protocol LL registered
+[   13.857047] rc rc0: vc4-hdmi-0 as /devices/platform/soc/fef00700.hdmi/rc/rc0
+[   13.862241] Bluetooth: HCI UART protocol ATH3K registered
+[   13.870159] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.clm_blob (-2)
+[   13.870511] input: vc4-hdmi-0 as /devices/platform/soc/fef00700.hdmi/rc/rc0/input0
+[   13.870816] zfs: module license 'CDDL' taints kernel.
+[   13.870822] Disabling lock debugging due to kernel taint
+[   13.870875] zfs: module license taints kernel.
+[   13.886055] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[   13.893947] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.clm_blob (-2)
+[   13.899258] Bluetooth: HCI UART protocol Intel registered
+[   13.931900] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.clm_blob
+...
+[   14.362517] bluetooth hci0: firmware: failed to load brcm/BCM4345C0.raspberrypi,4-model-b.hcd (-2)
+[   14.371733] bluetooth hci0: firmware: failed to load brcm/BCM4345C0.raspberrypi,4-model-b.hcd (-2)
+[   14.381645] bluetooth hci0: firmware: direct-loading firmware brcm/BCM4345C0.hcd
+[   14.389752] Bluetooth: hci0: BCM4345C0 'brcm/BCM4345C0.hcd' Patch
+</code></pre></div>
             </div>
         </div>
 

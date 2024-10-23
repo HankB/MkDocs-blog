@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>dphacks CM4 Ether Board - Hank's public Docs</title>
+        <title>Pi Zero/W with working DS18B20 - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -74,7 +74,7 @@
 </li>
                                     
 <li>
-    <a href="../Pi-Zero_Debian_DS18B20/" class="dropdown-item">Pi Zero/W with working DS18B20</a>
+    <a href="./" class="dropdown-item active">Pi Zero/W with working DS18B20</a>
 </li>
                                     
 <li>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">dphacks CM4 Ether Board</a>
+    <a href="../dphacks-CM4_Ether_Board/" class="dropdown-item">dphacks CM4 Ether Board</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -166,12 +166,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../ZFS-boot-menu/" class="nav-link">
+                                <a rel="prev" href="../Pi-Debian-Root-on-ZFS/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../data/benchmarks/" class="nav-link">
+                                <a rel="next" href="../Raspberry-Pi/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -193,36 +193,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#dphacks-cm4-ether-board" class="nav-link">dphacks CM4 Ether Board</a>
+            <li class="nav-item" data-level="1"><a href="#pi-zerow-with-working-ds18b20" class="nav-link">Pi Zero/W with working DS18B20</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#pictures" class="nav-link">Pictures</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#2022-10-31-plans" class="nav-link">2022-10-31 Plans</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#baseline-measurements" class="nav-link">Baseline measurements</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#cm4-eb-first-boot" class="nav-link">CM4-EB first boot</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#benchmark-comparison" class="nav-link">Benchmark comparison</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#2022-11-01-cm4-power-switch" class="nav-link">2022-11-01 CM4 power switch</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -230,126 +202,58 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="dphacks-cm4-ether-board">dphacks CM4 Ether Board</h1>
-<p>Expansion board for the Raspberry Pi Compute Module 4 (CM4) that supports Ethernet, USB and PCIe/NVME SSD.</p>
-<p>This board has kindly been provided for testing by <code>@makerbymistake</code> AKA <code>@rpilocator</code> at <a href="https://dphacks.com/">https://dphacks.com/</a> (and IRL André). Thank you!</p>
-<p>Board details.</p>
-<ul>
-<li>USB-C to power the board and CM4</li>
-<li>Micro-USB for data with jumper to select host/device mode.  In host mode, the board provides 5V to the USB device plugged in (as determined by the USB standard). Device mode is used to flash the eMMC module. (My CM4 is Lite =&gt; no eMMC so I cannot test this.)</li>
-<li>Both the power and data USB ports have basic protection against ESD.</li>
-<li>Shorting GND and Global_EN pins (with tweezers, etc) causes the CM4 to boot up when turned off or reboot if already running.</li>
-<li>M.2 M Key slot is powered by 3V (standard for SSDs). An M2 screw is provided that fits into the post. Supported SSD size is 2230.</li>
-</ul>
-<h2 id="pictures">Pictures</h2>
-<p>Comparison to NVME adapter.</p>
-<p><img alt="alt text" src="../data/PXL_20221031_154632274.jpg" title="comparison to NVME adapter" /></p>
-<p>Ether Board with CM4 + heatsink installed.</p>
-<p><img alt="alt text" src="../data/PXL_20221031_154659317.jpg" title="Ether Board with CM4 and heatsink installed" /></p>
-<h2 id="2022-10-31-plans">2022-10-31 Plans</h2>
-<p>Happy Halloween!</p>
-<p>I have a CM4 Lite with WiFi and 8GB RAM. I have been testing this with the official R-Pi expansion board (Pi-EB) including booting from NVME. For my Raspberry Pi 4B devices I prefer to use pure Debian but it will not boot the CM4 if anything is connected to the PCIe slot so it is a non-starter. I have an ARM64 R-Pi OS image installed on a 256GB Kioxia (PCIe X1) NVME SSD that I plan to test with.</p>
-<p>The networking and NVME performance are the things I am most curious about. I may explore other areas such as USB boot and perhaps the connections for shutting down and booting the CM4.</p>
-<h2 id="baseline-measurements">Baseline measurements</h2>
-<p>I plan to use <code>iperf3</code> and some common disk benchmarks to evaluate performance. Before swapping the CM4/heat sink and SSD to the CM4 Ether Board (CM4-EB) I'll complete the benchmarks on the Pi-EB. At this point I generally collect the time to complete the disk benchmarks as a first approximation of performance and will look at the detailed results if anything interesting comes up.</p>
-<p>Before proceeding I upgraded all available packages and this provides the kernel</p>
-<pre><code class="language-text">hbarta@cm4nvme:~ $ uname -a
-Linux cm4nvme 5.15.74-v8+ #1595 SMP PREEMPT Wed Oct 26 11:07:24 BST 2022 aarch64 GNU/Linux
-hbarta@cm4nvme:~ $ 
+<h1 id="pi-zerow-with-working-ds18b20">Pi Zero/W with working DS18B20</h1>
+<p>Uses a 1-wire temperture sensor. Desire to get working on a Pi Zero W running Debian (not RpiOS.)</p>
+<p>Following up on a discussion initiated on <code>#debian-raspberrypi</code>.</p>
+<p>Fully up to date Debian install with the following kernel</p>
+<pre><code class="language-text">hbarta@ceres:~$ uname -a
+Linux ceres 6.1.0-26-rpi #1 Debian 6.1.112-1 (2024-09-30) armv6l GNU/Linux
+hbarta@ceres:~$
 </code></pre>
-<p>I have Gnome installed and will disable that for this testing since the CM4-EB has no video output.</p>
-<p>Before swapping boards the host name was changed to avoid SSH login issues (and my confusion.)</p>
-<pre><code class="language-text">sudo hostnamectl set-hostname cm4eb
+<p><code>ukleinek</code> suggests "bookworm kernel is fine. 6.1.94-1 is the first good kernel." so I shouyld be good here.</p>
+<pre><code class="language-text">
+root@ceres:~# lsmod|grep -E &quot;wire|w1&quot;
+w1_therm               28672  0
+wire                   45056  1 w1_therm
+root@ceres:~# 
+
+root@ceres:~# lsmod|grep -E &quot;wire|w1&quot;
+w1_therm               28672  0
+wire                   45056  1 w1_therm
+root@ceres:~# 
+
+root@ceres:~# ls -lR /sys/bus/w1/
+/sys/bus/w1/:
+total 0
+drwxr-xr-x 2 root root    0 Oct 23 15:25 devices
+drwxr-xr-x 4 root root    0 Oct 23 15:25 drivers
+-rw-r--r-- 1 root root 4096 Oct 23 15:25 drivers_autoprobe
+--w------- 1 root root 4096 Oct 23 15:25 drivers_probe
+--w------- 1 root root 4096 Oct 23 15:25 uevent
+
+/sys/bus/w1/devices:
+total 0
+
+/sys/bus/w1/drivers:
+total 0
+drwxr-xr-x 2 root root 0 Oct 23 15:25 w1_master_driver
+drwxr-xr-x 2 root root 0 Oct 23 15:25 w1_slave_driver
+
+/sys/bus/w1/drivers/w1_master_driver:
+total 0
+--w------- 1 root root 4096 Oct 23 15:26 bind
+--w------- 1 root root 4096 Oct 23 15:25 uevent
+--w------- 1 root root 4096 Oct 23 15:26 unbind
+
+/sys/bus/w1/drivers/w1_slave_driver:
+total 0
+--w------- 1 root root 4096 Oct 23 15:26 bind
+--w------- 1 root root 4096 Oct 23 15:25 uevent
+--w------- 1 root root 4096 Oct 23 15:26 unbind
+root@ceres:~# 
 </code></pre>
-<h2 id="cm4-eb-first-boot">CM4-EB first boot</h2>
-<p>Uneventful. It came up, connected to my LAN via Ethernet and I was able to SSH in. Results of <code>ip addr</code> indicates that WiFi is working as well (though that resides entirely on the CM4.) At present the D2 (green) LED is flickering at about 1/s and the D3 (red) LED is on continuous. On to the benchmarks!</p>
-<p>Quick reactions - The Ethernet and NVME performance seem pretty close to that on the official IO Board and this is both desired and expected.</p>
-<h2 id="benchmark-comparison">Benchmark comparison</h2>
-<h3 id="network">Network</h3>
-<table>
-<thead>
-<tr>
-<th>board</th>
-<th>ping</th>
-<th>iperf3</th>
-<th></th>
-<th>notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>min/avg/max/mdev</td>
-<td>Mbits/sec snd</td>
-<td>recv</td>
-<td></td>
-</tr>
-<tr>
-<td>IO</td>
-<td>0.146/0.191/0.227/0.024</td>
-<td></td>
-<td></td>
-<td>olive</td>
-</tr>
-<tr>
-<td></td>
-<td>0.214/0.270/0.551/0.094</td>
-<td>924</td>
-<td>919</td>
-<td>oak</td>
-</tr>
-<tr>
-<td>EB</td>
-<td>0.164/0.204/0.278/0.038</td>
-<td></td>
-<td></td>
-<td>olive</td>
-</tr>
-<tr>
-<td></td>
-<td>0.213/0.265/0.489/0.075</td>
-<td>904</td>
-<td>899</td>
-<td>oak</td>
-</tr>
-</tbody>
-</table>
-<h3 id="disk">Disk</h3>
-<p>Crude results - just time to complete the benchmark. Details can be <a href="../data/benchmarks/">viewed here</a></p>
-<table>
-<thead>
-<tr>
-<th>board</th>
-<th>fio</th>
-<th></th>
-<th>dd</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>time</td>
-<td>rerun</td>
-<td>time</td>
-</tr>
-<tr>
-<td>IO</td>
-<td>101</td>
-<td>121</td>
-<td>130</td>
-</tr>
-<tr>
-<td>EB</td>
-<td>101</td>
-<td>124</td>
-<td>128</td>
-</tr>
-</tbody>
-</table>
-<h2 id="2022-11-01-cm4-power-switch">2022-11-01 CM4 power switch</h2>
-<p>I implemented the software/config to implement a power switch. Jumper wires used temporarily in place of switch. Instructions at <a href="https://www.alexwhittemore.com/raspberry-pi-cm4-using-nrpi_boot/">https://www.alexwhittemore.com/raspberry-pi-cm4-using-nrpi_boot/</a>.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>One of the most important attributes of the CM4 is that it exposes a PCIe lane on the connectors. The official IO Board routes this to a PCIe x1 slot and the <code>@makerbymistake</code> board brings this out directly to an NVME slot. This is an ideal board to use for a headless file server where Ethernet and NVME provide all of the I/O is needed. Other functions that depend only on Ethernet such as Pi-Hole could also be supported at full Gigabit Ethernet speed and all with a footprint a fraction of the space required for the official board. I also like that it is powered from a USB-C connector vs. the barrel used on the official board. I did not test the (micro) USB data connector but I understand that <code>@makerbymistake</code> has used it to run OctoPrint.</p></div>
+<pre><code class="language-text">ukleinek starrs at w1-gpio.dtbo # presume 'starts'
+</code></pre></div>
             </div>
         </div>
 
