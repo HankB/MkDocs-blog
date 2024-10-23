@@ -15,11 +15,10 @@ hbarta@ceres:~$
 `ukleinek` suggests "bookworm kernel is fine. 6.1.94-1 is the first good kernel." so I shouyld be good here.
 
 ```text
+root@ceres:~# cat /sys/kernel/debug/devices_deferred
+root@ceres:~#
 
-root@ceres:~# lsmod|grep -E "wire|w1"
-w1_therm               28672  0
-wire                   45056  1 w1_therm
-root@ceres:~# 
+root@ceres:~# modprobe w1_therm
 
 root@ceres:~# lsmod|grep -E "wire|w1"
 w1_therm               28672  0
@@ -61,3 +60,4 @@ root@ceres:~#
 ukleinek starrs at w1-gpio.dtbo # presume 'starts'
 ```
 
+This one? <https://github.com/raspberrypi/firmware/blob/master/boot/overlays/w1-gpio.dtbo>
