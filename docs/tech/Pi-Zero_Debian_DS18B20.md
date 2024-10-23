@@ -61,3 +61,55 @@ ukleinek starrs at w1-gpio.dtbo # presume 'starts'
 ```
 
 This one? <https://github.com/raspberrypi/firmware/blob/master/boot/overlays/w1-gpio.dtbo>
+
+<https://github.com/raspberrypi/linux/blob/rpi-6.6.y/arch/arm/boot/dts/overlays/w1-gpio-overlay.dts>
+
+Compile:
+
+```text
+hbarta@ceres:~/Documents/w1$ dtc w1-gpio-overlay.dts -o w1-gpio-overlay.dtb
+w1-gpio-overlay.dts:12.18-18.6: Warning (unit_address_vs_reg): /fragment@0/__overlay__/onewire@0: node has a unit name, but no reg or ranges property
+w1-gpio-overlay.dts:25.23-29.6: Warning (unit_address_vs_reg): /fragment@1/__overlay__/w1_pins@0: node has a unit name, but no reg or ranges property
+hbarta@ceres:~/Documents/w1$ ls -l
+total 8
+-rw-r--r-- 1 hbarta hbarta 909 Oct 23 15:56 w1-gpio-overlay.dtb
+-rw-r--r-- 1 hbarta hbarta 699 Oct 23 15:55 w1-gpio-overlay.dts
+hbarta@ceres:~/Documents/w1$ 
+
+```
+
+```text
+[15:45] <ukleinek> HankB: you can test if it applies using `fdtoverlay -i /boot/firmware/yourmachine.dtb -o /tmp/lala.dtb /boot/firmware/overlays/w1-gpio.dtbo`
+```
+
+```text
+fdtoverlay -i /boot/firmware/bcm2835-rpi-zero-w.dtb -o /tmp/lala.dtb /boot/firmware/overlays/w1-gpio-overlay.dtbo
+```
+
+`fdtoverlay` produces no errors or warnings.
+
+```text
+hbarta@ceres:~/Documents/w1$ sudo mkdir /boot/firmware/overlays/
+hbarta@ceres:~/Documents/w1$ sudo cp w1-gpio-overlay.dtbo /boot/firmware/overlays/
+hbarta@ceres:~/Documents/w1$ 
+```
+
+Does not seem to change anything. Try moving the `w1-gpio-overlay.dtbo` to `/boot/firmware`. Seems to make no difference. Moving it back and looking at modules. RpiOS shows
+
+```text
+hbarta@niwot:~ $ lsmod|grep -E "wire|w1"
+w1_therm               17732  0
+w1_gpio                 3165  0
+wire                   32902  2 w1_gpio,w1_therm
+cn                      6073  1 wire
+hbarta@niwot:~ $ 
+```
+
+No joy
+
+```text
+root@ceres:/home/hbarta# modprobe w1_therm wire w1_gpio cn
+root@ceres:/home/hbarta# cat /sys/kernel/debug/devices_deferred
+root@ceres:/home/hbarta# ls /sys/bus/w1/devices/
+root@ceres:/home/hbarta# 
+```
