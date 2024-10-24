@@ -113,3 +113,92 @@ root@ceres:/home/hbarta# cat /sys/kernel/debug/devices_deferred
 root@ceres:/home/hbarta# ls /sys/bus/w1/devices/
 root@ceres:/home/hbarta# 
 ```
+
+`file` describes the `.dtbo`
+
+```text
+root@ceres:~# file /boot/firmware/overlays/w1-gpio-overlay.dtbo 
+/boot/firmware/overlays/w1-gpio-overlay.dtbo: Device Tree Blob version 17, size=909, boot CPU=0, string block size=129, DT structure block size=724
+root@ceres:~# 
+```
+
+## 2024-10-24 further direction via IRC
+
+```text
+[23:28] <ukleinek> HankB: /boot/firmware/overlays is irrelevant. That only matters if the kernel applies an overlay. You however want the overlay applied by the bootloader.
+[23:29] <ukleinek> HankB: so place the overlay in /boot/firmware/overlays and add dtoverlay=w1-gpio to config.txt
+[23:31] <ukleinek> If that worked you should have a dir /sys/firmware/devicetree/base/onewire@0
+...
+[03:19] <sur5r> ukleinek: those sentences contradict themselves. "/boot/firmware/overlays is irrelevant" <-> "place the overlay in /boot/firmware/overlays and add dtoverlay=w1-gpio to config.txt"
+[03:20] <ukleinek> oh, indeed, it's /sys/firmware/devicetree/overlays that is irrelevant
+[03:21] <ukleinek> I missread that and my copy-and-paste didn't follow my misinterpretation.
+[03:23] <sur5r> I don't have /sys/firmware/devicetree/overlays
+[03:23] <sur5r> Is that an RpiOS thing?
+[03:24] <sur5r> I would love to be able to load DTBOs at runtime but never understood how to do that on Debian.
+[03:26] <ukleinek> sur5r: there is a patch set for dynamic dtbo application from userspace, but no chance to get that into mainline. Many drivers assume the dtb doesn't change and keep references to it. Even if they maintain pointers to unrelated parts of the dtb their offset might change (I think), so that's calling for data corruption.
+[03:27] <ukleinek> https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/overlays is the most maintained version of if AFAIK
+[03:30] <ukleinek> There is an in-kernel API though, and if you use that, /sys/firmware/devicetree/overlays is created. (Dangerous half knowledge. That is at least the reason the dtb is in /sys/firmware/devicetree/base and not in /sys/firmware/devicetree/ directly)
+[03:32] <jochensp> ukleinek: do you mean CONFIG_OF_DYNAMIC?
+[03:32] <ukleinek> Yes, that's the in-kernel one
+[03:35] <ukleinek> ah, /sys/firmware/devicetree/overlays only comes into play with the above mentioned patches applied.
+[03:47] <sur5r> Yeah I remember the RaspiOS tool warns loudly when trying to remove dtbos
+[05:24] <sur5r> *sigh* fbtft can't be built OOT against the Debian kernel as it needs FB_BACKLIGHT enabled
+```
+
+```text
+root@ceres:~# tail /boot/firmware/config.txt 
+enable_uart=1
+upstream_kernel=1
+
+kernel=vmlinuz-6.1.0-26-rpi
+# For details on the initramfs directive, see
+# https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=10532
+initramfs initrd.img-6.1.0-26-rpi
+
+#dtoverlay=w1-gpio.gpiopin=4
+dtoverlay=w1-gpio
+root@ceres:~# ls -l /sys/firmware/devicetree/overlays
+ls: cannot access '/sys/firmware/devicetree/overlays': No such file or directory
+root@ceres:~# ls -l /sys/firmware/devicetree/        
+total 0
+drwxr-xr-x 17 root root 0 Aug 25 12:35 base
+root@ceres:~# ls -l /sys/firmware/devicetree/base
+total 0
+-r--r--r--  1 root root  4 Oct 24 09:43 '#address-cells'
+-r--r--r--  1 root root  4 Oct 24 09:43 '#size-cells'
+drwxr-xr-x  2 root root  0 Oct 24 09:43  __symbols__
+drwxr-xr-x  2 root root  0 Oct 24 09:43  aliases
+drwxr-xr-x  2 root root  0 Oct 24 09:43  arm-pmu
+drwxr-xr-x  3 root root  0 Oct 24 09:43  axi
+drwxr-xr-x  4 root root  0 Oct 24 09:43  chosen
+drwxr-xr-x  4 root root  0 Oct 24 09:43  clocks
+-r--r--r--  1 root root 38 Aug 25 12:35  compatible
+drwxr-xr-x  3 root root  0 Oct 24 09:43  cpus
+-r--r--r--  1 root root  4 Oct 24 09:43  interrupt-parent
+drwxr-xr-x  3 root root  0 Oct 24 09:43  leds
+drwxr-xr-x  2 root root  0 Oct 24 09:43  memory@0
+-r--r--r--  1 root root  8 Oct 24 09:43  memreserve
+-r--r--r--  1 root root 28 Oct 24 09:43  model
+-r--r--r--  1 root root  1 Oct 24 09:43  name
+drwxr-xr-x  2 root root  0 Oct 24 09:43  phy
+drwxr-xr-x  3 root root  0 Oct 24 09:43  reserved-memory
+-r--r--r--  1 root root 17 Oct 24 09:43  serial-number
+drwxr-xr-x 40 root root  0 Oct 24 09:43  soc
+drwxr-xr-x  2 root root  0 Oct 24 09:43  system
+drwxr-xr-x  3 root root  0 Oct 24 09:43  thermal-zones
+drwxr-xr-x  2 root root  0 Oct 24 09:43  wifi-pwrseq
+root@ceres:~# 
+```
+
+Reboot now
+
+```text
+root@ceres:~# ls -l /sys/firmware/devicetree/overlays
+ls: cannot access '/sys/firmware/devicetree/overlays': No such file or directory
+root@ceres:~# tail -1 /boot/firmware/config.txt 
+dtoverlay=w1-gpio
+root@ceres:~# for m in  w1_therm wire w1_gpio cn; do modprobe $m; done
+root@ceres:~# ls -l /sys/firmware/devicetree/overlays
+ls: cannot access '/sys/firmware/devicetree/overlays': No such file or directory
+root@ceres:~# 
+```
