@@ -202,3 +202,23 @@ root@ceres:~# ls -l /sys/firmware/devicetree/overlays
 ls: cannot access '/sys/firmware/devicetree/overlays': No such file or directory
 root@ceres:~# 
 ```
+
+Further checking
+
+```text
+root@ceres:/home/hbarta# find /sys -name "onewire*"
+root@ceres:/home/hbarta# find /sys -name "one*"
+root@ceres:/home/hbarta# find /sys -name "wire*"
+/sys/devices/platform/soc/20300000.mmc/mmc_host/mmc1/mmc1:0001/mmc1:0001:1/net/wlan0/wireless
+/sys/module/wire
+root@ceres:/home/hbarta# find /sys -name "w1*"  
+/sys/bus/platform/drivers/w1-gpio
+/sys/bus/w1
+/sys/bus/w1/drivers/w1_slave_driver
+/sys/bus/w1/drivers/w1_master_driver
+/sys/module/w1_gpio
+/sys/module/wire/holders/w1_gpio
+/sys/module/wire/holders/w1_therm
+/sys/module/w1_therm
+root@ceres:/home/hbarta# 
+```
