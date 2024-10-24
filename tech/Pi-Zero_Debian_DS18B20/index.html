@@ -129,10 +129,6 @@
 </li>
                                     
 <li>
-    <a href="../../test-debug/Pi-firmware-2024-04-28/" class="dropdown-item">Pi Firmware 2024-04-28</a>
-</li>
-                                    
-<li>
     <a href="../../test-debug/Pi-new-CM4-WiFi-debugging/" class="dropdown-item">New Raspberry Pi CM4 WiFi testing</a>
 </li>
                                     
@@ -370,6 +366,23 @@ root@ceres:~# for m in  w1_therm wire w1_gpio cn; do modprobe $m; done
 root@ceres:~# ls -l /sys/firmware/devicetree/overlays
 ls: cannot access '/sys/firmware/devicetree/overlays': No such file or directory
 root@ceres:~# 
+</code></pre>
+<p>Further checking</p>
+<pre><code class="language-text">root@ceres:/home/hbarta# find /sys -name &quot;onewire*&quot;
+root@ceres:/home/hbarta# find /sys -name &quot;one*&quot;
+root@ceres:/home/hbarta# find /sys -name &quot;wire*&quot;
+/sys/devices/platform/soc/20300000.mmc/mmc_host/mmc1/mmc1:0001/mmc1:0001:1/net/wlan0/wireless
+/sys/module/wire
+root@ceres:/home/hbarta# find /sys -name &quot;w1*&quot;  
+/sys/bus/platform/drivers/w1-gpio
+/sys/bus/w1
+/sys/bus/w1/drivers/w1_slave_driver
+/sys/bus/w1/drivers/w1_master_driver
+/sys/module/w1_gpio
+/sys/module/wire/holders/w1_gpio
+/sys/module/wire/holders/w1_therm
+/sys/module/w1_therm
+root@ceres:/home/hbarta# 
 </code></pre></div>
             </div>
         </div>
