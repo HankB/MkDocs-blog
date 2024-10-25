@@ -222,3 +222,80 @@ root@ceres:/home/hbarta# find /sys -name "w1*"
 /sys/module/w1_therm
 root@ceres:/home/hbarta# 
 ```
+
+## 2024-10-25 dtbo naming
+
+```text
+dtc w1-gpio-overlay.dts -o w1-gpio.dtbo
+sudo cp w1-gpio.dtbo
+# Check /boot/firmware/config.txt
+```
+
+```text
+hbarta@ceres:~/Documents/w1$ dtc w1-gpio-overlay.dts -o w1-gpio.dtbo
+w1-gpio-overlay.dts:12.18-18.6: Warning (unit_address_vs_reg): /fragment@0/__overlay__/onewire@0: node has a unit name, but no reg or ranges property
+w1-gpio-overlay.dts:25.23-29.6: Warning (unit_address_vs_reg): /fragment@1/__overlay__/w1_pins@0: node has a unit name, but no reg or ranges property
+hbarta@ceres:~/Documents/w1$ sudo cp w1-gpio.dtbo /boot/firmware/overlays
+[sudo] password for hbarta: 
+hbarta@ceres:~/Documents/w1$ tail -1 /boot/firmware/config.txt 
+dtoverlay=w1-gpio
+hbarta@ceres:~/Documents/w1$ sudo shutdown -r now
+```
+
+Following reboot:
+
+```text
+Linux ceres 6.1.0-26-rpi #1 Debian 6.1.112-1 (2024-09-30) armv6l
+...
+Last login: Fri Oct 25 08:30:42 2024 from 192.168.1.85
+hbarta@ceres:~$ lsmod | grep w1     
+w1_gpio                16384  0
+wire                   45056  1 w1_gpio
+hbarta@ceres:~$ ls /sys/bus/w1/devices/
+hbarta@ceres:~$ cat /boot/firmware/config.txt
+# Do not modify this file!
+#
+# It is automatically generated upon install or update of either the
+# firmware or the Linux kernel.
+#
+# If you need to set boot-time parameters, do so via the
+# /etc/default/raspi-firmware, /etc/default/raspi-firmware-custom or
+# /etc/default/raspi-extra-cmdline files.
+
+enable_uart=1
+upstream_kernel=1
+
+kernel=vmlinuz-6.1.0-26-rpi
+# For details on the initramfs directive, see
+# https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=10532
+initramfs initrd.img-6.1.0-26-rpi
+
+#dtoverlay=w1-gpio.gpiopin=4
+dtoverlay=w1-gpio
+hbarta@ceres:~$ ls /boot/firmware/overlays
+w1-gpio.dtbo
+hbarta@ceres:~$ cat /sys/kernel/debug/devices_deferred
+cat: /sys/kernel/debug/devices_deferred: Permission denied
+hbarta@ceres:~$ sudo cat /sys/kernel/debug/devices_deferred
+[sudo] password for hbarta: 
+hbarta@ceres:~$ ls -l /sys/firmware/devicetree/overlays
+ls: cannot access '/sys/firmware/devicetree/overlays': No such file or directory
+hbarta@ceres:~$ 
+hbarta@ceres:~$ sudo modprobe w1_therm
+hbarta@ceres:~$ ls -l /sys/firmware/devicetree/overlays
+ls: cannot access '/sys/firmware/devicetree/overlays': No such file or directory
+hbarta@ceres:~$ ls /sys/bus/w1/devices/
+hbarta@ceres:~$ lsmod | grep w1
+w1_therm               28672  0
+w1_gpio                16384  0
+wire                   45056  2 w1_gpio,w1_therm
+hbarta@ceres:~$ 
+```
+
+Difference: module `w1_gpio` loaded automatically. `w1_therm` did not.
+
+```text
+fdtoverlay -i /boot/firmware/bcm2835-rpi-zero-w.dtb -o /tmp/lala.dtb /boot/firmware/overlays/w1-gpio.dtbo
+```
+
+Produces no errors/warnings
