@@ -299,3 +299,60 @@ fdtoverlay -i /boot/firmware/bcm2835-rpi-zero-w.dtb -o /tmp/lala.dtb /boot/firmw
 ```
 
 Produces no errors/warnings
+
+### More
+
+```text
+[09:50] <jochensp> hbarta_: you could try the raspberry kernel dtb and then debug which part mainline is missing
+[09:53] <hbarta_> I'll take a look at that - thx. I think I tried that at one point but might have fumbled something.
+[09:54] <hbarta_> Actually, this is the DTS pulled from the RpiOS repo that I'm using.
+[09:59] <jochensp> hbarta_: I mean the complete dtb, not only the overlay
+[10:00] <-- chele (~chele@00022067.user.oftc.net) has left this server (Remote host closed the connection).
+[10:00] <-- minimal (~minimal@0002b71e.user.oftc.net) has left this server (Quit: Leaving).
+[10:06] <ukleinek> hbarta_: the warnings don't matter
+[10:06] <ukleinek> s/warnings/& by dtc/
+[10:07] <ukleinek> no, don't pollute you system with rpi stuff :-)
+[10:08] <jochensp> ukleinek: feel free to propose a better way but that's how I found the missing peaces last time ;)
+[10:08] <hbarta_> I don't kow what you mean by "complete dtb" Is that the contents of the directory I pulled the DTS from
+[10:09] <hbarta_> The DTS I'm working with is from an Rpi repo.
+[10:10] <ukleinek> hbarta_: dmesg | grep -E onewire
+[10:11] * ukleinek expects a problem with pinctrl
+[10:11] <ukleinek> hbarta_: jochensp suggests to replace the machine dtb.
+[10:13] <ukleinek> "module w1_gpio loaded automatically. w1_therm did not." is not surprising.
+[10:13] <hbarta_> I tried (what I believe) is the machine DTB from a Pi with 6.6 kernel and the Pi stuck at the rainbow screen.
+[10:14] <ukleinek> because there is a w1-gpio device now (that however fails to probe because of a pinctrl conflict) and as the bus is missing there is no therm device that would trigger autoloading w1-therm
+[10:15] <hbarta_> 3 lines from the grep dmesg
+[10:16] <hbarta_> [   35.169615] pinctrl-bcm2835 20200000.gpio: pin gpio4 already requested by 20200000.gpio; cannot claim for onewire@0
+[10:16] <hbarta_> [   35.195280] pinctrl-bcm2835 20200000.gpio: pin-4 (onewire@0) status -22
+[10:16] <hbarta_> [   35.242269] w1-gpio onewire@0: Error applying setting, reverse things back
+[10:16] <hbarta_> Seems significant.
+[10:16] <ukleinek> it is
+[10:17] <hbarta_> Can you suggest a fix?
+[10:17] * ukleinek is working at it
+[10:17] <hbarta_> Thx
+```
+
+Working! <https://paste.debian.net/hidden/d5ad73b2/>
+
+```text
+diff --git a/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts b/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts
+index 1f0b163e400c..9ee4ffc1cd38 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts
++++ b/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts
+@@ -98,7 +98,7 @@ &gpio {
+ 			  "SD_DATA3_R";
+ 
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&gpioout &alt0>;
++	pinctrl-0 = <&gpioout>;
+ };
+ 
+ &hdmi {
+```
+
+<https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero.dts>
+<https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts>
+
+I need to repeat this, perhaps for other Pi models to confirm I have the needed fixes and repeatable instructions.
+
+Again, many thanks to the denizens of the #debian-raspberrypi who solved this for me.
