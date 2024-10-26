@@ -452,7 +452,55 @@ hbarta@ceres:~$
 <p>Difference: module <code>w1_gpio</code> loaded automatically. <code>w1_therm</code> did not.</p>
 <pre><code class="language-text">fdtoverlay -i /boot/firmware/bcm2835-rpi-zero-w.dtb -o /tmp/lala.dtb /boot/firmware/overlays/w1-gpio.dtbo
 </code></pre>
-<p>Produces no errors/warnings</p></div>
+<p>Produces no errors/warnings</p>
+<h3 id="more">More</h3>
+<pre><code class="language-text">[09:50] &lt;jochensp&gt; hbarta_: you could try the raspberry kernel dtb and then debug which part mainline is missing
+[09:53] &lt;hbarta_&gt; I'll take a look at that - thx. I think I tried that at one point but might have fumbled something.
+[09:54] &lt;hbarta_&gt; Actually, this is the DTS pulled from the RpiOS repo that I'm using.
+[09:59] &lt;jochensp&gt; hbarta_: I mean the complete dtb, not only the overlay
+[10:00] &lt;-- chele (~chele@00022067.user.oftc.net) has left this server (Remote host closed the connection).
+[10:00] &lt;-- minimal (~minimal@0002b71e.user.oftc.net) has left this server (Quit: Leaving).
+[10:06] &lt;ukleinek&gt; hbarta_: the warnings don't matter
+[10:06] &lt;ukleinek&gt; s/warnings/&amp; by dtc/
+[10:07] &lt;ukleinek&gt; no, don't pollute you system with rpi stuff :-)
+[10:08] &lt;jochensp&gt; ukleinek: feel free to propose a better way but that's how I found the missing peaces last time ;)
+[10:08] &lt;hbarta_&gt; I don't kow what you mean by &quot;complete dtb&quot; Is that the contents of the directory I pulled the DTS from
+[10:09] &lt;hbarta_&gt; The DTS I'm working with is from an Rpi repo.
+[10:10] &lt;ukleinek&gt; hbarta_: dmesg | grep -E onewire
+[10:11] * ukleinek expects a problem with pinctrl
+[10:11] &lt;ukleinek&gt; hbarta_: jochensp suggests to replace the machine dtb.
+[10:13] &lt;ukleinek&gt; &quot;module w1_gpio loaded automatically. w1_therm did not.&quot; is not surprising.
+[10:13] &lt;hbarta_&gt; I tried (what I believe) is the machine DTB from a Pi with 6.6 kernel and the Pi stuck at the rainbow screen.
+[10:14] &lt;ukleinek&gt; because there is a w1-gpio device now (that however fails to probe because of a pinctrl conflict) and as the bus is missing there is no therm device that would trigger autoloading w1-therm
+[10:15] &lt;hbarta_&gt; 3 lines from the grep dmesg
+[10:16] &lt;hbarta_&gt; [   35.169615] pinctrl-bcm2835 20200000.gpio: pin gpio4 already requested by 20200000.gpio; cannot claim for onewire@0
+[10:16] &lt;hbarta_&gt; [   35.195280] pinctrl-bcm2835 20200000.gpio: pin-4 (onewire@0) status -22
+[10:16] &lt;hbarta_&gt; [   35.242269] w1-gpio onewire@0: Error applying setting, reverse things back
+[10:16] &lt;hbarta_&gt; Seems significant.
+[10:16] &lt;ukleinek&gt; it is
+[10:17] &lt;hbarta_&gt; Can you suggest a fix?
+[10:17] * ukleinek is working at it
+[10:17] &lt;hbarta_&gt; Thx
+</code></pre>
+<p>Working! <a href="https://paste.debian.net/hidden/d5ad73b2/">https://paste.debian.net/hidden/d5ad73b2/</a></p>
+<pre><code class="language-text">diff --git a/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts b/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts
+index 1f0b163e400c..9ee4ffc1cd38 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts
++++ b/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts
+@@ -98,7 +98,7 @@ &amp;gpio {
+              &quot;SD_DATA3_R&quot;;
+
+    pinctrl-names = &quot;default&quot;;
+-   pinctrl-0 = &lt;&amp;gpioout &amp;alt0&gt;;
++   pinctrl-0 = &lt;&amp;gpioout&gt;;
+ };
+
+ &amp;hdmi {
+</code></pre>
+<p><a href="https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero.dts">https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero.dts</a>
+<a href="https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts">https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts</a></p>
+<p>I need to repeat this, perhaps for other Pi models to confirm I have the needed fixes and repeatable instructions.</p>
+<p>Again, many thanks to the denizens of the #debian-raspberrypi who solved this for me.</p></div>
             </div>
         </div>
 
