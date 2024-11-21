@@ -350,9 +350,44 @@ index 1f0b163e400c..9ee4ffc1cd38 100644
  &hdmi {
 ```
 
-<https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero.dts>
-<https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts>
+* Pi Zero <https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero.dts>
+* Pi Zero W<https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts>
+
+(Note: `wget` the raw URL.)
 
 I need to repeat this, perhaps for other Pi models to confirm I have the needed fixes and repeatable instructions.
 
 Again, many thanks to the denizens of the #debian-raspberrypi who solved this for me.
+
+## 2024-11-05 Works with RpiOS
+
+```text
+[16:40] <ukleinek> HankB: I would be interested if the w1-gpio overlay works for the pizero using rpios.
+[16:43] <-- leighbb (~leighbb@2001:8b0:1df6:8fca:bab9:33:f4b0:28ef) has left this server (Quit: Leaving).
+[16:43] <ukleinek> HankB: sounds as if you'd need access to your vanishing pizeros via an UART console. What do you use to configure the wifi connection? nm? networkd?
+[16:44] <ukleinek> Maybe a reconnect issue? Did you try to disable the wifi shortly and then check if the device reconnect?
+```
+
+## 2024-11-21 repeat following kernel upgrade
+
+* Not on a fresh install.
+* On a Zero W host `ceres`.
+* Version of DTB files seems to be the same (e.g. <bcm2835-rpi-...>)
+* DS18B20 device no longer present.
+
+```text
+cd ~/GPIO
+wget https://raw.githubusercontent.com/torvalds/linux/refs/heads/master/arch/arm/boot/dts/broadcom/bcm2835-rpi-zero-w.dts
+dtc bcm2835-rpi-zero-w.dts -o bcm2835-rpi-zero-w.dtb
+```
+
+Last command produces the error 
+
+```text
+hbarta@ceres:~/GPIO$ dtc bcm2835-rpi-zero-w.dts
+Error: bcm2835-rpi-zero-w.dts:7.1-9 syntax error
+FATAL ERROR: Unable to parse input tree
+hbarta@ceres:~/GPIO$ 
+```
+
+However, after adding `dtoverlay=w1-gpio` to `config.txt` the DS18B20 device is present (following reboot.)
