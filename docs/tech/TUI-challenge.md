@@ -3,7 +3,7 @@
 * <https://www.jupiterbroadcasting.com/show/linux-unplugged/618/> podcast with announcelemt
 * <https://github.com/JupiterBroadcasting/linux-unplugged/blob/main/challenges/TUI-Challenge.md> Rules
 * <https://github.com/JupiterBroadcasting/linux-unplugged/issues/5> related issue
-* <https://HankB.github.io/MkDocs-blog/tech/TUI-challenge.md> "blog" version of this article.
+* <https://HankB.github.io/MkDocs-blog/tech/TUI-challenge> "blog" version of this article.
 * <https://github.com/HankB/MkDocs-blog/blob/main/docs/tech/TUI-challenge.md> "github" version of this article.
 
 ## Goals and plan
