@@ -94,6 +94,8 @@ Install the NVME SSD in the NVME HAT_ and boot the system. (Great Success!) At t
 
 Further customization is peformed [using Ansible Playbooks](./Trixie_install_to_NVME.md#2025-08-08-continue-setup).
 
+Note: Following first boot playbook the host no longer boots. This requires further investigation.
+
 ## notes
 
 * [^1] @ukleinek on IRC suggested `make bindeb-pkg` to produce a .deb for the modules. This will be convenient when building a new kernel on the Pi 5 but is less so when cross developing on another host.
