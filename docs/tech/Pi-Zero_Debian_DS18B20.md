@@ -390,4 +390,17 @@ FATAL ERROR: Unable to parse input tree
 hbarta@ceres:~/GPIO$ 
 ```
 
-However, after adding `dtoverlay=w1-gpio` to `config.txt` the DS18B20 device is present (following reboot.)
+However, after adding `dtoverlay=w1-gpio` to `config.txt` the DS18B20 device is present (following reboot.) (IOW the kernel upgrade replaced config.txt but left the DTB as is.)
+
+```text
+dtc bcm2835-rpi-zero-w.dts -O dtb 
+dtc -I dts -O dtb bcm2835-rpi-zero-w.dts bcm2835-rpi-zero-w.dtb
+gcc -E -O dtb bcm2835-rpi-zero-w.dts -o bcm2835-rpi-zero-w.dtb
+
+dtc -I dts -O dtb bcm2835-rpi-zero-w.dts bcm2835-rpi-zero-w.dtb
+dtc -I dtb -O dts -o bcm2835-rpi-zero-w.dts bcm2835-rpi-zero-w.dtb
+dtc -I dts -O dtb bcm2835-rpi-zero-w.dts -o bcm2835-rpi-zero-w-1.dtb
+
+[11:45] <ukleinek> the kernel rule is cmd_dtc in scripts/Makefile.dtbs
+
+(Present status is incomplete.)
