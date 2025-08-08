@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Pi 4B Bookworm testing - Hank's public Docs</title>
+        <title>Pi Firmware 2024-04-28 - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -135,7 +135,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Pi 4B Bookworm testing</a>
+    <a href="../Pi-4B-Bookworm-testing/" class="dropdown-item">Pi 4B Bookworm testing</a>
 </li>
                                     
 <li>
@@ -147,7 +147,7 @@
 </li>
                                     
 <li>
-    <a href="../Pi-firmware-2024-04-28/" class="dropdown-item">Pi Firmware 2024-04-28</a>
+    <a href="./" class="dropdown-item active">Pi Firmware 2024-04-28</a>
 </li>
                                     
 <li>
@@ -184,12 +184,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Pi-4B-Bookworm-WiFi/" class="nav-link">
+                                <a rel="prev" href="../Pi-4B-firmware/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../Pi-4B-KDE_bookworm/" class="nav-link">
+                                <a rel="next" href="../Pi-new-CM4-WiFi-debugging/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -211,13 +211,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#pi-4b-bookworm-testing" class="nav-link">Pi 4B Bookworm testing</a>
+            <li class="nav-item" data-level="1"><a href="#pi-firmware-2024-04-28" class="nav-link">Pi Firmware 2024-04-28</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#procedure" class="nav-link">Procedure</a>
+            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#results" class="nav-link">Results</a>
+            <li class="nav-item" data-level="2"><a href="#2024-04-29-cm4trixie-install" class="nav-link">2024-04-29 CM4/Trixie install</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2024-04-30-4btrixie-install" class="nav-link">2024-04-30 4B/Trixie install</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -228,55 +232,80 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="pi-4b-bookworm-testing">Pi 4B Bookworm testing</h1>
-<p>Determine if some previous bugs have been fixed in more recent kernels. Bugs fell into two areas:</p>
-<ul>
-<li>vc4 module - this included a use-after-free as well as other issues reported in <code>dmesg</code>.</li>
-<li>SD card timeout - Timeout message repeated every 10s. This had manifested previously and a workaround was to insert an SD card into the slot and the messages stopped. This time that does not work. Further characteristics of the present situation:</li>
-<li>doesn't boot</li>
-<li>Boots from attached USB SSD skipping the SD card.</li>
-<li>No /dev/mmc* after boot accompanied by no WiFi.</li>
-<li>/dev/mmc* entries, can mount and read card and after several more timeout messages, they stop.</li>
-<li>When the timeout messages are being reported, the system cannot complete shutdown to reboot. It is necessary to remove power from the system.</li>
-<li>Normal boot, no mmc timeouts and apparently normal operation.</li>
-</ul>
-<p>In other words, there is a great variety of behavior with kernels with Bookworm. The good news is that later kernels do not exhibit the problems with the vc4 module so the focus on these notes is to better characterize the SD timeout issue now reported at <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700">https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1019700</a>.</p>
-<h2 id="procedure">Procedure</h2>
-<ol>
-<li>Start with a fresh install of <code>20220808_raspi_4_bookworm.img.xz</code> On an SD card.</li>
-<li>Boot, configure a user to facilitate access via SSH.</li>
-<li>Examine <code>dmesg</code> output to determine</li>
-<li>SD timeouts</li>
-<li><code>/dev/mmc*</code> emtries</li>
-<li>indication of WiFi functionality (via <code>ip addr</code>)</li>
-<li>Reboot mutiple times to determine pf the SD timeout problem exists.</li>
-<li>Update/upgrade to get new kernel and repeat checks above including multiple reboots.</li>
-<li>find and install other kernels and repeat checks/reboots.</li>
-</ol>
-<h2 id="results">Results</h2>
-<h3 id="bullseye">Bullseye</h3>
-<pre><code class="language-text">Linux cm4pi 5.15.61-v8+ #1579 SMP PREEMPT Fri Aug 26 11:16:44 BST 2022 aarch64 GNU/Linux
+<h1 id="pi-firmware-2024-04-28">Pi Firmware 2024-04-28</h1>
+<h2 id="motivation">Motivation</h2>
+<p>Notification of new firmware via IRC channel provided by <code>@gwolf</code>.</p>
+<p>Download from <a href="http://people.debian.org/~gwolf/raspi-firmware_1.20240424+ds-1_all.deb">http://people.debian.org/~gwolf/raspi-firmware_1.20240424+ds-1_all.deb</a> Now available from <a href="https://packages.debian.org/sid/raspi-firmware">https://packages.debian.org/sid/raspi-firmware</a></p>
+<h2 id="2024-04-29-cm4trixie-install">2024-04-29 CM4/Trixie install</h2>
+<p>Tested with CM4 running fully up to date Trixie and no issues noted. WiFi device still not present. The following error messages are seen in <code>dmesg</code> output.</p>
+<pre><code class="language-text">[   15.701315] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.bin (-2)
+[   15.701324] firmware_class: See https://wiki.debian.org/Firmware for information about missing firmware
+[   15.701449] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.bin (-2)
+[   15.701454] brcmfmac mmc0:0001:1: Direct firmware load for brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.bin failed with error -2
+[   15.705868] usbcore: registered new interface driver brcmfmac
+[   15.733657] bcm2835_mmal_vchiq: module is from the staging directory, the quality is unknown, you have been warned.
+[   15.736147] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.bin
+[   15.769863] bcm2835_v4l2: module is from the staging directory, the quality is unknown, you have been warned.
+[   15.780030] Bluetooth: HCI UART driver ver 2.3
+[   15.802241] Bluetooth: HCI UART protocol H4 registered
+[   15.805372] Bluetooth: HCI UART protocol LL registered
+[   15.809317] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.txt (-2)
+[   15.812716] Bluetooth: HCI UART protocol ATH3K registered
+[   15.812819] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[   15.825001] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.txt (-2)
+[   15.830030] Bluetooth: HCI UART protocol Intel registered
+[   15.844964] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.txt
+[   15.846942] Bluetooth: HCI UART protocol Broadcom registered
+[   15.853373] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.clm_blob (-2)
+[   15.861088] Bluetooth: HCI UART protocol QCA registered
+[   15.866842] hci_uart_bcm serial0-0: supply vbat not found, using dummy regulator
+[   15.878266] Bluetooth: HCI UART protocol AG6XX registered
+[   15.878334] Bluetooth: HCI UART protocol Marvell registered
+[   15.885060] hci_uart_bcm serial0-0: supply vddio not found, using dummy regulator
+[   15.926548] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.clm_blob (-2)
+[   15.926942] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.clm_blob
+[   16.047564] uart-pl011 fe201000.serial: no DMA platform data
+[   16.332010] Bluetooth: hci0: BCM: chip id 107
+[   16.337957] Bluetooth: hci0: BCM: features 0x2f
+[   16.345716] Bluetooth: hci0: BCM4345C0
+[   16.351305] Bluetooth: hci0: BCM4345C0 (003.001.025) build 0000
+[   16.351407] bluetooth hci0: firmware: failed to load brcm/BCM4345C0.raspberrypi,4-compute-module.hcd (-2)
+[   16.370373] bluetooth hci0: firmware: failed to load brcm/BCM4345C0.raspberrypi,4-compute-module.hcd (-2)
+[   16.371188] bluetooth hci0: firmware: direct-loading firmware brcm/BCM4345C0.hcd
+[   16.371711] Bluetooth: hci0: BCM4345C0 'brcm/BCM4345C0.hcd' Patch
 </code></pre>
-<ul>
-<li>No SD timeouts (booted from SD)</li>
-<li>WiFi working</li>
-<li><code>/dev/mmc*</code> entries present</li>
-</ul>
-<h3 id="bookworm">Bookworm</h3>
-<p>Installed kernel</p>
-<pre><code class="language-text">Linux muon 5.18.0-3-arm64 #1 SMP Debian 5.18.14-1 (2022-07-23) aarch64 GNU/Linux
-</code></pre>
-<ul>
-<li>Came up on first install w/out difficulty.</li>
-<li>Rebooted and power cycled, 3 times each. No SD problem.</li>
-<li>update/upgrade and reboot.</li>
-</ul>
-<pre><code class="language-text">Linux muon 5.19.0-1-arm64 #1 SMP Debian 5.19.6-1 (2022-09-01) aarch64 GNU/Linux
-</code></pre>
-<ul>
-<li>On first boot mmc timeout messages are appearing. Delaying completion of boot. Remounting SD card. Cannot remote in. After waiting a couple minutes, tried C-A-D and no response. power cycled. </li>
-<li>Second boot OK.</li>
-</ul></div>
+<h2 id="2024-04-30-4btrixie-install">2024-04-30 4B/Trixie install</h2>
+<p>Headless host, no issues identified. Comparing firmware load messages from <code>dmesg</code></p>
+<pre><code class="language-text">[   13.735062] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.bin (-2)
+[   13.745678] firmware_class: See https://wiki.debian.org/Firmware for information about missing firmware
+[   13.750549] bcm2835_v4l2: module is from the staging directory, the quality is unknown, you have been warned.
+[   13.755816] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.bin (-2)
+[   13.775815] brcmfmac mmc0:0001:1: Direct firmware load for brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.bin failed with error -2
+[   13.788038] usbcore: registered new interface driver brcmfmac
+[   13.809305] vc4-drm gpu: bound fe400000.hvs (ops vc4_hvs_ops [vc4])
+[   13.818800] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.bin
+[   13.830369] Bluetooth: HCI UART driver ver 2.3
+[   13.835507] Bluetooth: HCI UART protocol H4 registered
+[   13.842096] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.txt
+[   13.853028] Registered IR keymap rc-cec
+[   13.855707] Bluetooth: HCI UART protocol LL registered
+[   13.857047] rc rc0: vc4-hdmi-0 as /devices/platform/soc/fef00700.hdmi/rc/rc0
+[   13.862241] Bluetooth: HCI UART protocol ATH3K registered
+[   13.870159] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.clm_blob (-2)
+[   13.870511] input: vc4-hdmi-0 as /devices/platform/soc/fef00700.hdmi/rc/rc0/input0
+[   13.870816] zfs: module license 'CDDL' taints kernel.
+[   13.870822] Disabling lock debugging due to kernel taint
+[   13.870875] zfs: module license taints kernel.
+[   13.886055] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[   13.893947] brcmfmac mmc0:0001:1: firmware: failed to load brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.clm_blob (-2)
+[   13.899258] Bluetooth: HCI UART protocol Intel registered
+[   13.931900] brcmfmac mmc0:0001:1: firmware: direct-loading firmware brcm/brcmfmac43455-sdio.clm_blob
+...
+[   14.362517] bluetooth hci0: firmware: failed to load brcm/BCM4345C0.raspberrypi,4-model-b.hcd (-2)
+[   14.371733] bluetooth hci0: firmware: failed to load brcm/BCM4345C0.raspberrypi,4-model-b.hcd (-2)
+[   14.381645] bluetooth hci0: firmware: direct-loading firmware brcm/BCM4345C0.hcd
+[   14.389752] Bluetooth: hci0: BCM4345C0 'brcm/BCM4345C0.hcd' Patch
+</code></pre></div>
             </div>
         </div>
 
