@@ -227,6 +227,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#2025-08-09-second-post-boot-playbook" class="nav-link">2025-08-09 second post boot playbook</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -252,7 +256,17 @@
 <p>Identify the IP address or hostname for the Pi 5 and edit <code>inventory</code> accordingly. Confirm that <code>ssh root@[pi 5 host]</code> works.</p>
 <pre><code class="language-text">ansible-playbook first-boot-Debian.yml -i inventory -u root
 </code></pre>
-<p>[to be continued]</p></div>
+<h2 id="2025-08-09-second-post-boot-playbook">2025-08-09 second post boot playbook</h2>
+<p>Put the 2242 NVME SSD in the Pi 5 and booted from an SD card running RpiOS. Edited the <code>config.txt</code> in the SSD to reflect the correct kernel. The host then booted the Debian install on the RpiOS kernel. Next logged in using <code>root@kweli</code> and performed an <code>apt update</code>. The list of updates included a kernel so that was held <code>apt-mark hold ...</code>. The subsequent update still overwrote <code>config.txt</code> so that was modified again. Perhaps following the instructions in the file</p>
+<pre><code class="language-text"># If you need to set boot-time parameters, do so via the
+# /etc/default/raspi-firmware, /etc/default/raspi-firmware-custom or
+# /etc/default/raspi-extra-cmdline files.
+</code></pre>
+<p>Running the second post boot playbook. (By mistake, the one that builds the ZFS modules - it will be interesting to see if that works. It did not) </p>
+<pre><code class="language-text">ansible-playbook second-boot-bookworm-Debian.yml -i inventory -u root
+ansible-playbook second-boot-bookworm-lite-Debian.yml -i inventory -u root
+</code></pre>
+<p>Edit <code>/etc/default/raspi-firmware-custom</code> and fixum <code>config.txt</code> and subsequent boot halts on <code>pinctrl_lookup_state</code>. Added <code>dtparam=pciex1</code> to config.txt with same result.</p></div>
             </div>
         </div>
 
