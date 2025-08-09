@@ -31,4 +31,21 @@ Identify the IP address or hostname for the Pi 5 and edit `inventory` accordingl
 ansible-playbook first-boot-Debian.yml -i inventory -u root
 ```
 
-[to be continued]
+## 2025-08-09 second post boot playbook
+
+Put the 2242 NVME SSD in the Pi 5 and booted from an SD card running RpiOS. Edited the `config.txt` in the SSD to reflect the correct kernel. The host then booted the Debian install on the RpiOS kernel. Next logged in using `root@kweli` and performed an `apt update`. The list of updates included a kernel so that was held `apt-mark hold ...`. The subsequent update still overwrote `config.txt` so that was modified again. Perhaps following the instructions in the file
+
+```text
+# If you need to set boot-time parameters, do so via the
+# /etc/default/raspi-firmware, /etc/default/raspi-firmware-custom or
+# /etc/default/raspi-extra-cmdline files.
+```
+
+Running the second post boot playbook. (By mistake, the one that builds the ZFS modules - it will be interesting to see if that works. It did not) 
+
+```text
+ansible-playbook second-boot-bookworm-Debian.yml -i inventory -u root
+ansible-playbook second-boot-bookworm-lite-Debian.yml -i inventory -u root
+```
+
+Edit `/etc/default/raspi-firmware-custom` and fixum `config.txt` and subsequent boot halts on `pinctrl_lookup_state`. Added `dtparam=pciex1` to config.txt with same result.
