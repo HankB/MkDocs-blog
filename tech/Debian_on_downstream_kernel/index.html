@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,14 +10,15 @@
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Debian on downstream kernel - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
@@ -25,7 +26,7 @@
             <div class="container">
                 <a class="navbar-brand" href="../..">Hank's public Docs</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -33,11 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href="../.." class="nav-link">Hank's Docs home page</a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Food <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Food</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -49,8 +50,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tech</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -58,7 +59,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Debian on downstream kernel</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Debian on downstream kernel</a>
 </li>
                                     
 <li>
@@ -120,8 +121,8 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Test debug <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Test debug</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -171,9 +172,9 @@
                             </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
@@ -194,9 +195,9 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
@@ -205,37 +206,53 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#debian-on-downstream-kernel" class="nav-link">Debian on downstream kernel</a>
+            <li class="nav-item" data-bs-level="1"><a href="#debian-on-downstream-kernel" class="nav-link">Debian on downstream kernel</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#2025-08-08-motivation" class="nav-link">2025-08-08 Motivation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#2025-08-08-overview" class="nav-link">2025-08-08 Overview</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-motivation" class="nav-link">2025-08-08 Motivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#2025-08-08-details" class="nav-link">2025-08-08 Details</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-overview" class="nav-link">2025-08-08 Overview</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#2025-08-08-prep" class="nav-link">2025-08-08 Prep</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-details" class="nav-link">2025-08-08 Details</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#2025-08-08-build-1" class="nav-link">2025-08-08 Build [^1]</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-prep" class="nav-link">2025-08-08 Prep</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#2025-08-08-prepare-target" class="nav-link">2025-08-08 Prepare target</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-build-1" class="nav-link">2025-08-08 Build [^1]</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#2025-08-08-copy-to-target-media" class="nav-link">2025-08-08 Copy to target media</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-prepare-target" class="nav-link">2025-08-08 Prepare target</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#notes" class="nav-link">notes</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-copy-to-target-media" class="nav-link">2025-08-08 Copy to target media</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-12-try-using-sid" class="nav-link">2025-08-12 try using Sid</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-13-build-newer-kernel" class="nav-link">2025-08-13 build newer kernel</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-13-build" class="nav-link">2025-08-13 Build</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-08-13-copy-to-target-media" class="nav-link">2025-08-13 Copy to target media</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#notes" class="nav-link">notes</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -253,7 +270,7 @@
 <h2 id="2025-08-08-overview">2025-08-08 Overview</h2>
 <ol>
 <li>Install Debian using a Pi 4B (or CM4) on the target storage. This example will use an NVME SSD. A previous proof-of-concept was tested using a USB connected SATA SSD.</li>
-<li>Build the kernel per instructions kindly provided at <a href="https://www.raspberrypi.com/documentation/computers/linux_kernel.html">https://www.raspberrypi.com/documentation/computers/linux_kernel.html</a>. This can be done on the Pi 44B/CM4 (hours) or cross built on a more powerful host (minutes.)</li>
+<li>Build the kernel per instructions kindly provided at <a href="https://www.raspberrypi.com/documentation/computers/linux_kernel.html">https://www.raspberrypi.com/documentation/computers/linux_kernel.html</a>. This can be done on the Pi 4B/CM4 (hours) or cross built on a more powerful host (minutes.)</li>
 <li>Install the kernel, modules and related files (DTBs) to the target media.</li>
 <li>Boot the Pi 5 from the target media.</li>
 </ol>
@@ -261,8 +278,8 @@
 <p>The desired target media is an NVME SSD and the development platform is a Ryzen 7 7700X based host running Debian Bookworm. The storage will be connected to the Ryzen host using a USB/NVME housing and to the Pi 5 using the Waveshare NVME HAT+. The target OS will be Debian Trixie (which will see release as Stable tomorrow.) The most recent kernel branch at <a href="https://github.com/raspberrypi/linux">https://github.com/raspberrypi/linux</a> is <code>rpi-6.12.y</code> and that will be used for thir process.</p>
 <h2 id="2025-08-08-prep">2025-08-08 Prep</h2>
 <p>Pull kernel code and install required build tools.</p>
-<pre><code class="language-text">mkdir -p ~/Downloads/kernel
-cd ~/Downloads/kernel
+<pre><code class="language-text">mkdir -p ~/Downloads/pi-kernel
+cd ~/Downloads/pi-kernel
 git clone --depth=1 --branch rpi-6.12.y https://github.com/raspberrypi/linux
 sudo apt install bc bison flex libssl-dev make libc6-dev libncurses5-dev
 sudo apt install crossbuild-essential-arm64
@@ -297,7 +314,7 @@ sudo cp arch/arm64/boot/dts/broadcom/*.dtb mnt/boot/
 sudo cp arch/arm64/boot/dts/overlays/*.dtb* mnt/boot/overlays/
 sudo cp arch/arm64/boot/dts/overlays/README mnt/boot/overlays/
 </code></pre>
-<p>Edit the target config.txt to spedify the correct kernel:</p>
+<p>Edit the target config.txt to specify the correct kernel:</p>
 <pre><code class="language-text">sudo vim mnt/boot/config.txt # or editor of your choice
 </code></pre>
 <p>Unmount the target device partitions.</p>
@@ -307,6 +324,127 @@ sudo umount mnt/root
 <p>Install the NVME SSD in the NVME HAT_ and boot the system. (Great Success!) At this point the process is complete and the user can proceed however they wish to complete the installation</p>
 <p>Further customization is peformed <a href="../Trixie_install_to_NVME/#2025-08-08-continue-setup">using Ansible Playbooks</a>.</p>
 <p>Note: Following first boot playbook the host no longer boots. This requires further investigation.</p>
+<h2 id="2025-08-12-try-using-sid">2025-08-12 try using Sid</h2>
+<h3 id="plan">Plan</h3>
+<ol>
+<li>Install the <a href="https://raspi.debian.net/tested/20231111_raspi_4_trixie.img.xz">Trixie image</a> to an NVME SSD (in a USB enclosure) (Using Ansible playbook.)</li>
+<li>Move the SSD to a CM4 with PCIe/NVME board.</li>
+<li>Boot and upgrade using Ansible playbook and complete configuration.</li>
+<li>Edit <code>sources.list</code> and upgrade to Sid.</li>
+<li>Return card to USB enclosure and install downstream kernel.</li>
+<li>Install card in Pi 5 and boot.</li>
+</ol>
+<h2 id="2025-08-13-build-newer-kernel">2025-08-13 build newer kernel</h2>
+<p>Checking out <a href="https://github.com/raspberrypi/linux/tags">https://github.com/raspberrypi/linux/tags</a> it seems that the branch I was using is old. It seems like the most recent stable tag is worth a try as well.</p>
+<pre><code class="language-text">mkdir -p ~/Downloads/pi-kernel
+cd ~/Downloads/pi-kernel
+time -p git clone --branch stable_20250702 --depth=1 https://github.com/raspberrypi/linux
+</code></pre>
+<p>Set environment variables</p>
+<pre><code class="language-text">CONFIG_LOCALVERSION=&quot;-v8-for-Deb-20250702-X&quot;
+KERNEL=kernel_2712
+</code></pre>
+<h2 id="2025-08-13-build">2025-08-13 Build</h2>
+<pre><code class="language-text">make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2712_defconfig
+time -p make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
+</code></pre>
+<p>Follow <a href="../Trixie_install_to_NVME/#2025-08-13-repeat-install">Sid install and configuration</a>
+Install using USB enclosure on <code>X86_64</code> host (<code>olive</code>.)</p>
+<h2 id="2025-08-13-copy-to-target-media">2025-08-13 Copy to target media</h2>
+<p>Return the USB/NVME enclosure to the cross build host. Identify the device, in this case <code>/dev/sdb</code> and mount accordingly:</p>
+<pre><code class="language-text">cd ~/Downloads/pi-kernel/linux
+mkdir -p mnt/boot
+mkdir -p mnt/root
+sudo mount /dev/sdb1 mnt/boot
+sudo mount /dev/sdb2 mnt/root
+sudo mkdir -p mnt/boot/overlays
+
+</code></pre>
+<p>Install modules to target:</p>
+<pre><code class="language-text">sudo env PATH=$PATH make -j1$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=mnt/root modules_install
+</code></pre>
+<p>Install the kernel</p>
+<pre><code class="language-text">sudo cp mnt/boot/$KERNEL.img mnt/boot/$KERNEL-backup.img
+sudo cp arch/arm64/boot/Image mnt/boot/$KERNEL.img
+sudo cp arch/arm64/boot/dts/broadcom/*.dtb mnt/boot/
+sudo cp arch/arm64/boot/dts/overlays/*.dtb* mnt/boot/overlays/
+sudo cp arch/arm64/boot/dts/overlays/README mnt/boot/overlays/
+</code></pre>
+<p>Edit the target config.txt to specify the correct kernel:</p>
+<pre><code class="language-text">sudo vim mnt/boot/config.txt # or editor of your choice
+</code></pre>
+<p>Unmount the target device partitions.</p>
+<pre><code class="language-text">sudo umount mnt/boot
+sudo umount mnt/root
+</code></pre>
+<p>Move the USB enclosure to the Pi 5 and boot. Host comes up.</p>
+<p>Comment out <code>upstream_kernel=1</code> in config.txt and reboot. Host comes up and is running:</p>
+<pre><code class="language-text">hbarta@kweli:~$ uname -a
+Linux kweli 6.12.34-v8-16k+ #2 SMP PREEMPT Wed Aug 13 10:59:11 CDT 2025 aarch64 GNU/Linux
+hbarta@kweli:~$ 
+</code></pre>
+<p>Add <code>dtparam=pciex1</code> and consider adding <code>dtparam=pciex1_gen=3</code>. Shutdown and move SSD to NVME HAT. Pi 5 boots.</p>
+<p>Heed the warning in <code>config.txt</code>:</p>
+<pre><code class="language-text"># If you need to set boot-time parameters, do so via the
+# /etc/default/raspi-firmware, /etc/default/raspi-firmware-custom or
+# /etc/default/raspi-extra-cmdline files.
+</code></pre>
+<pre><code class="language-text">vim /etc/default/raspi-firmware /etc/default/raspi-firmware-custom
+</code></pre>
+<p>Upgrade (one package <code>parted</code>) and reboot. Now go for KDE/Plasma </p>
+<pre><code class="language-text">apt install kde-plasma-desktop # 1329 packages.
+</code></pre>
+<p>Completes and on checking <code>config.txt</code> I find</p>
+<pre><code class="language-text">root@kweli:~# cat /boot/firmware/config.txt 
+# Do not modify this file!
+#
+# It is automatically generated upon install or update of either the
+# firmware or the Linux kernel.
+#
+# If you need to set boot-time parameters, do so via the
+# /etc/default/raspi-firmware, /etc/default/raspi-firmware-custom or
+# /etc/default/raspi-extra-cmdline files.
+
+# Switch the CPU from ARMv7 into ARMv8 (aarch64) mode
+arm_64bit=1
+
+enable_uart=1
+upstream_kernel=1
+
+kernel=vmlinuz-6.12.41+deb13-arm64
+# For details on the initramfs directive, see
+# https://www.raspberrypi.org/forums/viewtopic.php?f=63&amp;t=10532
+initramfs initrd.img-6.12.41+deb13-arm64
+
+# Inserted by /etc/default/raspi-firmware-custom
+
+# raspi-firmware-custom
+dtparam=pciex1
+kernel=kernel_2712.img
+root@kweli:~# 
+</code></pre>
+<p>I will add <code>upstream_kernel=0</code> to <code>/etc/default/raspi-firmware-custom</code> (and edit it that way now.) <code>systemctl start sddm</code> did not work. No login screen.</p>
+<pre><code class="language-text">root@kweli:~# systemctl start sddm
+root@kweli:~# systemctl status sddm
+● sddm.service - Simple Desktop Display Manager
+     Loaded: loaded (/usr/lib/systemd/system/sddm.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2025-08-13 12:00:41 CDT; 11s ago
+ Invocation: 61ed8c0fb0bc4c01a9148618a7860c4f
+       Docs: man:sddm(1)
+             man:sddm.conf(5)
+   Main PID: 33731 (sddm)
+      Tasks: 2 (limit: 9549)
+        CPU: 43ms
+     CGroup: /system.slice/sddm.service
+             └─33731 /usr/bin/sddm
+
+Aug 13 12:00:41 kweli systemd[1]: Started sddm.service - Simple Desktop Display Manager.
+Aug 13 12:00:41 kweli sddm[33731]: Initializing...
+Aug 13 12:00:41 kweli sddm[33731]: Starting...
+Aug 13 12:00:41 kweli sddm[33731]: Logind interface found
+root@kweli:~# 
+</code></pre>
+<p>No joy on <code>reboot</code>. Fails on <code>pinctrl_lookup_state</code>.</p>
 <h2 id="notes">notes</h2>
 <ul>
 <li>[^1] @ukleinek on IRC suggested <code>make bindeb-pkg</code> to produce a .deb for the modules. This will be convenient when building a new kernel on the Pi 5 but is less so when cross developing on another host.</li>
@@ -318,19 +456,20 @@ sudo umount mnt/root
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
-        <script src="../../search/main.js" defer></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>From here you can search these documents. Enter your search terms below.</p>
@@ -350,7 +489,7 @@ sudo umount mnt/root
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <table class="table">
