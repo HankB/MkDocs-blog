@@ -4,7 +4,7 @@ Instructions for running Debian on a Raspberry Pi OS (RpiOS) kernel.
 
 ## 2025-08-08 Motivation
 
-Debian is my distro of choice (after using various distros for decades.) The Raspberry Pi 5 has as new I/O subsystem based on the RP1 chip and which requires significant S/W modifications to run Linux. These have not yet been fully upstreamed such that Debian can boot and run on a Pi 5 (as of kernel version 6.16.)
+Debian is my distro of choice (after using various distros for decades.) The Raspberry Pi 5 has a new I/O subsystem based on the RP1 chip and which requires significant S/W modifications to run Linux. These have not yet been fully upstreamed such that Debian can boot and run on a Pi 5 (as of kernel version 6.16.)
 
 ## 2025-08-08 Overview
 
@@ -15,7 +15,7 @@ Debian is my distro of choice (after using various distros for decades.) The Ras
 
 ## 2025-08-08 Details
 
-The desired target media is an NVME SSD and the development platform is a Ryzen 7 7700X based host running Debian Bookworm. The storage will be connected to the Ryzen host using a USB/NVME housing and to the Pi 5 using the Waveshare NVME HAT+. The target OS will be Debian Trixie (which will see release as Stable tomorrow.) The most recent kernel branch at <https://github.com/raspberrypi/linux> is `rpi-6.12.y` and that will be used for thir process.
+The desired target media is an NVME SSD and the development platform is a Ryzen 7 7700X based host running Debian Bookworm. The storage will be connected to the Ryzen host using a USB/NVME housing and to the Pi 5 using the Waveshare NVME HAT+. The target OS will be Debian Trixie (which will see release as Stable tomorrow.) The most recent kernel branch at <https://github.com/raspberrypi/linux> is `rpi-6.12.y` and that will be used for this process.
 
 ## 2025-08-08 Prep
 
