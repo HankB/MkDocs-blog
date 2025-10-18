@@ -49,3 +49,36 @@ ansible-playbook second-boot-bookworm-lite-Debian.yml -i inventory -u root
 ```
 
 Edit `/etc/default/raspi-firmware-custom` and fixum `config.txt` and subsequent boot halts on `pinctrl_lookup_state`. Added `dtparam=pciex1` to config.txt with same result.
+
+## 2025-08-13 repeat install
+
+To 256GB 2242 NVME in USB enclosure on `olive`
+
+```text
+ansible-playbook provision-Debian-lite.yml -v -b -K --extra-vars "ssd_dev=/dev/sdb \
+    os_image=/home/hbarta/Downloads/Pi/Debian/20231111_raspi_4_trixie.img.xz \
+    new_host_name=kweli part_prefix=\"\" \
+    eth_spoof_mac=dc:a6:32:bf:65:b5 wifi_spoof_mac=dc:a6:32:bf:65:b4"
+```
+
+Remove from enclosure and install in CM4 for first boot. Boot fails on NVME Timeout. Back in the USB enclosure and boot in Pi 4B. Rin first boot playbook.
+
+```text
+ansible-playbook first-boot-Debian.yml -i inventory -u root
+```
+
+Second boot (lite) playbook. (No ZFS modules.) Ran the regular playbook by mistake which failed when tryint to import the (non-existent) pool. Ran the regular playbook to complete setup.
+
+```text
+ansible-playbook second-boot-bookworm-lite-Debian.yml -i inventory -u root
+```
+
+Login to Pi 4B and update/upgrade to Sid. 107 packages to upgrade. But first purge `zfs-dkms` and zfsutils-linux`.
+
+```text
+apt purge zfs-dkms zfsutils-linux
+apt autoremove
+apt upgrade
+```
+
+Host boots. Switch back to [Debian on downstream kernel](./Debian_on_downstream_kernel.md#2025-08-13-build).
