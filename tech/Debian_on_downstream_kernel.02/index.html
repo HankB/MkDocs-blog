@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Debian on downstream kernel - Hank's public Docs</title>
+        <title>Debian on downstream kernel Part 2 - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -59,7 +59,11 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Debian on downstream kernel</a>
+    <a href="../Debian_on_downstream_kernel.01/" class="dropdown-item">Debian on downstream kernel Part 1</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Debian on downstream kernel Part 2</a>
 </li>
                                     
 <li>
@@ -179,7 +183,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Debian_ZFS_on_root_to_a_new_drive/" class="nav-link">
+                                <a rel="prev" href="../Debian_on_downstream_kernel.01/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -206,53 +210,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#debian-on-downstream-kernel" class="nav-link">Debian on downstream kernel</a>
+            <li class="nav-item" data-bs-level="1"><a href="#debian-on-downstream-kernel-part-2" class="nav-link">Debian on downstream kernel Part 2</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-motivation" class="nav-link">2025-08-08 Motivation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-overview" class="nav-link">2025-08-08 Overview</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-10-18-motivation" class="nav-link">2025-10-18 Motivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-details" class="nav-link">2025-08-08 Details</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-10-18-prep" class="nav-link">2025-10-18 Prep</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-prep" class="nav-link">2025-08-08 Prep</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-10-18-build" class="nav-link">2025-10-18 Build</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-build-1" class="nav-link">2025-08-08 Build [^1]</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-prepare-target" class="nav-link">2025-08-08 Prepare target</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-08-copy-to-target-media" class="nav-link">2025-08-08 Copy to target media</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-12-try-using-sid" class="nav-link">2025-08-12 try using Sid</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-13-build-newer-kernel" class="nav-link">2025-08-13 build newer kernel</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-13-build" class="nav-link">2025-08-13 Build</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2025-08-13-copy-to-target-media" class="nav-link">2025-08-13 Copy to target media</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#notes" class="nav-link">notes</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2025-10-19-copy-to-target-media" class="nav-link">2025-10-19 Copy to target media</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -263,38 +235,31 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="debian-on-downstream-kernel">Debian on downstream kernel</h1>
-<p>Instructions for running Debian on a Raspberry Pi OS (RpiOS) kernel.</p>
-<h2 id="2025-08-08-motivation">2025-08-08 Motivation</h2>
-<p>Debian is my distro of choice (after using various distros for decades.) The Raspberry Pi 5 has as new I/O subsystem based on the RP1 chip and which requires significant S/W modifications to run Linux. These have not yet been fully upstreamed such that Debian can boot and run on a Pi 5 (as of kernel version 6.16.)</p>
-<h2 id="2025-08-08-overview">2025-08-08 Overview</h2>
-<ol>
-<li>Install Debian using a Pi 4B (or CM4) on the target storage. This example will use an NVME SSD. A previous proof-of-concept was tested using a USB connected SATA SSD.</li>
-<li>Build the kernel per instructions kindly provided at <a href="https://www.raspberrypi.com/documentation/computers/linux_kernel.html">https://www.raspberrypi.com/documentation/computers/linux_kernel.html</a>. This can be done on the Pi 4B/CM4 (hours) or cross built on a more powerful host (minutes.)</li>
-<li>Install the kernel, modules and related files (DTBs) to the target media.</li>
-<li>Boot the Pi 5 from the target media.</li>
-</ol>
-<h2 id="2025-08-08-details">2025-08-08 Details</h2>
-<p>The desired target media is an NVME SSD and the development platform is a Ryzen 7 7700X based host running Debian Bookworm. The storage will be connected to the Ryzen host using a USB/NVME housing and to the Pi 5 using the Waveshare NVME HAT+. The target OS will be Debian Trixie (which will see release as Stable tomorrow.) The most recent kernel branch at <a href="https://github.com/raspberrypi/linux">https://github.com/raspberrypi/linux</a> is <code>rpi-6.12.y</code> and that will be used for thir process.</p>
-<h2 id="2025-08-08-prep">2025-08-08 Prep</h2>
+<h1 id="debian-on-downstream-kernel-part-2">Debian on downstream kernel Part 2</h1>
+<p>Instructions for running Debian on a Raspberry Pi OS (RpiOS) kernel. See earlier efforts at <a href="https://hankb.github.io/MkDocs-blog/tech/Debian_on_downstream_kernel.01/">https://hankb.github.io/MkDocs-blog/tech/Debian_on_downstream_kernel.01/</a></p>
+<h2 id="2025-10-18-motivation">2025-10-18 Motivation</h2>
+<p>Trixie is now Stable and RpiOS has migrated to Trixie. This seems like a good time to give this another try. The description below will repeat much of what was done for the previous iteration so for the sake of brevity, it is going into a new note.</p>
+<p>Checking <a href="https://github.com/raspberrypi/linux">https://github.com/raspberrypi/linux</a> the newest stable tag is <code>stable_20250916</code> and that will be used. The first try will be using Trixie.</p>
+<h2 id="2025-10-18-prep">2025-10-18 Prep</h2>
 <p>Pull kernel code and install required build tools.</p>
-<pre><code class="language-text">mkdir -p ~/Downloads/pi-kernel
+<pre><code class="language-text">rm -rf ~/Downloads/pi-kernel/*
+mkdir -p ~/Downloads/pi-kernel
 cd ~/Downloads/pi-kernel
-git clone --depth=1 --branch rpi-6.12.y https://github.com/raspberrypi/linux
+git clone --depth=1 --branch stable_20250916 https://github.com/raspberrypi/linux
 sudo apt install bc bison flex libssl-dev make libc6-dev libncurses5-dev
 sudo apt install crossbuild-essential-arm64
 </code></pre>
 <p>Set environment variables</p>
-<pre><code class="language-text">CONFIG_LOCALVERSION=&quot;-v8-for-Deb-X&quot;
+<pre><code class="language-text">CONFIG_LOCALVERSION=&quot;-v8-for-Deb-20250916-X&quot;
 KERNEL=kernel_2712
 </code></pre>
-<h2 id="2025-08-08-build-1">2025-08-08 Build [^1]</h2>
-<pre><code class="language-text">make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2712_defconfig
+<h2 id="2025-10-18-build">2025-10-18 Build</h2>
+<pre><code class="language-text">cd ~/Downloads/pi-kernel/linux
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2712_defconfig
 time -p make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
 </code></pre>
-<h2 id="2025-08-08-prepare-target">2025-08-08 Prepare target</h2>
-<p><a href="../Trixie_install_to_NVME/">Using Ansible playbooks</a>. The result did not boot from a CM4. This procedure will proceed with the target as provisioned and prior to the first boot. Any preferred method of provisioning the target media should work.</p>
-<h2 id="2025-08-08-copy-to-target-media">2025-08-08 Copy to target media</h2>
+<h2 id="2025-10-19-copy-to-target-media">2025-10-19 Copy to target media</h2>
+<p>Back on <code>olive</code> and with the NVME SSD in the USB enclosure.</p>
 <p>Identify the device, in this case <code>/dev/sdb</code> and mount accordingly:</p>
 <pre><code class="language-text">cd ~/Downloads/pi-kernel/linux
 mkdir -p mnt/boot
@@ -302,7 +267,6 @@ mkdir -p mnt/root
 sudo mount /dev/sdb1 mnt/boot
 sudo mount /dev/sdb2 mnt/root
 sudo mkdir -p mnt/boot/overlays
-
 </code></pre>
 <p>Install modules to target:</p>
 <pre><code class="language-text">sudo env PATH=$PATH make -j1$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=mnt/root modules_install
@@ -314,141 +278,21 @@ sudo cp arch/arm64/boot/dts/broadcom/*.dtb mnt/boot/
 sudo cp arch/arm64/boot/dts/overlays/*.dtb* mnt/boot/overlays/
 sudo cp arch/arm64/boot/dts/overlays/README mnt/boot/overlays/
 </code></pre>
-<p>Edit the target config.txt to specify the correct kernel:</p>
+<p>Edit the target config.txt to specify the correct kernel (<code>vmlinuz-6.12.48+deb13-arm64</code>) and initrd (<code>initrd.img-6.12.48+deb13-arm64</code>): In this case thee <code>kernel=</code> and <code>initramfs</code> lines were already cvorrect, perhaps because RpiOS and Debian are on the same kernel version.</p>
 <pre><code class="language-text">sudo vim mnt/boot/config.txt # or editor of your choice
 </code></pre>
 <p>Unmount the target device partitions.</p>
 <pre><code class="language-text">sudo umount mnt/boot
 sudo umount mnt/root
 </code></pre>
-<p>Install the NVME SSD in the NVME HAT_ and boot the system. (Great Success!) At this point the process is complete and the user can proceed however they wish to complete the installation</p>
-<p>Further customization is peformed <a href="../Trixie_install_to_NVME/#2025-08-08-continue-setup">using Ansible Playbooks</a>.</p>
-<p>Note: Following first boot playbook the host no longer boots. This requires further investigation.</p>
-<h2 id="2025-08-12-try-using-sid">2025-08-12 try using Sid</h2>
-<h3 id="plan">Plan</h3>
-<ol>
-<li>Install the <a href="https://raspi.debian.net/tested/20231111_raspi_4_trixie.img.xz">Trixie image</a> to an NVME SSD (in a USB enclosure) (Using Ansible playbook.)</li>
-<li>Move the SSD to a CM4 with PCIe/NVME board.</li>
-<li>Boot and upgrade using Ansible playbook and complete configuration.</li>
-<li>Edit <code>sources.list</code> and upgrade to Sid.</li>
-<li>Return card to USB enclosure and install downstream kernel.</li>
-<li>Install card in Pi 5 and boot.</li>
-</ol>
-<h2 id="2025-08-13-build-newer-kernel">2025-08-13 build newer kernel</h2>
-<p>Checking out <a href="https://github.com/raspberrypi/linux/tags">https://github.com/raspberrypi/linux/tags</a> it seems that the branch I was using is old. It seems like the most recent stable tag is worth a try as well.</p>
-<pre><code class="language-text">mkdir -p ~/Downloads/pi-kernel
-cd ~/Downloads/pi-kernel
-time -p git clone --branch stable_20250702 --depth=1 https://github.com/raspberrypi/linux
+<p>Install the NVME SSD in the NVME HAT+ on a Pi 5 and power up. No joy. No rainbow screen. It powers up the monitor but the display remains blank.</p>
+<p>No boot. Repeating the install and playbooks. Derp. Wrong kernel. New kernel is <code>kernel_2712.img</code> and shows as</p>
+<pre><code class="language-text">root@boson:~# uname -a
+Linux boson 6.12.47-v8-16k+ #2 SMP PREEMPT Sun Oct 19 16:53:57 CDT 2025 aarch64 GNU/Linux
+root@boson:~# 
 </code></pre>
-<p>Set environment variables</p>
-<pre><code class="language-text">CONFIG_LOCALVERSION=&quot;-v8-for-Deb-20250702-X&quot;
-KERNEL=kernel_2712
-</code></pre>
-<h2 id="2025-08-13-build">2025-08-13 Build</h2>
-<pre><code class="language-text">make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2712_defconfig
-time -p make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
-</code></pre>
-<p>Follow <a href="../Trixie_install_to_NVME/#2025-08-13-repeat-install">Sid install and configuration</a>
-Install using USB enclosure on <code>X86_64</code> host (<code>olive</code>.)</p>
-<h2 id="2025-08-13-copy-to-target-media">2025-08-13 Copy to target media</h2>
-<p>Return the USB/NVME enclosure to the cross build host. Identify the device, in this case <code>/dev/sdb</code> and mount accordingly:</p>
-<pre><code class="language-text">cd ~/Downloads/pi-kernel/linux
-mkdir -p mnt/boot
-mkdir -p mnt/root
-sudo mount /dev/sdb1 mnt/boot
-sudo mount /dev/sdb2 mnt/root
-sudo mkdir -p mnt/boot/overlays
-
-</code></pre>
-<p>Install modules to target:</p>
-<pre><code class="language-text">sudo env PATH=$PATH make -j1$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=mnt/root modules_install
-</code></pre>
-<p>Install the kernel</p>
-<pre><code class="language-text">sudo cp mnt/boot/$KERNEL.img mnt/boot/$KERNEL-backup.img
-sudo cp arch/arm64/boot/Image mnt/boot/$KERNEL.img
-sudo cp arch/arm64/boot/dts/broadcom/*.dtb mnt/boot/
-sudo cp arch/arm64/boot/dts/overlays/*.dtb* mnt/boot/overlays/
-sudo cp arch/arm64/boot/dts/overlays/README mnt/boot/overlays/
-</code></pre>
-<p>Edit the target config.txt to specify the correct kernel:</p>
-<pre><code class="language-text">sudo vim mnt/boot/config.txt # or editor of your choice
-</code></pre>
-<p>Unmount the target device partitions.</p>
-<pre><code class="language-text">sudo umount mnt/boot
-sudo umount mnt/root
-</code></pre>
-<p>Move the USB enclosure to the Pi 5 and boot. Host comes up.</p>
-<p>Comment out <code>upstream_kernel=1</code> in config.txt and reboot. Host comes up and is running:</p>
-<pre><code class="language-text">hbarta@kweli:~$ uname -a
-Linux kweli 6.12.34-v8-16k+ #2 SMP PREEMPT Wed Aug 13 10:59:11 CDT 2025 aarch64 GNU/Linux
-hbarta@kweli:~$ 
-</code></pre>
-<p>Add <code>dtparam=pciex1</code> and consider adding <code>dtparam=pciex1_gen=3</code>. Shutdown and move SSD to NVME HAT. Pi 5 boots.</p>
-<p>Heed the warning in <code>config.txt</code>:</p>
-<pre><code class="language-text"># If you need to set boot-time parameters, do so via the
-# /etc/default/raspi-firmware, /etc/default/raspi-firmware-custom or
-# /etc/default/raspi-extra-cmdline files.
-</code></pre>
-<pre><code class="language-text">vim /etc/default/raspi-firmware /etc/default/raspi-firmware-custom
-</code></pre>
-<p>Upgrade (one package <code>parted</code>) and reboot. Now go for KDE/Plasma </p>
-<pre><code class="language-text">apt install kde-plasma-desktop # 1329 packages.
-</code></pre>
-<p>Completes and on checking <code>config.txt</code> I find</p>
-<pre><code class="language-text">root@kweli:~# cat /boot/firmware/config.txt 
-# Do not modify this file!
-#
-# It is automatically generated upon install or update of either the
-# firmware or the Linux kernel.
-#
-# If you need to set boot-time parameters, do so via the
-# /etc/default/raspi-firmware, /etc/default/raspi-firmware-custom or
-# /etc/default/raspi-extra-cmdline files.
-
-# Switch the CPU from ARMv7 into ARMv8 (aarch64) mode
-arm_64bit=1
-
-enable_uart=1
-upstream_kernel=1
-
-kernel=vmlinuz-6.12.41+deb13-arm64
-# For details on the initramfs directive, see
-# https://www.raspberrypi.org/forums/viewtopic.php?f=63&amp;t=10532
-initramfs initrd.img-6.12.41+deb13-arm64
-
-# Inserted by /etc/default/raspi-firmware-custom
-
-# raspi-firmware-custom
-dtparam=pciex1
-kernel=kernel_2712.img
-root@kweli:~# 
-</code></pre>
-<p>I will add <code>upstream_kernel=0</code> to <code>/etc/default/raspi-firmware-custom</code> (and edit it that way now.) <code>systemctl start sddm</code> did not work. No login screen.</p>
-<pre><code class="language-text">root@kweli:~# systemctl start sddm
-root@kweli:~# systemctl status sddm
-● sddm.service - Simple Desktop Display Manager
-     Loaded: loaded (/usr/lib/systemd/system/sddm.service; enabled; preset: enabled)
-     Active: active (running) since Wed 2025-08-13 12:00:41 CDT; 11s ago
- Invocation: 61ed8c0fb0bc4c01a9148618a7860c4f
-       Docs: man:sddm(1)
-             man:sddm.conf(5)
-   Main PID: 33731 (sddm)
-      Tasks: 2 (limit: 9549)
-        CPU: 43ms
-     CGroup: /system.slice/sddm.service
-             └─33731 /usr/bin/sddm
-
-Aug 13 12:00:41 kweli systemd[1]: Started sddm.service - Simple Desktop Display Manager.
-Aug 13 12:00:41 kweli sddm[33731]: Initializing...
-Aug 13 12:00:41 kweli sddm[33731]: Starting...
-Aug 13 12:00:41 kweli sddm[33731]: Logind interface found
-root@kweli:~# 
-</code></pre>
-<p>No joy on <code>reboot</code>. Fails on <code>pinctrl_lookup_state</code>.</p>
-<h2 id="notes">notes</h2>
-<ul>
-<li>[^1] @ukleinek on IRC suggested <code>make bindeb-pkg</code> to produce a .deb for the modules. This will be convenient when building a new kernel on the Pi 5 but is less so when cross developing on another host.</li>
-</ul></div>
+<p>Which seems odd. I thought the V8 kernel was for the 4B and the 2712 for the Pi 5. Now boot from NVME. <code>Unable to mount root fs ...</code>. Boot RpiOS from SD card and add <code>dtparam=pciex1</code> to <code>config.txt</code> with no benefit. Back to USB/NVME and it boots.</p>
+<p>It's not clear to me what to do now. Not booting from NVME is a show stopper for me.</p></div>
             </div>
         </div>
 
