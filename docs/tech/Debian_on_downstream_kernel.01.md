@@ -1,4 +1,4 @@
-# Debian on downstream kernel
+# Debian on downstream kernel Part 1
 
 Instructions for running Debian on a Raspberry Pi OS (RpiOS) kernel.
 
@@ -39,6 +39,7 @@ KERNEL=kernel_2712
 ## 2025-08-08 Build [^1]
 
 ```text
+cd ~/Downloads/pi-kernel/linux
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2712_defconfig
 time -p make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
 ```
@@ -263,6 +264,10 @@ root@kweli:~#
 ```
 
 No joy on `reboot`. Fails on `pinctrl_lookup_state`.
+
+## 2025-10-18 having another go at this
+
+See <https://hankb.github.io/MkDocs-blog/tech/Debian_on_downstream_kernel.02/>
 
 ## notes
 
