@@ -2,7 +2,7 @@
 
 ## 2025-08-08 Motivation
 
-Provide detailed instructions for installing the Trixie image from <https://raspi.debian.net/tested-images/> to an NVME SSD without unnecessarily cluttering the instructions for running [Debian on the Downstream kernel](./Debian_on_downstream_kernel.md).
+Provide detailed instructions for installing the Trixie image from <https://raspi.debian.net/tested-images/> to an NVME SSD without unnecessarily cluttering the instructions for running [Debian on the Downstream kernel](./Debian_on_downstream_kernel.01.md).
 
 ## 2025-08-08 Overview
 
@@ -21,7 +21,7 @@ ansible-playbook provision-Debian-lite.yml -b -K --extra-vars "ssd_dev=/dev/sdb 
 
 ## 2025-08-08 First boot
 
-No boot. :-/ Steps requiring a running system are deferred until the [upstream kernel is installed](./Debian_on_downstream_kernel.md#2025-08-08-copy-to-target-media) and the system boots from the target media on a Pi 5.
+No boot. :-/ Steps requiring a running system are deferred until the [upstream kernel is installed](./Debian_on_downstream_kernel.01.md#2025-08-08-copy-to-target-media) and the system boots from the target media on a Pi 5.
 
 ## 2025-08-08 Continue Setup
 
@@ -81,7 +81,7 @@ apt autoremove
 apt upgrade
 ```
 
-Host boots. Switch back to [Debian on downstream kernel](./Debian_on_downstream_kernel.md#2025-08-13-build).
+Host boots. Switch back to [Debian on downstream kernel](./Debian_on_downstream_kernel.01.md#2025-08-13-build).
 
 ## 2025-10-19 repeat install
 
