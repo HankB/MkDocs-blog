@@ -82,3 +82,23 @@ apt upgrade
 ```
 
 Host boots. Switch back to [Debian on downstream kernel](./Debian_on_downstream_kernel.md#2025-08-13-build).
+
+## 2025-10-19 repeat install
+
+Repeating the install apparently on the same NVME SSD (2242, SK Hynix) and choosing `boson` for the host name.
+
+```text
+ansible-playbook provision-Debian-lite.yml -b -K --extra-vars "ssd_dev=/dev/sdb \
+    os_image=/home/hbarta/Downloads/Pi/Debian/20231111_raspi_4_trixie.img.xz \
+    new_host_name=boson part_prefix=\"\" \
+    eth_spoof_mac=dc:a6:32:bf:65:b5 wifi_spoof_mac=dc:a6:32:bf:65:b4"
+```
+
+Still no boot on CM4/NVME. Back to the USB adapter and boot from that. Or not. Pi 4B/4GB boots from USB/NVME. SSH in as `root` to fix the "The authenticity of host 'boson (10.10.5.111)' can't be established." issue, put `boson` in the inventory and run
+
+```text
+ansible-playbook first-boot-Debian.yml -i inventory -u root
+ansible-playbook second-boot-bookworm-lite-Debian.yml -i inventory -u root
+```
+
+Done and back to [Copy to target media](./Debian_on_downstream_kernel.02.md#2025-10-19-copy-to-target-media)
