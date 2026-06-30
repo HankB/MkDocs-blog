@@ -220,6 +220,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#alternative-verify-the-download-hash" class="nav-link">(alternative) Verify the download hash</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -233,7 +237,13 @@
 <pre><code class="language-bash">image_file_name=[compressed image file]
 openssl dgst -sha512 -binary &quot;$image_file_name&quot;| base64 | tr -d '\n' | head -c -2; echo
 </code></pre>
-<p>The result of this command can then be compared to the hash (<code>cloud.debian.org/digest</code>) stored in the metadata.</p></div>
+<p>The result of this command can then be compared to the hash (<code>cloud.debian.org/digest</code>) stored in the metadata.</p>
+<h2 id="alternative-verify-the-download-hash">(alternative) Verify the download hash</h2>
+<pre><code class="language-bash">release=[release name]
+wget https://cloud.debian.org/images/cloud/${release}/daily/latest/debian-${release}-raspi-arm64-daily.tar.xz
+wget https://cloud.debian.org/images/cloud/${release}/daily/latest/SHA512SUMS
+sha512sum --check --ignore-missing ./SHA512SUMS
+</code></pre></div>
             </div>
         </div>
 
