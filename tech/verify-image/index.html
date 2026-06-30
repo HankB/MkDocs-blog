@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Raspberry Pi - Hank's public Docs</title>
+        <title>Verify an image downloaded from https://raspi.debian.net/ - Hank's public Docs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -87,7 +87,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Raspberry Pi</a>
+    <a href="../Raspberry-Pi/" class="dropdown-item">Raspberry Pi</a>
 </li>
                                     
 <li>
@@ -115,7 +115,7 @@
 </li>
                                     
 <li>
-    <a href="../verify-image/" class="dropdown-item">Verify an image downloaded from https://raspi.debian.net/</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Verify an image downloaded from https://raspi.debian.net/</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -187,12 +187,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Pi-Zero_Debian_DS18B20/" class="nav-link">
+                                <a rel="prev" href="../dphacks-CM4_Ether_Board/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../TUI-challenge/" class="nav-link">
+                                <a rel="next" href="../data/benchmarks/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -214,13 +214,9 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#raspberry-pi" class="nav-link">Raspberry Pi</a>
+            <li class="nav-item" data-bs-level="1"><a href="#verify-an-image-downloaded-from-httpsraspidebiannet" class="nav-link">Verify an image downloaded from https://raspi.debian.net/</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#pi-4b" class="nav-link">Pi 4B</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#pi-zero-w-2w-and-others" class="nav-link">Pi Zero, W, 2W and others</a>
+            <li class="nav-item" data-bs-level="2"><a href="#verify-the-download-hash" class="nav-link">Verify the download hash</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -231,37 +227,13 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="raspberry-pi">Raspberry Pi</h1>
-<h2 id="pi-4b">Pi 4B</h2>
-<p>Almost good enough to be a daily driver. Even overclocked, it can't play Youtube videos full screen smoothly. The main thing that hampers it IMO us the USB attachment to an SSD. I won't run one of these off an SD card as that's just not fast enough. My dream system for the Pi 4 is a compute module with a carrier that supports 4 SATA ports and has enough MMC to boot/root on.</p>
-<p>I've been preferentially running Debian on the one I use as a desktop. Raspberry Pi OS (R-Pi OS) is good enough for servers but I find the desktop too constraining. And I can't install my preferred desktop - Gnome - due to missing dependencies. I can install KDE and that's a whole 'nother discussion.</p>
-<p>I bounce back and forth between Bullseye (stable) and Bookworm (testing.) When I get bored of no drama on Bullseye I swap in an SSD that has Bookworm. I've submitted two bug reports so far, one of which was just closed this morning (2022-04-04.)</p>
-<p>Here are some tips for running Debian on a Pi 4B.</p>
-<ul>
-<li>The system will suspend just fine but I can't figure out how to unsuspend. The first thing I do on a new install is go into gnome settings and disable suspend. Then I tell Systemd and gnome not to suspend using the following commands. (Seems not to want to suspend with no DE installed.)</li>
-</ul>
-<pre><code class="language-text">sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+<h1 id="verify-an-image-downloaded-from-httpsraspidebiannet">Verify an image downloaded from https://raspi.debian.net/</h1>
+<h2 id="verify-the-download-hash">Verify the download hash</h2>
+<p>The hash stored in the corresponding metadata file is not in the same format as the output from <code>sha512sum</code> and cannot be directly compared. The output can be converted to a comparable format (base64 digest) using the following command:</p>
+<pre><code class="language-bash">image_file_name=[compressed image file]
+openssl dgst -sha512 -binary &quot;$image_file_name&quot;| base64 | tr -d '\n' | head -c -2; echo
 </code></pre>
-<ul>
-<li>If you install Bookworm, hold the <code>raspi-firmware</code> package until the fixed firmware is in the Testing repo. (<code>apt-mark hold raspi-firmware</code>) Or install from experimental. Or install from the tagged version <code>1.20220331</code>.</li>
-<li>The default setting for Ethernet is "unmanaged." It can be controlled using <code>ifdown eth0</code> / <code>ifup eth0</code> (but will be on again following the next reboot.) To let <code>NetworkManager</code> control, edit <code>/etc/NetworkManager/NetworkManager.conf</code> and change <code>managed=true</code> to <code>managed=false</code>. I'm not sure this is a complete fix for this issue as Ethernet will be back on the next boot regardless of the setting.</li>
-<li>Status of Bookworm seems pretty shaky right now. I get frequent loss of connection to the SSD and the only recovery is to pull power. Loss of connection to the SSD can lead to file corruption and may be the reason that my Bookworm installations seem to deteriorate with time.</li>
-<li>Using an SSD. You will really want a powered USB hub for this. SSDs that worked fine with a Pi 3B may not work well with a 4B because USB 3 supports the faster UAS driver and in turn that causes the SSD to require more power. You can disable UAS using <code>usb-storage.quirks</code> but I prefer the faster faster speed that UAS provides. I use the Wavlink Model: WL-UH3042P1 and power the Pi off the quick charge port. It's rated for 2.4A so I plug other accessories (mouse, keyboard) into the hub along with the SSD to reduce the power demands from the Pi.</li>
-<li>Overclocking is relatively straight forward. On my Nullseye install I have added the following to <code>/boot/firmware/config.txt</code></li>
-</ul>
-<pre><code class="language-text">arm_freq=2000
-over_voltage=6
-gpu_freq=750
-</code></pre>
-<p>And have stress tested using a variety of stressers. The CPU temperature goes up to about 82°C max. I would be concerned if I was running that kind of load at all times, but I'm not.
-* CPU case. I like the FLIRC cases a lot. Big hunk of aluminum with a molded in protrusion that contacts the CPU through a small pad and does a great job of drawing heat from the processor. It's compoletely passive so it won't stop working if a fan fails because there is no fan needed.</p>
-<h2 id="pi-zero-w-2w-and-others">Pi Zero, W, 2W and others</h2>
-<ul>
-<li>Overlay FS and <code>unattended-upgrades</code> - No! I use some of these essentially as embedded systems so it seemed natural to employ the Overlay File System (R/O FS, Overlay FS) to reduce SD card failure. I run some of these on really cheap SD cards. I also prefer to keep <code>unattended-upgrades</code> installed to stay current with security upgrades. Unfortunately the two don't mix very well. The Overlay FS "overlays" the R/O FS with RAM so when <code>apt-get update</code> runs, it fills RAM with disk changes and results in "no space on /".</li>
-</ul>
-<p>On hosts that I have enabled Overlay RS, I have had to uninstall <code>unattended-upgrades</code>. I should look into PXE boot to see if systems that run from that can stay up to date and of course, not burn up SD cards. Unfortunately WiFi boot is problematic due to the need to establish an association before anything else can happen.</p></div>
+<p>The result of this command can then be compared to the hash (<code>cloud.debian.org/digest</code>) stored in the metadata.</p></div>
             </div>
         </div>
 
