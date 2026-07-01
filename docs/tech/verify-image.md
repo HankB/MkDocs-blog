@@ -14,9 +14,15 @@ The result of this command can then be compared to the hash (`cloud.debian.org/d
 ## (alternative) Verify the download hash
 
 ```bash
-release=[release name]
-wget https://cloud.debian.org/images/cloud/${release}/daily/latest/debian-${release}-raspi-arm64-daily.tar.xz
-wget https://cloud.debian.org/images/cloud/${release}/daily/latest/SHA512SUMS
+wget [link to image]
+wget https://cloud.debian.org/images/cloud/[release name]/daily/latest/SHA512SUMS
 sha512sum --check --ignore-missing ./SHA512SUMS
 ```
 
+For example
+
+```bash
+wget https://cloud.debian.org/images/cloud/forky/daily/latest/debian-14-raspi-arm64-daily.tar.xz
+wget https://cloud.debian.org/images/cloud/forky/daily/latest/SHA512SUMS
+sha512sum --check --ignore-missing ./SHA512SUMS
+```
