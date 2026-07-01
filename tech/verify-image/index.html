@@ -239,9 +239,13 @@ openssl dgst -sha512 -binary &quot;$image_file_name&quot;| base64 | tr -d '\n' |
 </code></pre>
 <p>The result of this command can then be compared to the hash (<code>cloud.debian.org/digest</code>) stored in the metadata.</p>
 <h2 id="alternative-verify-the-download-hash">(alternative) Verify the download hash</h2>
-<pre><code class="language-bash">release=[release name]
-wget https://cloud.debian.org/images/cloud/${release}/daily/latest/debian-${release}-raspi-arm64-daily.tar.xz
-wget https://cloud.debian.org/images/cloud/${release}/daily/latest/SHA512SUMS
+<pre><code class="language-bash">wget [link to image]
+wget https://cloud.debian.org/images/cloud/[release name]/daily/latest/SHA512SUMS
+sha512sum --check --ignore-missing ./SHA512SUMS
+</code></pre>
+<p>For example</p>
+<pre><code class="language-bash">wget https://cloud.debian.org/images/cloud/forky/daily/latest/debian-14-raspi-arm64-daily.tar.xz
+wget https://cloud.debian.org/images/cloud/forky/daily/latest/SHA512SUMS
 sha512sum --check --ignore-missing ./SHA512SUMS
 </code></pre></div>
             </div>
